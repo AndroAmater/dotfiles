@@ -6,8 +6,14 @@ if not vim.g.vscode then
             disable = {
                 background = true
             },
-            lualine_style = 'stealth'
         })
+
+            require('lualine').setup {
+                options = {
+                    icons_enabled = true,
+                    theme = "onedark"
+                }
+            }
     end
 
     vim.g.material_style = "darker"

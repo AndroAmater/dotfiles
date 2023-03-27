@@ -53,11 +53,11 @@ require("lazy").setup({
     {
         'nvim-lualine/lualine.nvim',
         config = function()
-            local material = require('lualine.themes.material')
+            -- local material = require('lualine.themes.material')
             require('lualine').setup {
                 options = {
                     icons_enabled = true,
-                    theme = material,
+                    theme = "material",
                     component_separators = { left = '', right = ''},
                     section_separators = { left = '', right = ''},
                     disabled_filetypes = {
@@ -96,16 +96,30 @@ require("lazy").setup({
             }
         end
     },
-    { 'nvim-tree/nvim-web-devicons' },
-    { 'brenoprata10/nvim-highlight-colors' },
-    { "wfxr/minimap.vim" },
+    {
+        'nvim-tree/nvim-web-devicons',
+    },
+    {
+        'brenoprata10/nvim-highlight-colors',
+        config = function()
+            require("nvim-highlight-colors").setup{
+                render = 'background',
+                enable_named_colors = true
+            }
+            require("nvim-highlight-colors").turnOn()
+        end
+    },
+    {
+        "wfxr/minimap.vim",
+        config = function ()
+            vim.g.minimap_width = 15
+            vim.g.minimap_auto_start = 1
+            vim.g.minimap_auto_start_win_enter = 1
+            vim.g.minimap_highlight_search = 1
+            vim.g.minimap_git_colors = 1
+        end
+    },
     { "petertriho/nvim-scrollbar" },
-    -- { 
-    --     "rcarriga/nvim-notify",
-    --     config = function() 
-    --         vim.notify = require("notify")
-    --     end
-    -- },
     { "https://github.com/airblade/vim-gitgutter.git" },
     {
         "folke/todo-comments.nvim",
@@ -118,7 +132,6 @@ require("lazy").setup({
             }
         end
     },
-    -- { 'brooth/far.vim' },
 
     -- Navigation
     {
@@ -149,18 +162,49 @@ require("lazy").setup({
             })
         end
     },
-    { 'nvim-tree/nvim-tree.lua' },
+    {
+        'nvim-tree/nvim-tree.lua',
+        config = function()
+            if not vim.g.vscode then
+                -- disable netrw at the very start of your init.lua (strongly advised)
+                vim.g.loaded_netrw = 1
+                vim.g.loaded_netrwPlugin = 1
+
+                -- set termguicolors to enable highlight groups
+                vim.opt.termguicolors = true
+
+                require("nvim-tree").setup({
+                    sort_by = "case_sensitive",
+                    view = {
+                        width = 50,
+                        mappings = {
+                            list = {
+                                { key = "u", action = "dir_up" },
+                            },
+                        },
+                    },
+                })
+
+                -- Auto Open
+                local function open_nvim_tree(data)
+                    -- buffer is a real file on the disk
+                    local real_file = vim.fn.filereadable(data.file) == 1
+
+                    -- buffer is a [No Name]
+                    local no_name = data.file == "" and vim.bo[data.buf].buftype == ""
+
+                    if not real_file and not no_name then
+                        return
+                    end
+                    -- open the tree, find the file but don't focus it
+                    require("nvim-tree.api").tree.toggle({ focus = false, find_file = true, })
+                end
+
+                vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = open_nvim_tree })
+            end
+        end
+    },
     { 'akinsho/bufferline.nvim' },
-    -- {
-    --     'glepnir/dashboard-nvim',
-    --     event = 'vimenter',
-    --     config = function()
-    --         require('dashboard').setup {
-    --             -- config
-    --         }
-    --     end,
-    --     dependencies = { {'nvim-tree/nvim-web-devicons'}}
-    -- },
 
     -- Editing
     { 'mg979/vim-visual-multi' },
@@ -179,18 +223,90 @@ require("lazy").setup({
     -- Git/history
     { 'https://github.com/tpope/vim-fugitive.git' },
     { 'sindrets/diffview.nvim' },
-    { "https://github.com/mbbill/undotree.git" },
+    {
+        "https://github.com/mbbill/undotree.git",
+        config = function()
+            vim.g.undotree_WindowLayout = 2
+            vim.g.undotree_SplitWidth = 20
+        end
+    },
     { "https://github.com/rbong/vim-flog.git" },
     { "aspeddro/gitui.nvim" },
 
     -- Terminal
-    { 'akinsho/toggleterm.nvim' },
+    {
+        'akinsho/toggleterm.nvim',
+        config = function ()
+            require("toggleterm").setup{
+                size = function(term)
+                    if term.direction == "horizontal" then
+                        return 25
+                    elseif term.direction == "vertical" then
+                        return vim.o.columns * 0.4
+                    end
+                end,
+                open_mapping = [[<c-p>]],
+                start_in_insert = false
+            }
+        end
+    },
 
     -- Diagnostics
     { 'folke/trouble.nvim', lazy=false },
 
     -- LSP
-    { 'nvim-treesitter/nvim-treesitter', lazy = false },
+    {
+        'nvim-treesitter/nvim-treesitter', lazy = false,
+        config = function()
+            require'nvim-treesitter.configs'.setup {
+                -- A list of parser names, or "all" (the four listed parsers should always be installed)
+                ensure_installed = { 
+                    "c",
+                    "lua",
+                    "vim",
+                    "help",
+                    "typescript",
+                    "javascript",
+                    "php",
+                    "rust",
+                    "gitignore",
+                    "json",
+                    "bash",
+                    "comment",
+                    "css",
+                    "dockerfile",
+                    "git_rebase",
+                    "gitattributes",
+                    "gitcommit",
+                    "go",
+                    "graphql",
+                    "html",
+                    "ini",
+                    "jsdoc",
+                    "json5",
+                    "make",
+                    "markdown",
+                    "phpdoc",
+                    "regex",
+                    "rust",
+                    "scss",
+                    "sql",
+                    "vue",
+                    "yaml"
+                },
+                -- Install parsers synchronously (only applied to `ensure_installed`)
+                sync_install = false,
+
+                -- Automatically install missing parsers when entering buffer
+                -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
+                auto_install = true,
+
+                highlight = {
+                    enable = true,
+                }
+            }
+        end
+    },
     {
         'VonHeikemen/lsp-zero.nvim',
         branch = 'v1.x',
@@ -211,7 +327,21 @@ require("lazy").setup({
             -- Snippets
             {'L3MON4D3/LuaSnip'},             -- Required
             {'rafamadriz/friendly-snippets'}, -- Optional
-        }
-    },
+        },
+        config = function ()
+            -- LSP
+            local lsp = require('lsp-zero').preset({
+                name = 'minimal',
+                set_lsp_keymaps = true,
+                manage_nvim_cmp = true,
+                suggest_lsp_servers = false,
+            })
+
+            -- (Optional) Configure lua language server for neovim
+            lsp.nvim_workspace()
+
+            lsp.setup()
+        end
+    }
 })
 

@@ -13,5 +13,3 @@ require("environment")
 -- Theme config
 require("theme")
 
--- Package configs
-require("packages")
