@@ -45,6 +45,9 @@ require("lazy").setup({
         'https://github.com/Yggdroot/indentLine.git',
         config = function()
             vim.g.indentLine_char = '▏'
+            vim.g.vim_json_conceal = 0
+            vim.g.markdown_syntax_conceal = 0
+            vim.g.indentLine_setConceal=0
         end
     },
     {
@@ -161,7 +164,13 @@ require("lazy").setup({
 
     -- Editing
     { 'mg979/vim-visual-multi' },
-    { "github/copilot.vim" },
+    {
+        "github/copilot.vim",
+        config = function()
+            vim.g.copilot_no_tab_map = true
+            vim.api.nvim_set_keymap("i", "<C-J>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
+        end
+    },
     { "https://github.com/cohama/lexima.vim.git" },
     'https://github.com/tpope/vim-commentary.git',
     'https://github.com/tpope/vim-surround.git',

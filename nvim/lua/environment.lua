@@ -71,7 +71,7 @@ vim.api.nvim_create_autocmd('BufWritePre', {
     group = vim.api.nvim_create_augroup('MyAutocmdsJavaScripFormatting', {}),
 })
 
--- Disable json/markdown concealment
-vim.g.vim_json_conceal = 0
-vim.g.markdown_syntax_conceal = 0
-
+-- Configure neovide settings
+vim.g.neovide_cursor_animation_length = 0.05
+vim.g.neovide_cursor_trail_size = 0.5
+vim.g.neovide_cursor_antialiasing = true
