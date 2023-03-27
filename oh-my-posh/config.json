@@ -1,0 +1,135 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "blocks": [
+    {
+      "alignment": "left",
+	  "type": "prompt",
+      "segments": [
+        {
+		  "type": "os",
+		  "background": "#444267",
+          "foreground": "#EEFFFF",
+		  "style": "diamond",
+          "leading_diamond": "\ue0b6",
+		  "trailing_diamond": "\ue0b0",
+          "template": " {{ .Icon }} "
+        },
+		{
+		  "type": "session",
+		  "background": "#5FAAE8",
+		  "foreground": "#212121",
+		  "style": "diamond",
+          "leading_diamond": "<transparent,background>\ue0b0",
+		  "trailing_diamond": "\ue0b0",
+          "template": "{{ if .SSHSession }} \uF817 \ue0b1{{ end }} \uf007 {{ .UserName }} "
+		},
+        {
+		  "type": "path",
+          "background": "#69FF94",
+          "foreground": "#212121",
+		  "style": "diamond",
+          "leading_diamond": "<transparent,background>\ue0b0",
+		  "trailing_diamond": "\ue0b0",
+          "template": " {{ .Path }} ",
+          "properties": {
+			"home_icon": "\uf015",
+			"folder_icon": "\uf07b",
+            "folder_separator_icon": "<foreground,background> \ue0b1 ",
+            "style": "agnoster_full",
+			"max_depth": 1
+          }
+        },
+        {
+		  "type": "git",
+          "background": "#1A1A1A",
+          "background_templates": [
+            "{{ if or (.Working.Changed) (.Staging.Changed) }}#1A1A1A{{ end }}",
+            "{{ if and (gt .Ahead 0) (gt .Behind 0) }}#1A1A1A{{ end }}",
+            "{{ if gt .Ahead 0 }}#1A1A1A{{ end }}",
+            "{{ if gt .Behind 0 }}#1A1A1A{{ end }}"
+          ],
+		  "foreground": "#EEFFFF",
+		  "style": "powerline",
+		  "powerline_symbol": "\ue0b0",
+		  "template":  "{{ .HEAD }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if gt .StashCount 0 }} \uf692 {{ .StashCount }}{{ end }} ",
+          "properties": {
+            "fetch_stash_count": true,
+            "fetch_status": true,
+            "fetch_upstream_icon": true
+          }
+        },
+		{
+			"type": "root",
+			"background": "#DC6068",
+			"foreground": "#212121",
+			"style": "diamond",
+			"leading_diamond": "<transparent,background>\ue0b0",
+			"trailing_diamond": "\ue0b0",
+			"template": " \uf0aa "
+		  }
+      ]
+    },
+    {
+      "alignment": "right",
+	  "type": "prompt",
+      "segments":  [
+		{
+		  "type": "exit",
+          "background": "#ABCF76",
+		  "foreground": "#212121",
+		  "background_templates": [
+            "{{ if eq .Code 0 }}#ABCF76{{ else if eq .Code 130 }}#C3E88D{{ else }}#F07178{{ end }}"
+          ],
+		  "style": "diamond",
+		  "leading_diamond": "\ue0b2<transparent,background>",
+		  "trailing_diamond": "<transparent,parentBackground>\ue0b2",
+          "template": " {{ if eq .Code 0 }}\uf00c{{ else if eq .Code 130 }}\uf071 {{ .Code }}{{ else }}\uf00d {{ .Code }}{{ end }} ",
+          "properties": {
+            "always_enabled": true
+          }
+		},
+        {
+		  "type": "executiontime",
+		  "background": "#5FAAE8",
+		  "foreground": "#212121",
+		  "style": "diamond",
+		  "leading_diamond": "\ue0b2<transparent,background>",
+		  "trailing_diamond": "<transparent,parentBackground>\ue0b2",
+		  "template": " \uf254 {{ .FormattedMs }} ",
+		  "properties": {
+		    "style": "round",
+		    "threshold": 0
+		  }
+		},
+		{
+		  "type": "time",
+          "background": "#444267",
+          "foreground": "#EEFFFF",
+		  "style": "diamond",
+          "leading_diamond": "\ue0b2<transparent,background>",
+		  "trailing_diamond": "\ue0b4",
+          "template": " \uf017 {{ .CurrentDate | date .Format }} ",
+          "properties": {
+            "time_format": "15:04"
+          }
+        }
+      ]
+    },
+    {
+      "alignment": "left",
+	  "type": "prompt",
+      "newline": true,
+      "segments": [
+        {
+		  "type": "text",
+          "foreground": "#EEFFFF",
+          "style": "plain",
+          "template": " \u276f"
+        }
+      ]
+     }
+  ],
+  "console_title_template": "{{if .Root}} \u26a1 {{end}}{{.Folder | replace \"~\" \"🏠\"}} @ {{.HostName}}",
+  "final_space": true,
+  "version": 2
+}
