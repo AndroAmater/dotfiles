@@ -56,7 +56,7 @@ bindsym $mod+Return exec kitty
 bindsym $mod+q kill
 
 # A more modern dmenu replacement is rofi:
-bindsym $mod+space exec "rofi -modi drun,run -show drun"
+bindsym $mod+space exec "rofi -modi drun,run -show drun -show-icons -dpi 1"
 
 # change focus
 bindsym $mod+h focus left
