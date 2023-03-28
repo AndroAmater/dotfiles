@@ -7,9 +7,9 @@
 * {
     font:   "Montserrat 12";
 
-    bg0:    #242424E6;
-    bg1:    #7E7E7E80;
-    bg2:    #0860f2E6;
+    bg0:    #080808;
+    bg1:    #121212;
+    bg2:    #121212;
 
     fg0:    #DEDEDE;
     fg1:    #FFFFFF;
@@ -33,8 +33,8 @@ window {
 
 inputbar {
     font:       "Montserrat 20";
-    padding:    18px;
-    spacing:    18px;
+    padding:    24px;
+    spacing:    24px;
     children:   [ icon-search, entry ];
 }
 
@@ -90,7 +90,7 @@ element selected normal, element selected active {
 }
 
 element-icon {
-    size:   2em;
+    size:   1.7em;
 }
 
 element-text {
