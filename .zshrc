@@ -19,6 +19,7 @@ alias composer7="php7 /usr/bin/composer install"
 alias sssh='kitty +kitten ssh'
 alias nv="neovide --maximized --multigrid --noidle ."
 alias cdc="cd ~/.config/"
+alias nodelegacyfix="export NODE_OPTIONS=--openssl-legacy-provider"
 
 # Build rust crate for any docker container
 alias rust-musl-builder='docker run --rm -it -v "$(pwd)":/home/rust/src ekidd/rust-musl-builder'
