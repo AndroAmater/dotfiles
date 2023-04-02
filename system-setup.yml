@@ -26,6 +26,7 @@
           - nano
           - libxml2
           - linux-headers
+          - openssh
         state: present
 
     - name: Check if dotfiles are cloned
