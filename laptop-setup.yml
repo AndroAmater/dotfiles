@@ -1,0 +1,12 @@
+---
+- hosts: localhost
+  connection: local
+  become: yes
+
+  tasks:
+    - name: Add xorg laptop config
+      file:
+        src: /home/andrejf/.config/laptop/xorg.conf
+        dest: /usr/share/X11/xorg.conf
+        state: link
+        force: true

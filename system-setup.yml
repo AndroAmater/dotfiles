@@ -4,6 +4,19 @@
   become: yes
 
   tasks:
+    - name: Include the vault variables
+      include_vars: vault.yml
+      no_log: true
+
+    - name: Create user
+      ansible.builtin.user:
+        name: andrejf
+        uid: 1000
+        group: andrejf
+        groups:
+          - admin
+          - docker
+
     - name: Install git
       pacman:
         name: 
@@ -12,6 +25,7 @@
           - vim
           - nano
           - libxml2
+          - linux-headers
         state: present
 
     - name: Check if dotfiles are cloned
@@ -171,6 +185,11 @@
       shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S docker
       become_user: andrejf
 
+    - name: Configure docker
+      shell: |
+        usermod -aG docker andrejf
+        systemctl enable --now docker
+
     - name: Install nodejs
       shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S nodejs
       become_user: andrejf
@@ -243,6 +262,14 @@
       shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S gitui
       become_user: andrejf
 
+    - name: Install nvidia-dkms
+      shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S nvidia-dkms
+      become_user: andrejf
+
+    - name: Install nvidia-utils
+      shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S nvidia-utils
+      become_user: andrejf
+
     - name: Enable SSDM service
       systemd:
         name: sddm.service
@@ -253,3 +280,8 @@
       user:
         name: andrejf
         shell: /bin/zsh
+
+    - name: Set git config
+      shell: |
+        git config --global user.name "Andrej Fidel"
+      become_user: andrejf
