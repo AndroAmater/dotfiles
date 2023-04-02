@@ -1,0 +1,17 @@
+---
+- hosts: localhost
+  connection: local
+  become: yes
+
+  tasks:
+    - name: Set timezone
+      shell: ln -sf /usr/share/zoneinfo/Region/City /etc/localtime
+
+    - name: Set time
+      shell: hwclock --systohc
+
+    - name: Set locale
+      shell: echo "LANG=en_US.UTF-8" > /etc/locale.conf
+
+    - name: Set hostname
+      shell: echo "andrej-laptop" > /etc/hostname

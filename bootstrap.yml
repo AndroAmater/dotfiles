@@ -1,0 +1,11 @@
+---
+- hosts: localhost
+  connection: local
+  become: yes
+
+  tasks:
+    - name: Install Arch
+      shell: pacstrap -K /mnt base linux linux-firmware base base-devel linux-headers ansible
+
+    - name: Generate fstab file
+      shell: genfstab -U /mnt >> /mnt/etc/fstab
