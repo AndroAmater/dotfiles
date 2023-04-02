@@ -1,0 +1,102 @@
+---
+- hosts: localhost
+  connection: local
+  become_user: andrejf
+
+  tasks:
+    - name: Install .zshrc 
+      file:
+        src: "/home/andrejf/.config/dotfiles/.zshrc"
+        dest: "/home/andrejf/.zshrc"
+        state: link
+        force: true
+      become_user: andrejf
+
+    - name: Install .tmux.conf 
+      file:
+        src: "/home/andrejf/.config/dotfiles/.tmux.conf"
+        dest: "/home/andrejf/.tmux.conf"
+        state: link
+        force: true
+      become_user: andrejf
+
+    - name: Remove oh-my-posh config
+      file: path=/home/andrejf/.config/oh-my-posh state=absent 
+      become_user: andrejf
+      ignore_errors: yes
+
+    - name: Install oh-my-posh config 
+      file:
+        src: "/home/andrejf/.config/dotfiles/oh-my-posh/"
+        dest: "/home/andrejf/.config/oh-my-posh"
+        state: link
+        force: true
+      become_user: andrejf
+
+    - name: Remove nvim config
+      file: path=/home/andrejf/.config/nvim state=absent 
+      become_user: andrejf
+      ignore_errors: yes
+
+    - name: Install nvim config 
+      file:
+        src: "/home/andrejf/.config/dotfiles/nvim/"
+        dest: "/home/andrejf/.config/nvim"
+        state: link
+        force: true
+      become_user: andrejf
+
+    - name: Remove i3 config
+      file: path=/home/andrejf/.config/i3 state=absent 
+      become_user: andrejf
+      ignore_errors: yes
+
+    - name: Install i3 config 
+      file:
+        src: "/home/andrejf/.config/dotfiles/i3/"
+        dest: "/home/andrejf/.config/i3"
+        state: link
+        force: true
+      become_user: andrejf
+
+    - name: Remove kitty config
+      file: path=/home/andrejf/.config/kitty state=absent 
+      become_user: andrejf
+      ignore_errors: yes
+
+    - name: Install kitty config 
+      file:
+        src: "/home/andrejf/.config/dotfiles/kitty/"
+        dest: "/home/andrejf/.config/kitty"
+        state: link
+        force: true
+      become_user: andrejf
+
+    - name: Remove rofi config
+      file: path=/home/andre/.config/rofi state=absent 
+      ignore_errors: yes
+
+    - name: Install rofi config 
+      file:
+        src: "/home/andrejf/.config/dotfiles/rofi/"
+        dest: "/home/andrejf/.config/rofi"
+        state: link
+        force: true
+      become_user: andrejf
+
+    - name: Create rofi themes directory
+      file:
+        path: /home/andrejf/.local/share/rofi/themes
+        state: directory
+
+    - name: Install rofi theme
+      file:
+        src: "/home/andrejf/.config/dotfiles/rofi/Spotlight-Dark.rasi"
+        dest: "/home/andrejf/.local/share/rofi/themes/Spotlight-Dark.rasi"
+        state: link
+        force: true
+      become_user: andrejf
+
+    - name: Enable tmux config
+      shell: tmux source /home/andrejf/.tmux.conf
+      become_user: andrejf
