@@ -4,19 +4,6 @@
   become: yes
 
   tasks:
-    - name: Include the vault variables
-      include_vars: vault.yml
-      no_log: true
-
-    - name: Create user
-      ansible.builtin.user:
-        name: andrejf
-        uid: 1000
-        group: andrejf
-        groups:
-          - admin
-          - docker
-
     - name: Install git
       pacman:
         name: 

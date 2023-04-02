@@ -15,3 +15,45 @@
 
     - name: Set hostname
       shell: echo "andrej-laptop" > /etc/hostname
+
+    - name: Include the vault variables
+      include_vars: vault.yml
+      no_log: true
+
+    - name: Create user
+      ansible.builtin.user:
+        name: andrejf
+        uid: 1000
+        group: andrejf
+        groups:
+          - admin
+          - docker
+
+    - name: Ensure .ssh folder exists
+      ansible.builtin.file:
+        path: /home/andrejf/.ssh
+        state: directory
+
+    - name: Copy and decrypt the id_ed25519
+      ansible.builtin.copy:
+        src: laptop/ssh/id_ed25519
+        dest: /home/andrejf/.ssh/id_ed25519
+        mode: 0600
+        decrypt: yes
+      no_log: true
+
+    - name: Copy and decrypt the id_ed25519.pub
+      ansible.builtin.copy:
+        src: laptop/ssh/id_ed25519.pub
+        dest: /home/andrejf/.ssh/id_ed25519.pub
+        mode: 0600
+        decrypt: yes
+      no_log: true
+
+    - name: Copy and decrypt the config
+      ansible.builtin.copy:
+        src: laptop/ssh/id_ed25519.pub
+        dest: /home/andrejf/.ssh/config
+        mode: 0600
+        decrypt: yes
+      no_log: true
