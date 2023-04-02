@@ -1,0 +1,255 @@
+---
+- hosts: localhost
+  connection: local
+  become: yes
+
+  tasks:
+    - name: Install git
+      pacman:
+        name: 
+          - git
+          - which
+          - vim
+          - nano
+          - libxml2
+        state: present
+
+    - name: Check if dotfiles are cloned
+      stat: 
+        path: /home/andrejf/.config/dotfiles
+      check_mode: true
+      register: dotfiles_cloned
+
+    - name: Clone dotfiles
+      shell: |
+        mkdir -p /home/andrejf/.config
+        git clone https://github.com/androamater/dotfiles
+      args:
+        chdir: /home/andrejf/.config
+      become_user: andrejf
+      when: not dotfiles_cloned.stat.exists
+
+    - name: Set up dotfiles
+      args:
+        chdir: /home/andrejf/.config/dotfiles
+      shell: |
+        git pull
+        ./install.sh
+      ignore_errors: yes
+
+    - name: Check if yay is installed
+      stat: 
+        path: /bin/yay
+      check_mode: true
+      register: yay_check
+
+    - name: Install yay
+      shell: |
+        git clone https://aur.archlinux.org/yay.git
+        cd yay
+        makepkg -si --noconfirm
+      args:
+        chdir: /home/andrejf
+      become_user: andrejf
+      when: not yay_check.stat.exists
+
+    - name: Update mirrors
+      shell: yay -Syy
+      become_user: andrejf
+
+    - name: Install gnu-free-fonts
+      shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S gnu-free-fonts
+      become_user: andrejf
+
+    - name: Install Sddm
+      shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S sddm
+      become_user: andrejf
+
+    - name: Install i3-gaps
+      shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S i3-gaps
+      become_user: andrejf
+
+    - name: Install i3status
+      shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S i3status
+      become_user: andrejf
+
+    - name: Install dmenu
+      shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S dmenu
+      become_user: andrejf
+
+    - name: Install rofi
+      shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S rofi
+      become_user: andrejf
+
+      # pipewire-jack dependency
+    - name: Install wireplumber
+      shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S wireplumber
+      become_user: andrejf
+
+      # ffmpeg dependency
+    - name: Install pipewire-jack
+      shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S pipewire-jack
+      become_user: andrejf
+
+    - name: Install ffmpeg
+      shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S ffmpeg
+      become_user: andrejf
+
+    - name: Install kitty
+      shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S kitty
+      become_user: andrejf
+
+    - name: Install curl
+      shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S curl
+      become_user: andrejf
+
+    - name: Install wget
+      shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S wget
+      become_user: andrejf
+
+    - name: Install bottom
+      shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S bottom
+      become_user: andrejf
+
+    - name: Install arandr
+      shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S arandr
+      become_user: andrejf
+
+    - name: Install pipewire
+      shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S pipewire
+      become_user: andrejf
+
+    - name: Install zsh
+      shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S zsh
+      become_user: andrejf
+
+    - name: Install oh-my-posh
+      shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S oh-my-posh
+      become_user: andrejf
+
+    - name: Install tmux
+      shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S tmux
+      become_user: andrejf
+
+    - name: Install rsync
+      shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S rsync
+      become_user: andrejf
+
+    - name: Install unzip
+      shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S unzip
+      become_user: andrejf
+
+    - name: Install zip
+      shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S zip
+      become_user: andrejf
+
+    - name: Install tar
+      shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S tar
+      become_user: andrejf
+
+    - name: Install ripgrep
+      shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S rgrep
+      become_user: andrejf
+
+    - name: Install sed
+      shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S sed
+      become_user: andrejf
+
+    - name: Install awk
+      shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S awk
+      become_user: andrejf
+
+    - name: Install cronie
+      shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S cronie
+      become_user: andrejf
+
+    - name: Install nmap
+      shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S nmap
+      become_user: andrejf
+
+    - name: Install docker
+      shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S docker
+      become_user: andrejf
+
+    - name: Install nodejs
+      shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S nodejs
+      become_user: andrejf
+
+    - name: Install yarn
+      shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S yarn
+      become_user: andrejf
+
+    - name: Install firefox
+      shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S firefox
+      become_user: andrejf
+
+    - name: Install chromium
+      shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S chromium
+      become_user: andrejf
+
+    - name: Install vlc
+      shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S vlc
+      become_user: andrejf
+
+    - name: Install obs-studio
+      shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S obs-studio
+      become_user: andrejf
+
+    - name: Install neovide-git
+      shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S neovide-git
+      become_user: andrejf
+
+    - name: Install neovim
+      shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S neovim
+      become_user: andrejf
+
+    - name: Install visual-studio-code-bin
+      shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S visual-studio-code-bin
+      become_user: andrejf
+
+    - name: Install ttf-jetbrains-mono-nerd
+      shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S ttf-jetbrains-mono-nerd
+      become_user: andrejf
+
+    - name: Install ttf-jetbrains-mono
+      shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S ttf-jetbrains-mono
+      become_user: andrejf
+
+    - name: Install code-minimap
+      shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S code-minimap
+      become_user: andrejf
+
+    - name: Install fzf
+      shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S fzf
+      become_user: andrejf
+
+    - name: Install neovide-git
+      shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S neovide-git
+      become_user: andrejf
+
+    - name: Install clipster
+      shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S clipster
+      become_user: andrejf
+
+    - name: Install npm
+      shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S npm
+      become_user: andrejf
+
+    - name: Install php
+      shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S npm
+      become_user: andrejf
+
+    - name: Install gitui
+      shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S gitui
+      become_user: andrejf
+
+    - name: Enable SSDM service
+      systemd:
+        name: sddm.service
+        enabled: yes
+
+    - name: Set zsh as default shell
+      become: yes
+      user:
+        name: andrejf
+        shell: /bin/zsh
