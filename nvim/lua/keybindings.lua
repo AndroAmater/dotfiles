@@ -123,3 +123,7 @@ vim.keymap.set('n', '<leader><leader>fu', ':Farundo<Cr>')
 
 -- Code actions
 vim.keymap.set('n', '<leader>a', ':lua vim.lsp.buf.code_action()<CR>')
+
+-- Harpoon shortcuts
+vim.keymap.set('n', '<leader>tm', ':lua require("harpoon.mark").add_file()<CR>')
+vim.keymap.set('n', '<leader>th', ':lua require("harpoon.ui").toggle_quick_menu()<CR>')

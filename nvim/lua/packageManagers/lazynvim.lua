@@ -135,6 +135,9 @@ require("lazy").setup({
 
     -- Navigation
     {
+        'ThePrimeagen/harpoon'
+    },
+    {
         'nvim-telescope/telescope.nvim',
         config = function ()
             local telescope = require("telescope")
@@ -204,7 +207,14 @@ require("lazy").setup({
             end
         end
     },
-    { 'akinsho/bufferline.nvim' },
+    {
+        'akinsho/bufferline.nvim',
+        version = "v3.*",
+        dependencies = 'nvim-tree/nvim-web-devicons',
+        config = function ()
+            require("bufferline").setup{}
+        end
+    },
 
     -- Editing
     { 'mg979/vim-visual-multi' },
