@@ -135,7 +135,14 @@ require("lazy").setup({
 
     -- Navigation
     {
-        'ThePrimeagen/harpoon'
+        'ThePrimeagen/harpoon',
+        config = function ()
+            require("harpoon").setup({
+                menu = {
+                    width = 120,
+                }
+            })
+        end
     },
     {
         'nvim-telescope/telescope.nvim',
