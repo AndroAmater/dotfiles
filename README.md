@@ -63,3 +63,4 @@ Missing i3lock
 Missing docker compose
 Timezone is not set
 Time doesn't update automatically
+andrejf uid and gid are not both 1000 by default
