@@ -39,3 +39,27 @@ ansible-playbook --ask-vault-pass workstation-setup.yml
 This will prevent the initramfs from containing the nouveau module making sure the kernel cannot load it during early boot.
 
 ### 4. Reboot
+
+
+
+Networkmanager not in pacstrap.
+User password not working.
+Vim not in pacstrap.
+User not in sudo.
+Enabling docker doesn't work in chroot because systemd is not running.
+Locale not working (need to update locale.gen then run locale-gen)
+Bootloader config has to be regenerated
+Owner of config files is root instead of andrejf
+i3status is not installed
+NetworkManager service needs to be enabled by default
+Missing background
+Missing sddm theme
+Missing compositor
+Ripgrep not installed correctly
+Consider not running setup scripts in chroot (so systemd can be running when packages are installed)
+Missing rustup installation
+Missing rust analyzer
+Missing i3lock
+Missing docker compose
+Timezone is not set
+Time doesn't update automatically
