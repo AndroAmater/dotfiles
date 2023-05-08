@@ -20,6 +20,8 @@ alias sssh='kitty +kitten ssh'
 alias nv="neovide --maximized --multigrid --noidle ."
 alias cdc="cd ~/.config/"
 alias nodelegacyfix="export NODE_OPTIONS=--openssl-legacy-provider"
+alias runner-start='docker run -itd -v /srv/gitlab-runner/config:/etc/gitlab-runner -v /var/run/docker.sock:/var/run/docker.sock --name="gitlab-runner" gitlab/gitlab-runner run'
+alias runner-reset="docker kill gitlab-runner ; docker rm gitlab-runner ; runner-start"
 
 # Build rust crate for any docker container
 alias rust-musl-builder='docker run --rm -it -v "$(pwd)":/home/rust/src ekidd/rust-musl-builder'
