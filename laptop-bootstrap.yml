@@ -24,10 +24,6 @@
       ansible.builtin.user:
         name: andrejf
         uid: 1000
-        group: andrejf
-        groups:
-          - admin
-          - docker
 
     - name: Ensure .ssh folder exists
       ansible.builtin.file:

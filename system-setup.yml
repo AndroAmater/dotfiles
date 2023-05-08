@@ -173,11 +173,6 @@
       shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S docker
       become_user: andrejf
 
-    - name: Configure docker
-      shell: |
-        usermod -aG docker andrejf
-        systemctl enable --now docker
-
     - name: Install nodejs
       shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S nodejs
       become_user: andrejf
@@ -202,10 +197,6 @@
       shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S obs-studio
       become_user: andrejf
 
-    - name: Install neovide-git
-      shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S neovide-git
-      become_user: andrejf
-
     - name: Install neovim
       shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S neovim
       become_user: andrejf
@@ -222,16 +213,8 @@
       shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S ttf-jetbrains-mono
       become_user: andrejf
 
-    - name: Install code-minimap
-      shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S code-minimap
-      become_user: andrejf
-
     - name: Install fzf
       shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S fzf
-      become_user: andrejf
-
-    - name: Install neovide-git
-      shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S neovide-git
       become_user: andrejf
 
     - name: Install clipster
