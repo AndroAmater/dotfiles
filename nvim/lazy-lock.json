@@ -12,7 +12,7 @@
   "gitui.nvim": { "branch": "main", "commit": "6595bef945ad53c3e8410edec2e86f36b3f8971e" },
   "harpoon": { "branch": "master", "commit": "f7040fd0c44e7a4010369136547de5604b9c22a1" },
   "indentLine": { "branch": "master", "commit": "d15d63bf9c4a74a02470d4bc8ecce53df13e3a75" },
-  "lazy.nvim": { "branch": "main", "commit": "7339145a223dab7e7ddccf0986ffbf9d2cb804e8" },
+  "lazy.nvim": { "branch": "main", "commit": "57cce98dfdb2f2dd05a0567d89811e6d0505e13b" },
   "lexima.vim": { "branch": "master", "commit": "36781e59099b9b46eed564283b95938f90cd852d" },
   "lsp-zero.nvim": { "branch": "v1.x", "commit": "4361fbcb9e56ecd22169865a6588db8b1764c06c" },
   "lualine.nvim": { "branch": "master", "commit": "e99d733e0213ceb8f548ae6551b04ae32e590c80" },
