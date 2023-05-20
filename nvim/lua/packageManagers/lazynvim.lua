@@ -138,6 +138,12 @@ require("lazy").setup({
 
     -- Navigation
     {
+        'https://github.com/ggandor/leap.nvim.git',
+        config = function ()
+            require('leap').add_default_mappings()
+        end
+    },
+    {
         'ThePrimeagen/harpoon',
         config = function ()
             require("harpoon").setup({
