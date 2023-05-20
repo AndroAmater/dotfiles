@@ -61,6 +61,9 @@ bindsym $mod+space exec "rofi -modi drun,run -show drun -show-icons -dpi 1"
 # Lock screen shortcut
 bindsym $mod+Control+l exec "i3lock -c 000000"
 
+# Disable switching screens with left/right
+focus_wrapping workspace
+
 # change focus
 bindsym $mod+h focus left
 bindsym $mod+j focus down
