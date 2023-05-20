@@ -16,6 +16,9 @@ require("lazy").setup({
     { 'nvim-lua/plenary.nvim' },
     { 'rust-lang/rust.vim' },
 
+    -- Session
+    { 'https://github.com/tpope/vim-obsession.git' },
+
     -- Themes
     -- { 'catppuccin/nvim' },
     {
