@@ -19,6 +19,7 @@ alias dc="docker-compose"
 alias composer7="php7 /usr/bin/composer install"
 alias sssh='kitty +kitten ssh'
 alias nv="neovide --maximized --multigrid --noidle ."
+alias nvs="nvim -S Session.vim ."
 alias cdc="cd ~/.config/"
 alias nodelegacyfix="export NODE_OPTIONS=--openssl-legacy-provider"
 alias runner-start='docker run -itd -v /srv/gitlab-runner/config:/etc/gitlab-runner -v /var/run/docker.sock:/var/run/docker.sock --name="gitlab-runner" gitlab/gitlab-runner run'
