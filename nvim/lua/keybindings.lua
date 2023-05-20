@@ -117,6 +117,9 @@ vim.keymap.set('n', '<leader>4', ':set shiftwidth=4 tabstop=4<CR>', { silent = t
 vim.keymap.set('n', '<leader><leader>dt', ':TroubleToggle<CR>', { silent = true })
 vim.keymap.set('n', '<leader><leader>dc', ':TodoTrouble<CR>', { silent = true })
 
+-- Errors LSP
+vim.keymap.set('n', '<leader>ep', ":lua vim.diagnostic.open_float(0, {scope = 'line'})<cr>")
+
 -- Search all
 vim.keymap.set('n', '<leader><leader>ff', ':Farr<Cr>', { silent = true })
 vim.keymap.set('n', '<leader><leader>fu', ':Farundo<Cr>', { silent = true })
