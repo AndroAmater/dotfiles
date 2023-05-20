@@ -12,7 +12,8 @@
   "gitui.nvim": { "branch": "main", "commit": "6595bef945ad53c3e8410edec2e86f36b3f8971e" },
   "harpoon": { "branch": "master", "commit": "f7040fd0c44e7a4010369136547de5604b9c22a1" },
   "indentLine": { "branch": "master", "commit": "d15d63bf9c4a74a02470d4bc8ecce53df13e3a75" },
-  "lazy.nvim": { "branch": "main", "commit": "57cce98dfdb2f2dd05a0567d89811e6d0505e13b" },
+  "lazy.nvim": { "branch": "main", "commit": "7339145a223dab7e7ddccf0986ffbf9d2cb804e8" },
+  "leap.nvim": { "branch": "main", "commit": "2950d4826fb92ec3b56c59b5d4f2d575a84cb3fa" },
   "lexima.vim": { "branch": "master", "commit": "36781e59099b9b46eed564283b95938f90cd852d" },
   "lsp-zero.nvim": { "branch": "v1.x", "commit": "4361fbcb9e56ecd22169865a6588db8b1764c06c" },
   "lualine.nvim": { "branch": "master", "commit": "e99d733e0213ceb8f548ae6551b04ae32e590c80" },
@@ -38,6 +39,7 @@
   "vim-flog": { "branch": "master", "commit": "2ba8af2c9682e3560db5b813d10acf3ba3415bc1" },
   "vim-fugitive": { "branch": "master", "commit": "62f42f013d866139fa23068ac2651b3f7e05a56f" },
   "vim-gitgutter": { "branch": "master", "commit": "00df1089b6267f47c7c0f13536789feb9db1e65b" },
+  "vim-obsession": { "branch": "master", "commit": "fe9d3e1a9a50171e7d316a52e1e56d868e4c1fe5" },
   "vim-surround": { "branch": "master", "commit": "3d188ed2113431cf8dac77be61b842acb64433d9" },
   "vim-visual-multi": { "branch": "master", "commit": "724bd53adfbaf32e129b001658b45d4c5c29ca1a" }
 }
