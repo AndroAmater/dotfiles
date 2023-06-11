@@ -77,7 +77,11 @@ vim.keymap.set("n", "<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left>
 
 -- Telescope
 local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>fa', builtin.find_files, {})
+vim.keymap.set('n', '<leader>fa', function ()
+    builtin.find_files({
+        find_command = { "rg", "--files", "--hidden", "--no-ignore" }
+    })
+end, {})
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})

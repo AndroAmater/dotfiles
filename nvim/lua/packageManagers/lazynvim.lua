@@ -153,11 +153,13 @@ require("lazy").setup({
             })
         end
     },
+    { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
     {
         'nvim-telescope/telescope.nvim',
         config = function ()
             local telescope = require("telescope")
             local telescopeconfig = require("telescope.config")
+            local actions = require("telescope.actions")
 
             -- clone the default telescope configuration
             local vimgrep_arguments = { unpack(telescopeconfig.values.vimgrep_arguments) }
@@ -167,21 +169,74 @@ require("lazy").setup({
             -- i don't want to search in the `.git` directory.
             table.insert(vimgrep_arguments, "--glob")
             table.insert(vimgrep_arguments, "!**/.git/*")
+            table.insert(vimgrep_arguments, "--glob")
+            table.insert(vimgrep_arguments, "!**/vendor/*")
+            table.insert(vimgrep_arguments, "--glob")
+            table.insert(vimgrep_arguments, "!**/node_modules/*")
 
             telescope.setup({
                 defaults = {
                     -- `hidden = true` is not supported in text grep commands.
                     vimgrep_arguments = vimgrep_arguments,
                 },
+                color_devicons = true,
+                sorting_strategy = "ascending",
+                scroll_strategy = "cycle",
+                mappings = {
+                    i = {
+                        ["<C-j>"] = actions.move_selection_next,
+                        ["<C-k>"] = actions.move_selection_previous,
+                    }
+                },
                 pickers = {
                     find_files = {
                         find_command = { "rg", "--files", "--hidden", "--no-ignore", "--glob", "!**/.git/*", "-g", "!**/node_modules/*", "-g", "!**/vendor/*" },
                     },
                 },
+                extensions = {
+                    fzf = {
+                        fuzzy = true,
+                        override_generic_sorter = true,
+                        override_file_sorter = true,
+                        case_mode = "smart_case"
+                    }
+                }
             })
+
+            telescope.load_extension("fzf")
         end
     },
-    {
+     {
+            "jake-stewart/jfind.nvim",
+            keys = {
+                {"<c-f>"},
+            },
+            config = function()
+                require("jfind").setup({
+                    exclude = {
+                        ".git",
+                        ".idea",
+                        ".vscode",
+                        ".sass-cache",
+                        ".class",
+                        "__pycache__",
+                        "node_modules",
+                        "target",
+                        "build",
+                        "tmp",
+                        "assets",
+                        "dist",
+                        "*.iml",
+                        "*.meta",
+                        "vendor"
+                    },
+                    border = "rounded",
+                    tmux = true,
+                    key = "<c-f>"
+                });
+            end
+        },
+        {
         'nvim-tree/nvim-tree.lua',
         config = function()
             if not vim.g.vscode then
@@ -279,6 +334,15 @@ require("lazy").setup({
 
     -- Diagnostics
     { 'folke/trouble.nvim', lazy=false },
+
+    -- Formating
+    {
+        'sbdchd/neoformat',
+        config = function()
+            vim.g.neoformat_try_node_exe = 1
+            vim.cmd("autocmd BufWritePre *.vue,*.js,*.jsx,*.cjs,*.mjs,*.ts,*.tsx,*.cts,*.mts Neoformat")
+        end
+    },
 
     -- LSP
     {
