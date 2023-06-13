@@ -14,9 +14,9 @@ vim.opt.rnu = true
 vim.opt.nu = true
 
 -- Neovim Vscode UI Color extension config
-if vim.g.vscode then
-	vim.cmd("source ./packages/vscodeui.vim")
-end
+-- if vim.g.vscode then
+-- 	vim.cmd("source ./packages/vscodeui.vim")
+-- end
 
 -- Set tab size to 4
 vim.opt.tabstop = 4
@@ -25,7 +25,7 @@ vim.opt.expandtab = true
 
 -- Show invisible characters
 vim.opt.list = true
-vim.opt.listchars = { space = "⋅", eol = "↴" }
+vim.opt.listchars = { space = "⋅", eol = "↴", tab = "> " }
 
 -- Set udpatetime
 vim.opt.updatetime = 50
