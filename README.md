@@ -67,3 +67,6 @@ andrejf uid and gid are not both 1000 by default
 Configure bluetooth
 Add git-graph and lazy git
 Configure git pull ff only
+Add nautilus
+Add discord
+cargo install stylua
