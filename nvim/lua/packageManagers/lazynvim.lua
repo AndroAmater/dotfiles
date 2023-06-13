@@ -137,6 +137,12 @@ require("lazy").setup({
 	},
 
 	-- Navigation
+	{
+		"nvim-pack/nvim-spectre",
+		config = function()
+			require("spectre").setup()
+		end,
+	},
 	{ "ray-x/guihua.lua" },
 	{
 		"ray-x/sad.nvim",
