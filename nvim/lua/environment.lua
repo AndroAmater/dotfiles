@@ -25,8 +25,7 @@ vim.opt.expandtab = true
 
 -- Show invisible characters
 vim.opt.list = true
-vim.opt.listchars:append("space:⋅")
-vim.opt.listchars:append("eol:↴")
+vim.opt.listchars = { space = "⋅", eol = "↴" }
 
 -- Set udpatetime
 vim.opt.updatetime = 50
