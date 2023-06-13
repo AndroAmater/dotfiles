@@ -12,4 +12,3 @@ require("environment")
 
 -- Theme config
 require("theme")
-

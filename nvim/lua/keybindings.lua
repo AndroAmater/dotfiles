@@ -6,10 +6,10 @@ vim.keymap.set("n", "<leader>o", "o<Esc>", { silent = true })
 vim.keymap.set("n", "<leader>O", "O<Esc>", { silent = true })
 
 -- Set highlight search
-vim.cmd('set hlsearch')
+vim.cmd("set hlsearch")
 
 -- Set block cursor
-vim.cmd('set guicursor=i:block')
+vim.cmd("set guicursor=i:block")
 
 -- Set clipboard copy commands keymaps
 vim.keymap.set("n", "<leader>d", '"_d', { silent = true })
@@ -17,16 +17,16 @@ vim.keymap.set("n", "<leader>dd", '"_d', { silent = true })
 vim.keymap.set("v", "<leader>d", '"_d', { silent = true })
 vim.keymap.set("n", "<leader>x", '"_x', { silent = true })
 
-vim.keymap.set("x", "<leader>p", "\"_dP", { silent = true })
+vim.keymap.set("x", "<leader>p", '"_dP', { silent = true })
 
 vim.keymap.set("v", "<leader>y", '"+y', { silent = true })
 
 vim.keymap.set("n", "<leader><C-v>", '"+p', { silent = true })
-vim.keymap.set("v", "<leader><C-v>",'"+p', { silent = true })
+vim.keymap.set("v", "<leader><C-v>", '"+p', { silent = true })
 
 -- Newline without leaving normal mode
-vim.keymap.set("n", "<leader><enter>", 'i<enter><esc>', { silent = true })
-vim.keymap.set("n", "<leader><leader><enter>", 'xi<enter><esc>', { silent = true })
+vim.keymap.set("n", "<leader><enter>", "i<enter><esc>", { silent = true })
+vim.keymap.set("n", "<leader><leader><enter>", "xi<enter><esc>", { silent = true })
 
 -- Set window to middle of the screen when navigating half page up/down
 if not vim.g.vscode then
@@ -76,17 +76,17 @@ vim.keymap.set("n", "N", "Nzzzv", { silent = true })
 vim.keymap.set("n", "<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
 
 -- Telescope
-local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>fa', function ()
-    builtin.find_files({
-        find_command = { "rg", "--files", "--hidden", "--no-ignore" }
-    })
+local builtin = require("telescope.builtin")
+vim.keymap.set("n", "<leader>fa", function()
+	builtin.find_files({
+		find_command = { "rg", "--files", "--hidden", "--no-ignore" },
+	})
 end, {})
-vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
-vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
-vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
-vim.keymap.set('n', '<leader>fd', builtin.diagnostics, {})
-vim.keymap.set('n', '<leader>fc', ':TodoTelescope<cr>', {})
+vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})
+vim.keymap.set("n", "<leader>ff", builtin.find_files, {})
+vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
+vim.keymap.set("n", "<leader>fd", builtin.diagnostics, {})
+vim.keymap.set("n", "<leader>fc", ":TodoTelescope<cr>", {})
 vim.keymap.set("n", "<C-t>", builtin.buffers, {})
 
 -- Tabs
@@ -105,35 +105,35 @@ vim.keymap.set("n", "<leader>gt", ":Flog<cr>", { silent = true })
 vim.keymap.set("n", "<leader>mm", ":MinimapToggle<cr>", { silent = true })
 
 -- NvimTree
-vim.keymap.set('n', '<leader>tf', ':NvimTreeFocus<CR>', { silent = true })
-vim.keymap.set('n', '<leader>tc', ':NvimTreeClose<CR>', { silent = true })
-vim.keymap.set('n', '<leader>to', ':NvimTreeOpen<CR>', { silent = true })
-vim.keymap.set('n', '<leader>tt', ':NvimTreeFindFile<CR>', { silent = true })
+vim.keymap.set("n", "<leader>tf", ":NvimTreeFocus<CR>", { silent = true })
+vim.keymap.set("n", "<leader>tc", ":NvimTreeClose<CR>", { silent = true })
+vim.keymap.set("n", "<leader>to", ":NvimTreeOpen<CR>", { silent = true })
+vim.keymap.set("n", "<leader>tt", ":NvimTreeFindFile<CR>", { silent = true })
 
 -- UndoTree
-vim.keymap.set('n', '<leader>tu', ':UndotreeToggle<CR>', { silent = true })
+vim.keymap.set("n", "<leader>tu", ":UndotreeToggle<CR>", { silent = true })
 
 -- Set indent level
-vim.keymap.set('n', '<leader>2', ':set shiftwidth=2 tabstop=2<CR>', { silent = true })
-vim.keymap.set('n', '<leader>4', ':set shiftwidth=4 tabstop=4<CR>', { silent = true })
+vim.keymap.set("n", "<leader>2", ":set shiftwidth=2 tabstop=2<CR>", { silent = true })
+vim.keymap.set("n", "<leader>4", ":set shiftwidth=4 tabstop=4<CR>", { silent = true })
 
 -- Diagnostics
-vim.keymap.set('n', '<leader><leader>dt', ':TroubleToggle<CR>', { silent = true })
-vim.keymap.set('n', '<leader><leader>dc', ':TodoTrouble<CR>', { silent = true })
+vim.keymap.set("n", "<leader><leader>dt", ":TroubleToggle<CR>", { silent = true })
+vim.keymap.set("n", "<leader><leader>dc", ":TodoTrouble<CR>", { silent = true })
 
 -- Errors LSP
-vim.keymap.set('n', '<leader>ep', ":lua vim.diagnostic.open_float(0, {scope = 'line'})<cr>")
+vim.keymap.set("n", "<leader>ep", ":lua vim.diagnostic.open_float(0, {scope = 'line'})<cr>")
 
 -- Search all
-vim.keymap.set('n', '<leader><leader>ff', ':Farr<Cr>', { silent = true })
-vim.keymap.set('n', '<leader><leader>fu', ':Farundo<Cr>', { silent = true })
+vim.keymap.set("n", "<leader><leader>ff", ":Farr<Cr>", { silent = true })
+vim.keymap.set("n", "<leader><leader>fu", ":Farundo<Cr>", { silent = true })
 
 -- Code actions
-vim.keymap.set('n', '<leader>a', ':lua vim.lsp.buf.code_action()<CR>', { silent = true })
+vim.keymap.set("n", "<leader>a", ":lua vim.lsp.buf.code_action()<CR>", { silent = true })
 
 -- Harpoon shortcuts
-vim.keymap.set('n', '<leader>tm', ':lua require("harpoon.mark").add_file()<CR>', { silent = true })
-vim.keymap.set('n', '<leader>th', ':lua require("harpoon.ui").toggle_quick_menu()<CR>', { silent = true })
+vim.keymap.set("n", "<leader>tm", ':lua require("harpoon.mark").add_file()<CR>', { silent = true })
+vim.keymap.set("n", "<leader>th", ':lua require("harpoon.ui").toggle_quick_menu()<CR>', { silent = true })
 
 -- Surround
-vim.keymap.set('v', 's', '<Plug>VSurround', { silent = true })
+vim.keymap.set("v", "s", "<Plug>VSurround", { silent = true })
