@@ -9,7 +9,7 @@ vim.keymap.set("n", "<leader>O", "O<Esc>", { silent = true })
 vim.cmd("set hlsearch")
 
 -- Set block cursor
-vim.cmd("set guicursor=i:block")
+-- vim.cmd("set guicursor=i:block")
 
 -- Set clipboard copy commands keymaps
 vim.keymap.set("n", "<leader>d", '"_d', { silent = true })
