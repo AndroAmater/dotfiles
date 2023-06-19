@@ -47,10 +47,14 @@ vim.keymap.set("n", "<C-w><C-w>", ":bd<cr>:bp<cr>", { silent = true })
 -- vim.api.nvim_set_keymap("i", "<C-J>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
 
 -- Window management
-vim.keymap.set("n", "<C-l>", "<C-W>l", { silent = true })
-vim.keymap.set("n", "<C-h>", "<C-W>h", { silent = true })
-vim.keymap.set("n", "<C-k>", "<C-W>k", { silent = true })
-vim.keymap.set("n", "<C-j>", "<C-W>j", { silent = true })
+-- vim.keymap.set("n", "<C-l>", "<C-W>l", { silent = true })
+-- vim.keymap.set("n", "<C-h>", "<C-W>h", { silent = true })
+-- vim.keymap.set("n", "<C-k>", "<C-W>k", { silent = true })
+-- vim.keymap.set("n", "<C-j>", "<C-W>j", { silent = true })
+vim.keymap.set("n", "<C-l>", ":TmuxNavigateRight<CR>", { silent = true })
+vim.keymap.set("n", "<C-h>", ":TmuxNavigateLeft<CR>", { silent = true })
+vim.keymap.set("n", "<C-k>", ":TmuxNavigateUp<CR>", { silent = true })
+vim.keymap.set("n", "<C-j>", ":TmuxNavigateDown<CR>", { silent = true })
 
 vim.keymap.set("n", "<C-Right>", ":vsp<cr>", { silent = true })
 vim.keymap.set("n", "<C-Down>", ":sp<cr>", { silent = true })

@@ -137,6 +137,7 @@ require("lazy").setup({
 	},
 
 	-- Navigation
+	{ "christoomey/vim-tmux-navigator" },
 	{
 		"nvim-pack/nvim-spectre",
 		config = function()
