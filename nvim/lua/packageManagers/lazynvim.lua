@@ -20,21 +20,52 @@ require("lazy").setup({
 	{ "https://github.com/tpope/vim-obsession.git" },
 
 	-- Themes
-	-- { 'catppuccin/nvim' },
 	{
-		"https://github.com/marko-cerovac/material.nvim.git",
-		config = function()
-			require("material").setup({
-				plugins = {
-					"gitsigns",
-					"indent-blankline",
-					"nvim-tree",
-					"telescope",
-					"trouble",
+		"catppuccin/nvim",
+		name = "catppuccin",
+		opts = {
+			flavour = "mocha",
+			background = {
+				light = "latta",
+				dark = "mocha",
+			},
+			styles = {
+				comments = {},
+				conditionals = {},
+				loops = {},
+				functions = {},
+				keywords = {},
+				strings = {},
+				variables = {},
+				numbers = {},
+				booleans = {},
+				properties = {},
+				types = {},
+			},
+			color_overrides = {
+				mocha = {
+					base = "#121212",
+					mantle = "#121212",
+					crust = "#121212",
 				},
-			})
-		end,
+			},
+			transparent_background = false,
+		},
 	},
+	-- {
+	-- 	"https://github.com/marko-cerovac/material.nvim.git",
+	-- 	config = function()
+	-- 		require("material").setup({
+	-- 			plugins = {
+	-- 				"gitsigns",
+	-- 				"indent-blankline",
+	-- 				"nvim-tree",
+	-- 				"telescope",
+	-- 				"trouble",
+	-- 			},
+	-- 		})
+	-- 	end,
+	-- },
 	-- { 'rebelot/kanagawa.nvim' },
 	-- {
 	--     'kaicataldo/material.vim',
