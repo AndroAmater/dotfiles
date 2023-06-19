@@ -17,8 +17,23 @@ require("lazy").setup({
 	{ "rust-lang/rust.vim" },
 
 	-- Session
-	{ "https://github.com/tpope/vim-obsession.git" },
-
+	{
+		"rmagatti/auto-session",
+		lazy = false,
+		config = function()
+			require("auto-session").setup({
+				log_level = "error",
+				auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/", "~/Hudlajf" },
+				auto_save_enabled = true,
+				auto_session_enable_last_session = false,
+				post_restore_cmds = {
+					function()
+						require("nvim-tree.api").tree.toggle({ focus = false, find_file = true })
+					end,
+				},
+			})
+		end,
+	},
 	-- Themes
 	{
 		"catppuccin/nvim",
@@ -329,7 +344,7 @@ require("lazy").setup({
 					-- buffer is a real file on the disk
 					local real_file = vim.fn.filereadable(data.file) == 1
 
-					-- buffer is a [No Name]
+					-- -- buffer is a [No Name]
 					local no_name = data.file == "" and vim.bo[data.buf].buftype == ""
 
 					if not real_file and not no_name then

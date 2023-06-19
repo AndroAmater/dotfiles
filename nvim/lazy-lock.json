@@ -1,5 +1,6 @@
 {
   "LuaSnip": { "branch": "master", "commit": "6086742e287ce0e40ffa31b1c26b7e8914ffb7a4" },
+  "auto-session": { "branch": "main", "commit": "7afbb149f87be279778689596c781882014f7eef" },
   "bufferline.nvim": { "branch": "main", "commit": "243893ba9d5d1049dd451a25cab32ec7f8f67bcf" },
   "catppuccin": { "branch": "main", "commit": "ad6305594737e16155c41c176c611e865c26bb6d" },
   "cmp-buffer": { "branch": "main", "commit": "3022dbc9166796b644a841a02de8dd1cc1d311fa" },
@@ -45,7 +46,6 @@
   "vim-flog": { "branch": "master", "commit": "54c1b1c0762762065736ab82b1f50ec069b50475" },
   "vim-fugitive": { "branch": "master", "commit": "43f18ab9155c853a84ded560c6104e6300ad41da" },
   "vim-gitgutter": { "branch": "master", "commit": "00df1089b6267f47c7c0f13536789feb9db1e65b" },
-  "vim-obsession": { "branch": "master", "commit": "fe9d3e1a9a50171e7d316a52e1e56d868e4c1fe5" },
   "vim-surround": { "branch": "master", "commit": "3d188ed2113431cf8dac77be61b842acb64433d9" },
   "vim-tmux-navigator": { "branch": "master", "commit": "cdd66d6a37d991bba7997d593586fc51a5b37aa8" },
   "vim-visual-multi": { "branch": "master", "commit": "724bd53adfbaf32e129b001658b45d4c5c29ca1a" }
