@@ -70,3 +70,4 @@ Configure git pull ff only
 Add nautilus
 Add discord
 cargo install stylua
+Add tmux config symlink
