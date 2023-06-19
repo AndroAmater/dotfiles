@@ -71,3 +71,4 @@ Add nautilus
 Add discord
 cargo install stylua
 Add tmux config symlink
+Add tmux plugin manager installation
