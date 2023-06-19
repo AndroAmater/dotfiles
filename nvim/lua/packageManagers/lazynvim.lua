@@ -34,6 +34,7 @@ require("lazy").setup({
 			})
 		end,
 	},
+
 	-- Themes
 	{
 		"catppuccin/nvim",
@@ -56,13 +57,6 @@ require("lazy").setup({
 				booleans = {},
 				properties = {},
 				types = {},
-			},
-			color_overrides = {
-				mocha = {
-					base = "#121212",
-					mantle = "#121212",
-					crust = "#121212",
-				},
 			},
 			transparent_background = false,
 		},
@@ -179,6 +173,28 @@ require("lazy").setup({
 				-- or leave it empty to use the default settings
 				-- refer to the configuration section below
 			})
+		end,
+	},
+	{
+		"nvim-orgmode/orgmode",
+		config = function()
+			-- Load custom treesitter grammar for org filetype
+			require("orgmode").setup_ts_grammar()
+
+			-- Treesitter configuration
+			require("nvim-treesitter.configs").setup({
+				-- If TS highlights are not enabled at all, or disabled via `disable` prop,
+				-- highlighting will fallback to default Vim syntax highlighting
+				highlight = {
+					enable = true,
+					-- Required for spellcheck, some LaTex highlights and
+					-- code block highlights that do not have ts grammar
+					additional_vim_regex_highlighting = { "org" },
+				},
+				ensure_installed = { "org" }, -- Or run :TSUpdate org
+			})
+
+			require("orgmode").setup({})
 		end,
 	},
 
@@ -354,7 +370,7 @@ require("lazy").setup({
 					require("nvim-tree.api").tree.toggle({ focus = false, find_file = true })
 				end
 
-				vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = open_nvim_tree })
+				-- vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = open_nvim_tree })
 			end
 		end,
 	},
@@ -501,6 +517,12 @@ require("lazy").setup({
 			{ "rafamadriz/friendly-snippets" }, -- Optional
 		},
 		config = function()
+			require("cmp").setup({
+				sources = {
+					{ name = "orgmode" },
+				},
+			})
+
 			-- LSP
 			local lsp = require("lsp-zero").preset({
 				name = "minimal",
