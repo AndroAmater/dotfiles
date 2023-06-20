@@ -431,16 +431,6 @@ require("lazy").setup({
 	-- Diagnostics
 	{ "folke/trouble.nvim", lazy = false },
 
-	-- Formating
-	{
-		"sbdchd/neoformat",
-		config = function()
-			vim.g.neoformat_try_node_exe = 1
-			vim.g.neoformat_enabled_lua = { "stylua" }
-			vim.cmd("autocmd BufWritePre *.vue,*.js,*.jsx,*.cjs,*.mjs,*.ts,*.tsx,*.cts,*.mts,*.lua Neoformat")
-		end,
-	},
-
 	-- LSP
 	{
 		"nvim-treesitter/nvim-treesitter",
@@ -512,6 +502,9 @@ require("lazy").setup({
 			{ "saadparwaiz1/cmp_luasnip" }, -- Optional
 			{ "hrsh7th/cmp-nvim-lua" }, -- Optional
 
+			-- Formating
+			{ "https://github.com/jose-elias-alvarez/null-ls.nvim.git" },
+
 			-- Snippets
 			{ "L3MON4D3/LuaSnip" }, -- Required
 			{ "rafamadriz/friendly-snippets" }, -- Optional
@@ -535,6 +528,35 @@ require("lazy").setup({
 			lsp.nvim_workspace()
 
 			lsp.setup()
+
+			lsp.format_on_save({
+				format_opts = {
+					async = true,
+					timeout_ms = 10000,
+				},
+				servers = {
+					["null-ls"] = {
+						"lua",
+						"javascript",
+						"typescript",
+						"vue",
+						"css",
+						"json",
+						"html",
+						"markdown",
+						"yaml",
+					},
+				},
+			})
+
+			local null_ls = require("null-ls")
+
+			null_ls.setup({
+				sources = {
+					null_ls.builtins.formatting.prettierd,
+					null_ls.builtins.formatting.stylua,
+				},
+			})
 		end,
 	},
 })
