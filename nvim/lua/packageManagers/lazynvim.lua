@@ -545,15 +545,17 @@ require("lazy").setup({
 						"html",
 						"markdown",
 						"yaml",
+						"php",
 					},
 				},
 			})
 
 			local null_ls = require("null-ls")
+			local prettierd = require("packageManagers.utils.prettierd")
 
 			null_ls.setup({
 				sources = {
-					null_ls.builtins.formatting.prettierd,
+					prettierd,
 					null_ls.builtins.formatting.stylua,
 				},
 			})
