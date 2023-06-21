@@ -27,6 +27,7 @@ alias runner-reset="docker kill gitlab-runner ; docker rm gitlab-runner ; runner
 alias gg="git-graph"
 alias lg="lazygit"
 alias c="clear"
+alias n="nvim"
 
 # Build rust crate for any docker container
 alias rust-musl-builder='docker run --rm -it -v "$(pwd)":/home/rust/src ekidd/rust-musl-builder'
