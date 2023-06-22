@@ -347,11 +347,16 @@ require("lazy").setup({
 					sort_by = "case_sensitive",
 					view = {
 						width = 50,
-						mappings = {
-							list = {
-								{ key = "u", action = "dir_up" },
-							},
-						},
+					},
+					filters = {
+						dotfiles = false,
+					},
+					update_focused_file = {
+						enable = true,
+					},
+					git = {
+						enable = true,
+						ignore = false,
 					},
 				})
 
