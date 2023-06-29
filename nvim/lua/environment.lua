@@ -70,3 +70,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 vim.g.neovide_cursor_animation_length = 0.05
 vim.g.neovide_cursor_trail_size = 0.5
 vim.g.neovide_cursor_antialiasing = true
+
+-- Configure undo file (persistent undo)
+vim.opt.undodir = vim.fn.expand("$HOME/.config/nvim/.undodir")
+vim.opt.undofile = true
