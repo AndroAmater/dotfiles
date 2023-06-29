@@ -226,6 +226,7 @@ require("lazy").setup({
 	},
 
 	-- Navigation
+	{ "dyng/ctrlsf.vim" },
 	{ "christoomey/vim-tmux-navigator" },
 	{
 		"nvim-pack/nvim-spectre",
