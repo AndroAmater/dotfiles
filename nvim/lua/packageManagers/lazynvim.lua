@@ -83,6 +83,33 @@ require("lazy").setup({
 	--     end
 	-- },
 
+	-- Decorational
+	{
+		"echasnovski/mini.animate",
+		version = false,
+		config = function()
+			local animate = require("mini.animate")
+			animate.setup({
+				cursor = {
+					enable = true,
+					timing = animate.gen_timing.linear({ duration = 200, unit = "total" }),
+				},
+				scroll = {
+					enable = false,
+				},
+				resize = {
+					enable = false,
+				},
+				open = {
+					enable = false,
+				},
+				close = {
+					enable = false,
+				},
+			})
+		end,
+	},
+
 	-- Visual plugins
 	{
 		"https://github.com/Yggdroot/indentLine.git",
