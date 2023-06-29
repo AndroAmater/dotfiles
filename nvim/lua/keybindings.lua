@@ -18,11 +18,16 @@ vim.keymap.set("v", "<leader>d", '"_d', { silent = true })
 vim.keymap.set("n", "<leader>x", '"_x', { silent = true })
 
 vim.keymap.set("x", "<leader>p", '"_dP', { silent = true })
-
 vim.keymap.set("v", "<leader>y", '"+y', { silent = true })
 
 vim.keymap.set("n", "<leader><C-v>", '"+p', { silent = true })
 vim.keymap.set("v", "<leader><C-v>", '"+p', { silent = true })
+
+vim.keymap.set({ "n", "x" }, "p", "<Plug>(YankyPutAfter)")
+vim.keymap.set({ "n", "x" }, "P", "<Plug>(YankyPutBefore)")
+vim.keymap.set({ "n", "x" }, "gp", "<Plug>(YankyGPutAfter)")
+vim.keymap.set({ "n", "x" }, "gP", "<Plug>(YankyGPutBefore)")
+vim.keymap.set({ "n", "x" }, "y", "<Plug>(YankyYank)")
 
 -- Newline without leaving normal mode
 vim.keymap.set("n", "<leader><enter>", "i<enter><esc>", { silent = true })
@@ -90,7 +95,8 @@ vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})
 vim.keymap.set("n", "<leader>ff", builtin.find_files, {})
 vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
 vim.keymap.set("n", "<leader>fd", builtin.diagnostics, {})
-vim.keymap.set("n", "<leader>fc", ":TodoTelescope<cr>", {})
+vim.keymap.set("n", "<leader>ft", ":TodoTelescope<cr>", {})
+vim.keymap.set("n", "<leader>fc", ":Telescope yank_history<cr>", {})
 vim.keymap.set("n", "<C-t>", builtin.buffers, {})
 
 -- Tabs
