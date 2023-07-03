@@ -30,6 +30,8 @@ alias lg="lazygit"
 alias c="clear"
 alias n="nvim"
 alias sz="source ~/.zshrc"
+alias ll="exa --long --header --git --group --icons --all"
+alias lt="exa --tree --long --header --git --group --icons --all"
 
 # Build rust crate for any docker container
 alias rust-musl-builder='docker run --rm -it -v "$(pwd)":/home/rust/src ekidd/rust-musl-builder'
