@@ -250,54 +250,54 @@ require("lazy").setup({
 			})
 		end,
 	},
-	{
-		"folke/flash.nvim",
-		event = "VeryLazy",
-		---@type Flash.Config
-		opts = {},
-		keys = {
-			{
-				"s",
-				mode = { "n", "o" },
-				function()
-					require("flash").jump()
-				end,
-				desc = "Flash",
-			},
-			{
-				"S",
-				mode = { "n", "o" },
-				function()
-					require("flash").treesitter()
-				end,
-				desc = "Flash Treesitter",
-			},
-			{
-				"r",
-				mode = "o",
-				function()
-					require("flash").remote()
-				end,
-				desc = "Remote Flash",
-			},
-			{
-				"R",
-				mode = { "o", "x" },
-				function()
-					require("flash").treesitter_search()
-				end,
-				desc = "Flash Treesitter Search",
-			},
-			{
-				"<c-f>",
-				mode = { "c" },
-				function()
-					require("flash").toggle()
-				end,
-				desc = "Toggle Flash Search",
-			},
-		},
-	},
+	--{
+	--	"folke/flash.nvim",
+	--	event = "VeryLazy",
+	--	---@type Flash.Config
+	--	opts = {},
+	--	keys = {
+	--		{
+	--			"s",
+	--			mode = { "n", "o" },
+	--			function()
+	--				require("flash").jump()
+	--			end,
+	--			desc = "Flash",
+	--		},
+	--		{
+	--			"S",
+	--			mode = { "n", "o" },
+	--			function()
+	--				require("flash").treesitter()
+	--			end,
+	--			desc = "Flash Treesitter",
+	--		},
+	--		{
+	--			"r",
+	--			mode = "o",
+	--			function()
+	--				require("flash").remote()
+	--			end,
+	--			desc = "Remote Flash",
+	--		},
+	--		{
+	--			"R",
+	--			mode = { "o", "x" },
+	--			function()
+	--				require("flash").treesitter_search()
+	--			end,
+	--			desc = "Flash Treesitter Search",
+	--		},
+	--		{
+	--			"<c-f>",
+	--			mode = { "c" },
+	--			function()
+	--				require("flash").toggle()
+	--			end,
+	--			desc = "Toggle Flash Search",
+	--		},
+	--	},
+	--},
 	{
 		"ThePrimeagen/harpoon",
 		config = function()
