@@ -313,34 +313,34 @@ require("lazy").setup({
 		"nvim-telescope/telescope.nvim",
 		config = function()
 			local telescope = require("telescope")
-			local telescopeconfig = require("telescope.config")
 			local actions = require("telescope.actions")
-
-			-- clone the default telescope configuration
-			local vimgrep_arguments = { unpack(telescopeconfig.values.vimgrep_arguments) }
-
-			-- i want to search in hidden/dot files.
-			table.insert(vimgrep_arguments, "--hidden")
-			-- i don't want to search in the `.git` directory.
-			table.insert(vimgrep_arguments, "--glob")
-			table.insert(vimgrep_arguments, "!**/.git/*")
-			table.insert(vimgrep_arguments, "--glob")
-			table.insert(vimgrep_arguments, "!**/vendor/*")
-			table.insert(vimgrep_arguments, "--glob")
-			table.insert(vimgrep_arguments, "!**/node_modules/*")
 
 			telescope.setup({
 				defaults = {
-					-- `hidden = true` is not supported in text grep commands.
-					vimgrep_arguments = vimgrep_arguments,
-				},
-				color_devicons = true,
-				sorting_strategy = "ascending",
-				scroll_strategy = "cycle",
-				mappings = {
-					i = {
-						["<C-j>"] = actions.move_selection_next,
-						["<C-k>"] = actions.move_selection_previous,
+					layout_config = {
+						prompt_position = "bottom",
+					},
+					vimgrep_arguments = {
+						"rg",
+						"--color=never",
+						"--no-heading",
+						"--with-filename",
+						"--line-number",
+						"--column",
+						"--smart-case",
+						"--hidden",
+						"--no-ignore",
+						"--sort",
+						"path",
+					},
+					color_devicons = true,
+					sorting_strategy = "descending",
+					scroll_strategy = "cycle",
+					mappings = {
+						i = {
+							["<C-j>"] = actions.move_selection_next,
+							["<C-k>"] = actions.move_selection_previous,
+						},
 					},
 				},
 				pickers = {
@@ -350,11 +350,20 @@ require("lazy").setup({
 							"--files",
 							"--hidden",
 							"--no-ignore",
+							"--sort",
+							"path",
 							"--glob",
 							"!**/.git/*",
 							"-g",
 							"!**/node_modules/*",
 							"-g",
+							"!**/vendor/*",
+						},
+					},
+					live_grep = {
+						glob_pattern = {
+							"!**/.git/*",
+							"!**/node_modules/*",
 							"!**/vendor/*",
 						},
 					},
@@ -374,32 +383,80 @@ require("lazy").setup({
 	},
 	{
 		"jake-stewart/jfind.nvim",
-		keys = {
-			{ "<c-f>" },
-		},
+		branch = "2.0",
 		config = function()
-			require("jfind").setup({
-				exclude = {
-					".git",
-					".idea",
-					".vscode",
-					".sass-cache",
-					".class",
-					"__pycache__",
-					"node_modules",
-					"target",
-					"build",
-					"tmp",
-					"assets",
-					"dist",
-					"*.iml",
-					"*.meta",
-					"vendor",
-				},
-				border = "rounded",
-				tmux = true,
-				key = "<c-f>",
+			local jfind = require("jfind")
+			local key = require("jfind.key")
+
+			jfind.setup({
+				windowBorder = true,
+				maxWidth = 240,
+				maxHeight = 60,
 			})
+			vim.keymap.set("n", "<c-f>", function()
+				jfind.findFile({
+					-- exclude = {
+					-- 	".git",
+					-- 	".idea",
+					-- 	".vscode",
+					-- 	".sass-cache",
+					-- 	".class",
+					-- 	"__pycache__",
+					-- 	"node_modules",
+					-- 	"target",
+					-- 	"build",
+					-- 	"tmp",
+					-- 	"assets",
+					-- 	"dist",
+					-- 	"*.iml",
+					-- 	"*.meta",
+					-- 	"vendor",
+					-- },
+					include = {
+						"*",
+					},
+					formatPaths = true,
+					hidden = true,
+					queryPosition = "bottom",
+					preview = true,
+					previewPosition = "right",
+					callback = {
+						[key.DEFAULT] = vim.cmd.edit,
+					},
+				})
+			end)
+			vim.keymap.set("n", "<c-g>", function()
+				jfind.liveGrep({
+					-- exclude = {
+					-- 	".git",
+					-- 	".idea",
+					-- 	".vscode",
+					-- 	".sass-cache",
+					-- 	".class",
+					-- 	"__pycache__",
+					-- 	"node_modules",
+					-- 	"target",
+					-- 	"build",
+					-- 	"tmp",
+					-- 	"assets",
+					-- 	"dist",
+					-- 	"*.iml",
+					-- 	"*.meta",
+					-- 	"vendor",
+					-- },
+					include = {
+						"*",
+					},
+					hidden = true, -- grep hidden files/directories
+					caseSensitivity = "smart", -- sensitive, insensitive, smart
+					queryPosition = "bottom",
+					preview = true,
+					previewPosition = "right",
+					callback = {
+						[key.DEFAULT] = jfind.editGotoLine,
+					},
+				})
+			end)
 		end,
 	},
 	{
