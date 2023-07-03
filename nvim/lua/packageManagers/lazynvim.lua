@@ -596,6 +596,21 @@ require("lazy").setup({
 	-- Diagnostics
 	{ "folke/trouble.nvim", lazy = false },
 
+	-- Language packages
+	{
+		"olexsmir/gopher.nvim",
+		requires = { -- dependencies
+			"nvim-lua/plenary.nvim",
+			"nvim-treesitter/nvim-treesitter",
+		},
+		ft = "go",
+		config = function()
+			require("gopher").setup()
+		end,
+		build = function()
+			vim.cmd([[silent! GoInstallDeps]])
+		end,
+	},
 	-- LSP
 	{
 		"nvim-treesitter/nvim-treesitter",
@@ -656,7 +671,51 @@ require("lazy").setup({
 		dependencies = {
 			-- LSP Support
 			{ "neovim/nvim-lspconfig" }, -- Required
-			{ "williamboman/mason.nvim" }, -- Optional
+			{
+				"williamboman/mason.nvim",
+				config = function()
+					require("mason").setup({
+						ensure_installed = {
+							"codelldb",
+							"docker-compose-language-service",
+							"dockerfile-language-server",
+							"eslint-lsp",
+							"eslint_d",
+							"gitlint",
+							"gitui",
+							"goimports-reviser",
+							"gopls",
+							"gofumpt",
+							"golines",
+							"html-lsp",
+							"intelephense",
+							"js-debug-adapter",
+							"json-lsp",
+							"json-to-struct",
+							"jsonlint",
+							"lua-language-server",
+							"nginx-language-server",
+							"node-debug2-adapter",
+							"php-cs-fixer",
+							"php-debug-adapter",
+							"phpactor",
+							"phpcbf",
+							"phpcs",
+							"phpmd",
+							"phpstan",
+							"prettierd",
+							"rust-analyzer",
+							"rustfmt",
+							"sql-formatter",
+							"stylua",
+							"twigcs",
+							"typescript-language-server",
+							"vue-language-server",
+							"yaml-language-server",
+						},
+					})
+				end,
+			},
 			{ "williamboman/mason-lspconfig.nvim" }, -- Optional
 
 			-- Autocompletion
@@ -711,6 +770,7 @@ require("lazy").setup({
 						"markdown",
 						"yaml",
 						"php",
+						"go",
 					},
 				},
 			})
@@ -723,6 +783,9 @@ require("lazy").setup({
 					prettierdphp,
 					null_ls.builtins.formatting.stylua,
 					null_ls.builtins.formatting.prettierd,
+					null_ls.builtins.formatting.gofumpt,
+					null_ls.builtins.formatting.goimports_reviser,
+					null_ls.builtins.formatting.golines,
 				},
 			})
 		end,

@@ -5,6 +5,7 @@ export PATH="$PATH:$(yarn global bin)"
 export PATH="$PATH:/home/andrejf/.cargo/bin"
 export PATH=~/.config/composer/vendor/bin:$PATH
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/go/bin:$PATH"
 
 # Configure oh-my-posh
 eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/config.json)"
