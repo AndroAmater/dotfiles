@@ -17,16 +17,19 @@ Use the Arch installation guide as reference (https://wiki.archlinux.org/title/i
 ### 2. Configure linux
 
 When configuring a new instance of Arch while `arch-chroot`ed run:
+
 ```
 ansible-playbook --ask-vault-pass system-setup.yml
 ```
 
 When setting up laptop also run:
+
 ```
 ansible-playbook --ask-vault-pass laptop-setup.yml
 ```
 
 When setting up workstation also run:
+
 ```
 ansible-playbook --ask-vault-pass workstation-setup.yml
 ```
@@ -39,8 +42,6 @@ ansible-playbook --ask-vault-pass workstation-setup.yml
 This will prevent the initramfs from containing the nouveau module making sure the kernel cannot load it during early boot.
 
 ### 4. Reboot
-
-
 
 Networkmanager not in pacstrap.
 User password not working.
@@ -72,3 +73,6 @@ Add discord
 cargo install stylua
 Add tmux config symlink
 Add tmux plugin manager installation
+Add fzy
+Add bat
+Add exa
