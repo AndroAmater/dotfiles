@@ -167,5 +167,5 @@ vim.keymap.set("n", "<leader>th", ':lua require("harpoon.ui").toggle_quick_menu(
 vim.keymap.set("v", "s", "<Plug>VSurround", { silent = true })
 
 -- Go
-vim.keymap.set("n", "<leader>gsj", "<cms> GoTagAdd json <CR>", { silent = true })
-vim.keymap.set("n", "<leader>gsy", "<cms> GoTagAdd yaml <CR>", { silent = true })
+vim.keymap.set("n", "<leader>gsj", "<cmd> GoTagAdd json <CR>", { silent = true })
+vim.keymap.set("n", "<leader>gsy", "<cmd> GoTagAdd yaml <CR>", { silent = true })

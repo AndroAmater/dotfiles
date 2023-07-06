@@ -392,6 +392,10 @@ require("lazy").setup({
 				windowBorder = true,
 				maxWidth = 240,
 				maxHeight = 60,
+				exclude = {},
+				include = {
+					"*",
+				},
 			})
 			vim.keymap.set("n", "<c-f>", function()
 				jfind.findFile({
@@ -412,6 +416,7 @@ require("lazy").setup({
 					-- 	"*.meta",
 					-- 	"vendor",
 					-- },
+					exclude = {},
 					include = {
 						"*",
 					},
@@ -444,6 +449,7 @@ require("lazy").setup({
 					-- 	"*.meta",
 					-- 	"vendor",
 					-- },
+					exclude = {},
 					include = {
 						"*",
 					},
@@ -603,7 +609,6 @@ require("lazy").setup({
 			"nvim-lua/plenary.nvim",
 			"nvim-treesitter/nvim-treesitter",
 		},
-		ft = "go",
 		config = function()
 			require("gopher").setup()
 		end,
