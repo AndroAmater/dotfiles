@@ -1,11 +1,15 @@
 # Set default editor
 EDITOR="nvim"
 
+# Update PATH
 export PATH="$PATH:$(yarn global bin)"
 export PATH="$PATH:/home/andrejf/.cargo/bin"
 export PATH=~/.config/composer/vendor/bin:$PATH
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/go/bin:$PATH"
+
+# Enable compdef
+autoload -Uz compinit && compinit
 
 # Configure oh-my-posh
 eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/config.json)"
@@ -36,3 +40,21 @@ alias lt="exa --tree --long --header --git --group --icons --all"
 
 # Build rust crate for any docker container
 alias rust-musl-builder='docker run --rm -it -v "$(pwd)":/home/rust/src ekidd/rust-musl-builder'
+
+# Tmux templates handler
+function tt() {
+    local tmux_template_dir="$HOME/.config/tmux/templates/"
+    local tmux_template_name="$1"
+    
+    if [[ -f "$tmux_template_dir/$tmux_template_name" ]]; then
+        bash "$tmux_template_dir/$tmux_template_name"
+    else
+        echo "No such template: $tmux_template_name"
+    fi
+}
+_tt() {
+    local tmux_template_dir="$HOME/.config/tmux/templates/"
+    local tmux_templates=$(ls $tmux_template_dir)
+    _arguments '1: :('"$tmux_templates"')'
+}
+compdef _tt tt

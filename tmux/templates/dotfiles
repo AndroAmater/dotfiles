@@ -1,0 +1,8 @@
+#!/bin/sh
+
+tmux new-session -s 'dotfiles' -c "$HOME/.config/dotfiles/" \; \
+    send-keys 'n' C-m \; \
+    new-window -c "$HOME/.config/dotfiles/" \; \
+    send-keys "lg" C-m \; \
+    new-window -c "$HOME/.config/dotfiles/" \; \
+    select-window -t 1 \;

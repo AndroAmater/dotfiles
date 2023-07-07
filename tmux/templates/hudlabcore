@@ -1,0 +1,10 @@
+#!/bin/sh
+
+tmux new-session -s 'hudlab.core' -c "$HOME/Documents/Hudlajf/hudlab.core/" \; \
+    send-keys 'n' C-m \; \
+    new-window -c "$HOME/Documents/Hudlajf/hudlab.core/frontend/" \; \
+    send-keys "yarn dev" C-m \; \
+    new-window -c "$HOME/Documents/Hudlajf/hudlab.core/" \; \
+    send-keys "lg" C-m \; \
+    new-window -c "$HOME/Documents/Hudlajf/hudlab.core/" \; \
+    select-window -t 1 \;

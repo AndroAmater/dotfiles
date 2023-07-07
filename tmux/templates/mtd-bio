@@ -1,0 +1,11 @@
+#!/bin/sh
+
+tmux new-session -s 'mtd-bio' -c "$HOME/Documents/Hudlajf/mtd-bio/" \; \
+    send-keys 'n' C-m \; \
+    new-window -c "$HOME/Documents/Hudlajf/mtd-bio/frontend/" \; \
+    send-keys "nodelegacyfix" C-m \; \
+    send-keys "yarn serve" C-m \; \
+    new-window -c "$HOME/Documents/Hudlajf/mtd-bio/" \; \
+    send-keys "lg" C-m \; \
+    new-window -c "$HOME/Documents/Hudlajf/mtd-bio/" \; \
+    select-window -t 1 \;

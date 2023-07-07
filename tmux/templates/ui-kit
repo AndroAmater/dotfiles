@@ -1,0 +1,8 @@
+#!/bin/sh
+
+tmux new-session -s 'ui-kit' -c "$HOME/Documents/Hudlajf/ui-kit/" \; \
+    send-keys 'n' C-m \; \
+    new-window -c "$HOME/Documents/Hudlajf/ui-kit/" \; \
+    send-keys "lg" C-m \; \
+    new-window -c "$HOME/Documents/Hudlajf/ui-kit/" \; \
+    select-window -t 1 \;

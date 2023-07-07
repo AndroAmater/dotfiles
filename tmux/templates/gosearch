@@ -1,0 +1,8 @@
+#!/bin/sh
+
+tmux new-session -s 'gosearch' -c "$HOME/Documents/Projects/gosearch/" \; \
+    send-keys 'n' C-m \; \
+    new-window -c "$HOME/Documents/Projects/gosearch/" \; \
+    send-keys "lg" C-m \; \
+    new-window -c "$HOME/Documents/Projects/gosearch/" \; \
+    select-window -t 1 \;
