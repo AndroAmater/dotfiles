@@ -169,3 +169,7 @@ vim.keymap.set("v", "s", "<Plug>VSurround", { silent = true })
 -- Go
 vim.keymap.set("n", "<leader>gsj", "<cmd> GoTagAdd json <CR>", { silent = true })
 vim.keymap.set("n", "<leader>gsy", "<cmd> GoTagAdd yaml <CR>", { silent = true })
+
+-- Quickfix
+vim.keymap.set("n", "<leader>n", ":cn<cr>")
+vim.keymap.set("n", "<leader><S-n>", ":cp<cr>")
