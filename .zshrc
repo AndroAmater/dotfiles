@@ -1,5 +1,6 @@
 # Set default editor
-EDITOR="nvim"
+export EDITOR="nvim"
+export VISUAL="nvim"
 
 # Update PATH
 export PATH="$PATH:$(yarn global bin)"
