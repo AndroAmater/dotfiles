@@ -1,0 +1,12 @@
+#!/bin/sh
+
+tmux new-session -s 'generator-module' -c "$HOME/Documents/Hudlajf/generator-module/" \; \
+    send-keys 'n' C-m \; \
+    new-window -c "$HOME/Documents/Hudlajf/generator-module/" \; \
+    send-keys "lg" C-m \; \
+    new-window -c "$HOME/Documents/Hudlajf/generator-module/" \; \
+    send-keys "yarn test:ui" C-m \; \
+    new-window -c "$HOME/Documents/Hudlajf/generator-module/" \; \
+    send-keys "yarn build:watch" C-m \; \
+    new-window -c "$HOME/Documents/Hudlajf/generator-module/" \; \
+    select-window -t 1 \;
