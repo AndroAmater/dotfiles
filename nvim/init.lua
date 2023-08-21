@@ -13,6 +13,9 @@ require("environment")
 -- Theme config
 require("theme")
 
+-- Format on save
+require("formatOnSave")
+
 local vim = vim
 
 -- Function to call Go binary
