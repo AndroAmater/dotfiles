@@ -37,6 +37,9 @@ vim.keymap.set("n", "<leader><leader><enter>", "xi<enter><esc>", { silent = true
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
 
+-- Set window to middle of the screen when navigating to next/previous cursor position
+vim.keymap.set("n", "<C-o>", "<C-o>zz")
+vim.keymap.set("n", "<C-i>", "<C-i>zz")
 -- Set ctrl+s for save
 vim.keymap.set("i", "<C-s>", "<esc>:w<cr>", { silent = true })
 vim.keymap.set("n", "<C-s>", ":w<cr>", { silent = true })
