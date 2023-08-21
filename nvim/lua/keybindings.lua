@@ -34,10 +34,8 @@ vim.keymap.set("n", "<leader><enter>", "i<enter><esc>", { silent = true })
 vim.keymap.set("n", "<leader><leader><enter>", "xi<enter><esc>", { silent = true })
 
 -- Set window to middle of the screen when navigating half page up/down
-if not vim.g.vscode then
-	vim.keymap.set("n", "<C-d>", "<C-d>zz")
-	vim.keymap.set("n", "<C-u>", "<C-u>zz")
-end
+vim.keymap.set("n", "<C-d>", "<C-d>zz")
+vim.keymap.set("n", "<C-u>", "<C-u>zz")
 
 -- Set ctrl+s for save
 vim.keymap.set("i", "<C-s>", "<esc>:w<cr>", { silent = true })
