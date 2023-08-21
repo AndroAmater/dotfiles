@@ -14,7 +14,9 @@ end
 
 F.prettierd = function()
 	vim.cmd(
-		'silent !file='..vim.fn.expand("%")..'; output=$(cat $file | prettierd $file); [[ "$output" \\!= "No files specified" ]] && printf "\\%s" "$output" | tee $file'
+		"silent !file="
+			.. vim.fn.expand("%")
+			.. '; output=$(cat $file | prettierd $file); [[ "$output" \\!= "No files specified" ]] && printf "\\%s" "$output" | tee $file'
 	)
 end
 
