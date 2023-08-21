@@ -716,42 +716,6 @@ require("lazy").setup({
 			lsp.nvim_workspace()
 
 			lsp.setup()
-
-			lsp.format_on_save({
-				format_opts = {
-					async = true,
-					timeout_ms = 10000,
-				},
-				servers = {
-					["null-ls"] = {
-						"lua",
-						"javascript",
-						"typescript",
-						"vue",
-						"css",
-						"json",
-						"html",
-						"markdown",
-						"yaml",
-						"php",
-						"go",
-					},
-				},
-			})
-
-			local null_ls = require("null-ls")
-			local prettierdphp = require("packageManagers.utils.prettierdphp")
-
-			null_ls.setup({
-				sources = {
-					prettierdphp,
-					null_ls.builtins.formatting.stylua,
-					null_ls.builtins.formatting.prettierd,
-					null_ls.builtins.formatting.gofumpt,
-					null_ls.builtins.formatting.goimports_reviser,
-					null_ls.builtins.formatting.golines,
-				},
-			})
 		end,
 	},
 })
