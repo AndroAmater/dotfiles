@@ -275,6 +275,7 @@ require("lazy").setup({
 
 			telescope.setup({
 				defaults = {
+					wrap_results = true,
 					layout_config = {
 						prompt_position = "bottom",
 					},
