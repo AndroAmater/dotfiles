@@ -117,6 +117,8 @@ vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
 vim.keymap.set("n", "<leader>fd", builtin.diagnostics, {})
 vim.keymap.set("n", "<leader>fr", builtin.lsp_references, {})
 vim.keymap.set("n", "<leader>fs", builtin.lsp_document_symbols, {})
+vim.keymap.set("n", "<leader>fm", builtin.marks, {})
+vim.keymap.set("n", "<leader>f<S-g>", builtin.git_status, {})
 vim.keymap.set("n", "<leader>ft", ":TodoTelescope<cr>", {})
 vim.keymap.set("n", "<leader>fc", ":Telescope yank_history<cr>", {})
 vim.keymap.set("n", "<C-t>", builtin.buffers, {})
@@ -177,3 +179,6 @@ vim.keymap.set("n", "<leader>gsy", "<cmd> GoTagAdd yaml <CR>", { silent = true }
 -- Quickfix
 vim.keymap.set("n", "<leader>n", ":cn<cr>zz")
 vim.keymap.set("n", "<leader><S-n>", ":cp<cr>zz")
+
+-- LSP
+vim.keymap.set("n", "gt", ":lua vim.lsp.buf.type_definition()<CR>")
