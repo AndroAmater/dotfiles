@@ -4,7 +4,7 @@ export VISUAL="nvim"
 
 # Update PATH
 export PATH="$PATH:$(yarn global bin)"
-export PATH="$PATH:/home/andrejf/.cargo/bin"
+export PATH="$PATH:$HOME/.cargo/bin"
 export PATH=~/.config/composer/vendor/bin:$PATH
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/go/bin:$PATH"
@@ -15,12 +15,16 @@ autoload -Uz compinit && compinit
 # Configure oh-my-posh
 eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/config.json)"
 
+# Enable pyenv (LeanIX)
+eval "$(pyenv init --path)"
+eval "$(pyenv virtualenv-init -)"
+
 # Source fzf keybindings
-source /usr/share/fzf/key-bindings.zsh
+# source /usr/share/fzf/key-bindings.zsh
 
 # Aliases
-alias go-hl="cd /home/andrejf/Documents/Hudlajf"
-alias go-pr="cd /home/andrejf/Documents/Projects"
+alias go-hl="cd $HOME/Documents/Hudlajf"
+alias go-pr="cd $HOME/Documents/Projects"
 alias core="./core.pex"
 alias dc="docker-compose"
 alias composer7="php7 /usr/bin/composer install"
@@ -59,3 +63,15 @@ _tt() {
     _arguments '1: :('"$tmux_templates"')'
 }
 compdef _tt tt
+
+# (LEANIX specific)
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+ulimit -n 10204
+ulimit -s 10204
