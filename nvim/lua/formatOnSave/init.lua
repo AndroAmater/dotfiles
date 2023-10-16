@@ -40,17 +40,17 @@ end
 
 -- JavaScript/TypeScript
 setAutoFormat("*.js", {
-	F.prettierd,
+	F.prettier,
 	F.eslint,
 })
 
 setAutoFormat("*.ts", {
-	F.prettierd,
+	F.prettier,
 	F.eslint,
 })
 
 setAutoFormat("*.vue", {
-	F.prettierd,
+	F.prettier,
 	F.eslint,
 })
 
