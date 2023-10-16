@@ -59,3 +59,8 @@ setAutoFormat("*.vue", {
 setAutoFormat("*.lua", {
 	F.stylua,
 })
+
+-- Go
+setAutoFormat("*.go", {
+	F.gofmt,
+})

@@ -18,4 +18,8 @@ F.prettierd = function()
 	)
 end
 
+F.gofmt = function()
+	vim.cmd("silent !gofmt -w " .. vim.fn.expand("%"))
+end
+
 return F
