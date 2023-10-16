@@ -239,6 +239,9 @@ require("lazy").setup({
 
 			telescope.setup({
 				defaults = {
+					path_display = {
+						truncate = true,
+					},
 					wrap_results = true,
 					layout_config = {
 						prompt_position = "bottom",
@@ -252,7 +255,7 @@ require("lazy").setup({
 						"--column",
 						"--smart-case",
 						"--hidden",
-						"--no-ignore",
+						-- "--no-ignore",
 						"--sort",
 						"path",
 					},
@@ -413,6 +416,12 @@ require("lazy").setup({
 					git = {
 						enable = true,
 						ignore = false,
+					},
+					filesystem_watchers = {
+						debounce_delay = 1000,
+						ignore_dirs = {
+							"node_modules",
+						},
 					},
 				})
 
@@ -597,7 +606,13 @@ require("lazy").setup({
 		branch = "v1.x",
 		dependencies = {
 			-- LSP Support
-			{ "neovim/nvim-lspconfig" }, -- Required
+			{
+				"neovim/nvim-lspconfig",
+				flags = {
+					allow_incremental_sync = false,
+					debounce_text_changes = 100,
+				},
+			}, -- Required
 			{
 				"williamboman/mason.nvim",
 				config = function()
