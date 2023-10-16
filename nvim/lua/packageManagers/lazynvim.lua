@@ -720,6 +720,10 @@ require("lazy").setup({
 			-- (Optional) Configure lua language server for neovim
 			lsp.nvim_workspace()
 
+			require("lspconfig").volar.setup({
+				filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue", "json" },
+			})
+
 			lsp.setup()
 		end,
 	},
