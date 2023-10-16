@@ -61,27 +61,6 @@ require("lazy").setup({
 			transparent_background = false,
 		},
 	},
-	-- {
-	-- 	"https://github.com/marko-cerovac/material.nvim.git",
-	-- 	config = function()
-	-- 		require("material").setup({
-	-- 			plugins = {
-	-- 				"gitsigns",
-	-- 				"indent-blankline",
-	-- 				"nvim-tree",
-	-- 				"telescope",
-	-- 				"trouble",
-	-- 			},
-	-- 		})
-	-- 	end,
-	-- },
-	-- { 'rebelot/kanagawa.nvim' },
-	-- {
-	--     'kaicataldo/material.vim',
-	--     config = function()
-	--         vim.g.material_theme_style = 'darker'
-	--     end
-	-- },
 
 	-- Decorational
 	{
@@ -236,21 +215,6 @@ require("lazy").setup({
 	},
 	{ "ray-x/guihua.lua" },
 	{
-		"ray-x/sad.nvim",
-		config = function()
-			require("sad").setup({
-				debug = false, -- print debug info
-				diff = "delta", -- you can use `less`, `diff-so-fancy`
-				ls_file = "fd", -- also git ls-files
-				exact = false, -- exact match
-				vsplit = false, -- split sad window the screen vertically, when set to number
-				-- it is a threadhold when window is larger than the threshold sad will split vertically,
-				height_ratio = 0.8, -- height ratio of sad window when split horizontally
-				width_ratio = 0.8, -- height ratio of sad window when split vertically
-			})
-		end,
-	},
-	{
 		"ggandor/leap.nvim",
 		config = function()
 			require("leap").add_default_mappings()
@@ -340,90 +304,90 @@ require("lazy").setup({
 			telescope.load_extension("fzf")
 		end,
 	},
-	{
-		"jake-stewart/jfind.nvim",
-		branch = "2.0",
-		config = function()
-			local jfind = require("jfind")
-			local key = require("jfind.key")
+	-- {
+	-- 	"jake-stewart/jfind.nvim",
+	-- 	branch = "2.0",
+	-- 	config = function()
+	-- 		local jfind = require("jfind")
+	-- 		local key = require("jfind.key")
 
-			jfind.setup({
-				windowBorder = true,
-				maxWidth = 240,
-				maxHeight = 60,
-				exclude = {},
-				include = {
-					"*",
-				},
-			})
-			vim.keymap.set("n", "<c-f>", function()
-				jfind.findFile({
-					-- exclude = {
-					-- 	".git",
-					-- 	".idea",
-					-- 	".vscode",
-					-- 	".sass-cache",
-					-- 	".class",
-					-- 	"__pycache__",
-					-- 	"node_modules",
-					-- 	"target",
-					-- 	"build",
-					-- 	"tmp",
-					-- 	"assets",
-					-- 	"dist",
-					-- 	"*.iml",
-					-- 	"*.meta",
-					-- 	"vendor",
-					-- },
-					exclude = {},
-					include = {
-						"*",
-					},
-					formatPaths = true,
-					hidden = true,
-					queryPosition = "bottom",
-					preview = true,
-					previewPosition = "right",
-					callback = {
-						[key.DEFAULT] = vim.cmd.edit,
-					},
-				})
-			end)
-			vim.keymap.set("n", "<c-g>", function()
-				jfind.liveGrep({
-					-- exclude = {
-					-- 	".git",
-					-- 	".idea",
-					-- 	".vscode",
-					-- 	".sass-cache",
-					-- 	".class",
-					-- 	"__pycache__",
-					-- 	"node_modules",
-					-- 	"target",
-					-- 	"build",
-					-- 	"tmp",
-					-- 	"assets",
-					-- 	"dist",
-					-- 	"*.iml",
-					-- 	"*.meta",
-					-- 	"vendor",
-					-- },
-					exclude = {},
-					include = {
-						"*",
-					},
-					hidden = true, -- grep hidden files/directories
-					caseSensitivity = "smart", -- sensitive, insensitive, smart
-					queryPosition = "bottom",
-					preview = true,
-					previewPosition = "right",
-					callback = {
-						[key.DEFAULT] = jfind.editGotoLine,
-					},
-				})
-			end)
-		end,
-	},
+	-- 		jfind.setup({
+	-- 			windowBorder = true,
+	-- 			maxWidth = 240,
+	-- 			maxHeight = 60,
+	-- 			exclude = {},
+	-- 			include = {
+	-- 				"*",
+	-- 			},
+	-- 		})
+	-- 		vim.keymap.set("n", "<c-f>", function()
+	-- 			jfind.findFile({
+	-- 				-- exclude = {
+	-- 				-- 	".git",
+	-- 				-- 	".idea",
+	-- 				-- 	".vscode",
+	-- 				-- 	".sass-cache",
+	-- 				-- 	".class",
+	-- 				-- 	"__pycache__",
+	-- 				-- 	"node_modules",
+	-- 				-- 	"target",
+	-- 				-- 	"build",
+	-- 				-- 	"tmp",
+	-- 				-- 	"assets",
+	-- 				-- 	"dist",
+	-- 				-- 	"*.iml",
+	-- 				-- 	"*.meta",
+	-- 				-- 	"vendor",
+	-- 				-- },
+	-- 				exclude = {},
+	-- 				include = {
+	-- 					"*",
+	-- 				},
+	-- 				formatPaths = true,
+	-- 				hidden = true,
+	-- 				queryPosition = "bottom",
+	-- 				preview = true,
+	-- 				previewPosition = "right",
+	-- 				callback = {
+	-- 					[key.DEFAULT] = vim.cmd.edit,
+	-- 				},
+	-- 			})
+	-- 		end)
+	-- 		vim.keymap.set("n", "<c-g>", function()
+	-- 			jfind.liveGrep({
+	-- 				-- exclude = {
+	-- 				-- 	".git",
+	-- 				-- 	".idea",
+	-- 				-- 	".vscode",
+	-- 				-- 	".sass-cache",
+	-- 				-- 	".class",
+	-- 				-- 	"__pycache__",
+	-- 				-- 	"node_modules",
+	-- 				-- 	"target",
+	-- 				-- 	"build",
+	-- 				-- 	"tmp",
+	-- 				-- 	"assets",
+	-- 				-- 	"dist",
+	-- 				-- 	"*.iml",
+	-- 				-- 	"*.meta",
+	-- 				-- 	"vendor",
+	-- 				-- },
+	-- 				exclude = {},
+	-- 				include = {
+	-- 					"*",
+	-- 				},
+	-- 				hidden = true, -- grep hidden files/directories
+	-- 				caseSensitivity = "smart", -- sensitive, insensitive, smart
+	-- 				queryPosition = "bottom",
+	-- 				preview = true,
+	-- 				previewPosition = "right",
+	-- 				callback = {
+	-- 					[key.DEFAULT] = jfind.editGotoLine,
+	-- 				},
+	-- 			})
+	-- 		end)
+	-- 	end,
+	-- },
 	{
 		"nvim-tree/nvim-tree.lua",
 		config = function()
@@ -586,7 +550,6 @@ require("lazy").setup({
 					"c",
 					"lua",
 					"vim",
-					"help",
 					"typescript",
 					"javascript",
 					"php",
