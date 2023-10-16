@@ -598,6 +598,33 @@ require("lazy").setup({
 				highlight = {
 					enable = true,
 				},
+				incremental_selection = {
+					enable = true,
+					keymaps = {
+						init_selection = "<CR>",
+						scope_incremental = "<CR>",
+						node_incremental = "<TAB>",
+						node_decremental = "<S-TAB>",
+					},
+				},
+			})
+		end,
+	},
+	{
+		"nvim-treesitter/nvim-treesitter-textobjects",
+		config = function()
+			require("nvim-treesitter.configs").setup({
+				textobjects = {
+					select = {
+						enable = true,
+						keymaps = {
+							["af"] = "@function.outer",
+							["if"] = "@function.inner",
+							["ac"] = "@class.outer",
+							["ic"] = "@class.inner",
+						},
+					},
+				},
 			})
 		end,
 	},
