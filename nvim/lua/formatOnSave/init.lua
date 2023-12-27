@@ -49,9 +49,33 @@ setAutoFormat("*.ts", {
 	F.eslint,
 })
 
+setAutoFormat("*.json", {
+	F.prettier,
+})
+
+setAutoFormat("*.md", {
+	F.prettier,
+})
+
+setAutoFormat("*.yml", {
+	F.prettier,
+})
+
+setAutoFormat("*.yaml", {
+	F.prettier,
+})
+
 setAutoFormat("*.vue", {
 	F.prettier,
 	F.eslint,
+})
+
+setAutoFormat("*.html", {
+	F.prettier,
+})
+
+setAutoFormat("*.scss", {
+	F.prettier,
 })
 
 -- Lua

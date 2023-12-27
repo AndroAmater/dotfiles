@@ -253,7 +253,7 @@ require("lazy").setup({
 						"--with-filename",
 						"--line-number",
 						"--column",
-						"--smart-case",
+						-- "--smart-case",
 						"--hidden",
 						-- "--no-ignore",
 						"--sort",
@@ -405,7 +405,7 @@ require("lazy").setup({
 				require("nvim-tree").setup({
 					sort_by = "case_sensitive",
 					view = {
-						width = 50,
+						width = 100,
 					},
 					filters = {
 						dotfiles = false,
@@ -611,6 +611,9 @@ require("lazy").setup({
 		end,
 	},
 	{
+		"nvim-treesitter/playground",
+	},
+	{
 		"nvim-treesitter/nvim-treesitter-textobjects",
 		config = function()
 			require("nvim-treesitter.configs").setup({
@@ -629,6 +632,9 @@ require("lazy").setup({
 		end,
 	},
 	{
+		"nvim-treesitter/nvim-treesitter-angular",
+	},
+	{
 		"VonHeikemen/lsp-zero.nvim",
 		branch = "v1.x",
 		dependencies = {
@@ -638,6 +644,9 @@ require("lazy").setup({
 				flags = {
 					allow_incremental_sync = false,
 					debounce_text_changes = 100,
+				},
+				servers = {
+					angularls = {},
 				},
 			}, -- Required
 			{
@@ -681,6 +690,7 @@ require("lazy").setup({
 							"typescript-language-server",
 							"vue-language-server",
 							"yaml-language-server",
+							"angular-language-server",
 						},
 					})
 				end,
@@ -724,7 +734,23 @@ require("lazy").setup({
 				filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue", "json" },
 			})
 
+			require("lspconfig").angularls.setup({
+				root_dir = require("lspconfig/util").root_pattern("nx.json", ".git") or vim.loop.os_homedir(),
+			})
+
 			lsp.setup()
+		end,
+	},
+	-- Angular
+	{ "joeveiga/ng.nvim" },
+
+	-- External
+	{
+		"iamcco/markdown-preview.nvim",
+		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+		ft = { "markdown" },
+		build = function()
+			vim.fn["mkdp#util#install"]()
 		end,
 	},
 })
