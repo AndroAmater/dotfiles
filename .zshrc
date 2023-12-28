@@ -8,19 +8,17 @@ export PATH="$PATH:$HOME/.cargo/bin"
 export PATH=~/.config/composer/vendor/bin:$PATH
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/go/bin:$PATH"
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# bun completions
+[ -s "/home/andrejf/.bun/_bun" ] && source "/home/andrejf/.bun/_bun"
 
 # Enable compdef
 autoload -Uz compinit && compinit
 
 # Configure oh-my-posh
 eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/config.json)"
-
-# Enable pyenv (LeanIX)
-eval "$(pyenv init --path)"
-eval "$(pyenv virtualenv-init -)"
-
-# Source fzf keybindings
-# source /usr/share/fzf/key-bindings.zsh
 
 # Aliases
 alias go-hl="cd $HOME/Documents/Hudlajf"
@@ -64,14 +62,38 @@ _tt() {
 }
 compdef _tt tt
 
-# (LEANIX specific)
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# Figure out if script runs on mac or Linux
+unameOut="$(uname -s)"
+case "${unameOut}" in
+    Linux*)     machine=Linux;;
+    Darwin*)    machine=Mac;;
+    CYGWIN*)    machine=Cygwin;;
+    MINGW*)     machine=MinGw;;
+    *)          machine="UNKNOWN:${unameOut}"
+esac
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+echo ${machine}
 
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+if [ "$machine" == "Mac" ]; then
+    # Enable pyenv (LeanIX)
+    eval "$(pyenv init --path)"
+    eval "$(pyenv virtualenv-init -)"
 
-ulimit -n 10204
-ulimit -s 10204
+    # (LEANIX specific)
+    [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+    export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+    ulimit -n 10204
+    ulimit -s 10204
+elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+    # code for GNU/Linux platform
+
+    # Source fzf keybindings
+    source /usr/share/fzf/key-bindings.zsh
+fi
+
