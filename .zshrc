@@ -44,6 +44,9 @@ alias lt="exa --tree --long --header --git --group --icons --all"
 # Build rust crate for any docker container
 alias rust-musl-builder='docker run --rm -it -v "$(pwd)":/home/rust/src ekidd/rust-musl-builder'
 
+# Share history between terminals
+setopt share_history
+
 # Tmux templates handler
 function tt() {
     local tmux_template_dir="$HOME/.config/tmux/templates/"
@@ -72,9 +75,7 @@ case "${unameOut}" in
     *)          machine="UNKNOWN:${unameOut}"
 esac
 
-echo ${machine}
-
-if [ "$machine" == "Mac" ]; then
+if [ "$machine" = "Mac" ]; then
     # Enable pyenv (LeanIX)
     eval "$(pyenv init --path)"
     eval "$(pyenv virtualenv-init -)"
@@ -90,7 +91,7 @@ if [ "$machine" == "Mac" ]; then
 
     ulimit -n 10204
     ulimit -s 10204
-elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+elif [ "$(expr substr $(uname -s) 1 5)" = "Linux" ]; then
     # code for GNU/Linux platform
 
     # Source fzf keybindings
