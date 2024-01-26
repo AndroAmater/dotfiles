@@ -10,3 +10,8 @@ local log = function(value)
     io.close(log_file)
 end
 ```
+
+# Ideas
+
+- Bufferline show only unsaved tabs or tabs with errors
+- Vim surround keep selection after surround/replace surround
