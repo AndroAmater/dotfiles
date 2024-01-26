@@ -18,6 +18,7 @@ require("formatOnSave")
 
 local vim = vim
 
+-- TODO: Finish this or remove it
 -- Function to call Go binary
 _G.call_go_binary = function()
 	-- Create a new buffer for the terminal
