@@ -88,3 +88,9 @@ setAutoFormat("*.lua", {
 setAutoFormat("*.go", {
 	F.gofmt,
 })
+
+-- PHP
+
+setAutoFormat("*.php", {
+	F.prettier,
+})
