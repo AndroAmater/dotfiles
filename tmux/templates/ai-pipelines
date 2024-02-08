@@ -1,0 +1,10 @@
+#!/bin/sh
+
+tmux new-session -s 'ai-pipelines' -c "$HOME/Documents/Projects/ai-pipelines/" \; \
+    send-keys 'n' C-m \; \
+    new-window -c "$HOME/Documents/Projects/ai-pipelines/" \; \
+    send-keys "lg" C-m \; \
+    new-window -c "$HOME/Documents/Projects/ai-pipelines/" \; \
+    send-keys 'bun dev' C-m \; \
+    new-window -c "$HOME/Documents/Projects/ai-pipelines/" \; \
+    select-window -t 1 \;
