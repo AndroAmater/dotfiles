@@ -63,42 +63,42 @@ require("lazy").setup({
 	},
 
 	-- Decorational
-	{
-		"echasnovski/mini.animate",
-		version = false,
-		config = function()
-			local animate = require("mini.animate")
-			animate.setup({
-				cursor = {
-					enable = true,
-					timing = animate.gen_timing.linear({ duration = 100, unit = "total" }),
-				},
-				scroll = {
-					enable = false,
-				},
-				resize = {
-					enable = false,
-				},
-				open = {
-					enable = false,
-				},
-				close = {
-					enable = false,
-				},
-			})
-		end,
-	},
+	-- {
+	-- 	"echasnovski/mini.animate",
+	-- 	version = false,
+	-- 	config = function()
+	-- 		local animate = require("mini.animate")
+	-- 		animate.setup({
+	-- 			cursor = {
+	-- 				enable = true,
+	-- 				timing = animate.gen_timing.linear({ duration = 100, unit = "total" }),
+	-- 			},
+	-- 			scroll = {
+	-- 				enable = false,
+	-- 			},
+	-- 			resize = {
+	-- 				enable = false,
+	-- 			},
+	-- 			open = {
+	-- 				enable = false,
+	-- 			},
+	-- 			close = {
+	-- 				enable = false,
+	-- 			},
+	-- 		})
+	-- 	end,
+	-- },
 
 	-- Visual plugins
-	{
-		"https://github.com/Yggdroot/indentLine.git",
-		config = function()
-			vim.g.indentLine_char = "▏"
-			vim.g.vim_json_conceal = 0
-			vim.g.markdown_syntax_conceal = 0
-			vim.g.indentLine_setConceal = 0
-		end,
-	},
+	-- {
+	-- 	"https://github.com/Yggdroot/indentLine.git",
+	-- 	config = function()
+	-- 		vim.g.indentLine_char = "▏"
+	-- 		vim.g.vim_json_conceal = 0
+	-- 		vim.g.markdown_syntax_conceal = 0
+	-- 		vim.g.indentLine_setConceal = 0
+	-- 	end,
+	-- },
 	{
 		"nvim-lualine/lualine.nvim",
 		config = function()
@@ -125,7 +125,7 @@ require("lazy").setup({
 				sections = {
 					lualine_a = { "mode" },
 					lualine_b = { "branch", "diff", "diagnostics" },
-					lualine_c = { "filename" },
+					lualine_c = { { "filename", path = 1 } },
 					lualine_x = { "encoding", "fileformat", "filetype" },
 					lualine_y = { "progress" },
 					lualine_z = { "location" },
@@ -158,17 +158,17 @@ require("lazy").setup({
 			require("nvim-highlight-colors").turnOn()
 		end,
 	},
-	{
-		"wfxr/minimap.vim",
-		config = function()
-			vim.g.minimap_width = 15
-			vim.g.minimap_auto_start = 1
-			vim.g.minimap_auto_start_win_enter = 1
-			vim.g.minimap_highlight_search = 1
-			vim.g.minimap_git_colors = 1
-		end,
-	},
-	{ "petertriho/nvim-scrollbar" },
+	-- {
+	-- 	"wfxr/minimap.vim",
+	-- 	config = function()
+	-- 		vim.g.minimap_width = 15
+	-- 		vim.g.minimap_auto_start = 1
+	-- 		vim.g.minimap_auto_start_win_enter = 1
+	-- 		vim.g.minimap_highlight_search = 1
+	-- 		vim.g.minimap_git_colors = 1
+	-- 	end,
+	-- },
+	-- { "petertriho/nvim-scrollbar" },
 	{ "https://github.com/airblade/vim-gitgutter.git" },
 	{
 		"folke/todo-comments.nvim",
@@ -181,31 +181,31 @@ require("lazy").setup({
 			})
 		end,
 	},
-	{
-		"nvim-orgmode/orgmode",
-		config = function()
-			-- Load custom treesitter grammar for org filetype
-			require("orgmode").setup_ts_grammar()
+	-- {
+	-- 	"nvim-orgmode/orgmode",
+	-- 	config = function()
+	-- 		-- Load custom treesitter grammar for org filetype
+	-- 		require("orgmode").setup_ts_grammar()
 
-			-- Treesitter configuration
-			require("nvim-treesitter.configs").setup({
-				-- If TS highlights are not enabled at all, or disabled via `disable` prop,
-				-- highlighting will fallback to default Vim syntax highlighting
-				highlight = {
-					enable = true,
-					-- Required for spellcheck, some LaTex highlights and
-					-- code block highlights that do not have ts grammar
-					additional_vim_regex_highlighting = { "org" },
-				},
-				ensure_installed = { "org" }, -- Or run :TSUpdate org
-			})
+	-- 		-- Treesitter configuration
+	-- 		require("nvim-treesitter.configs").setup({
+	-- 			-- If TS highlights are not enabled at all, or disabled via `disable` prop,
+	-- 			-- highlighting will fallback to default Vim syntax highlighting
+	-- 			highlight = {
+	-- 				enable = true,
+	-- 				-- Required for spellcheck, some LaTex highlights and
+	-- 				-- code block highlights that do not have ts grammar
+	-- 				additional_vim_regex_highlighting = { "org" },
+	-- 			},
+	-- 			ensure_installed = { "org" }, -- Or run :TSUpdate org
+	-- 		})
 
-			require("orgmode").setup({})
-		end,
-	},
+	-- 		require("orgmode").setup({})
+	-- 	end,
+	-- },
 
 	-- Navigation
-	{ "dyng/ctrlsf.vim" },
+	-- { "dyng/ctrlsf.vim" },
 	{ "christoomey/vim-tmux-navigator" },
 	{
 		"nvim-pack/nvim-spectre",
@@ -213,13 +213,13 @@ require("lazy").setup({
 			require("spectre").setup()
 		end,
 	},
-	{ "ray-x/guihua.lua" },
-	{
-		"ggandor/leap.nvim",
-		config = function()
-			require("leap").add_default_mappings()
-		end,
-	},
+	-- { "ray-x/guihua.lua" },
+	-- {
+	-- 	"ggandor/leap.nvim",
+	-- 	config = function()
+	-- 		require("leap").add_default_mappings()
+	-- 	end,
+	-- },
 	{
 		"ThePrimeagen/harpoon",
 		config = function()
@@ -444,14 +444,14 @@ require("lazy").setup({
 			end
 		end,
 	},
-	{
-		"akinsho/bufferline.nvim",
-		version = "v3.*",
-		dependencies = "nvim-tree/nvim-web-devicons",
-		config = function()
-			require("bufferline").setup({})
-		end,
-	},
+	-- {
+	-- 	"akinsho/bufferline.nvim",
+	-- 	version = "v3.*",
+	-- 	dependencies = "nvim-tree/nvim-web-devicons",
+	-- 	config = function()
+	-- 		require("bufferline").setup({})
+	-- 	end,
+	-- },
 
 	-- Editing
 	{ "mg979/vim-visual-multi" },
@@ -462,14 +462,14 @@ require("lazy").setup({
 			vim.api.nvim_set_keymap("i", "<C-J>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
 		end,
 	},
-	{ "https://github.com/cohama/lexima.vim.git" },
+	-- { "https://github.com/cohama/lexima.vim.git" },
 	"https://github.com/tpope/vim-commentary.git",
 	"https://github.com/tpope/vim-surround.git",
 	-- 'https://github.com/easymotion/vim-easymotion.git',
 
 	-- Git/history
-	{ "https://github.com/tpope/vim-fugitive.git" },
-	{ "sindrets/diffview.nvim" },
+	-- { "https://github.com/tpope/vim-fugitive.git" },
+	-- { "sindrets/diffview.nvim" },
 	{
 		"https://github.com/mbbill/undotree.git",
 		config = function()
@@ -478,7 +478,7 @@ require("lazy").setup({
 		end,
 	},
 	{ "https://github.com/rbong/vim-flog.git" },
-	{ "aspeddro/gitui.nvim" },
+	-- { "aspeddro/gitui.nvim" },
 	{
 		"gbprod/yanky.nvim",
 		config = function()
@@ -514,22 +514,22 @@ require("lazy").setup({
 	},
 
 	-- Terminal
-	{
-		"akinsho/toggleterm.nvim",
-		config = function()
-			require("toggleterm").setup({
-				size = function(term)
-					if term.direction == "horizontal" then
-						return 25
-					elseif term.direction == "vertical" then
-						return vim.o.columns * 0.4
-					end
-				end,
-				open_mapping = [[<c-p>]],
-				start_in_insert = false,
-			})
-		end,
-	},
+	-- {
+	-- 	"akinsho/toggleterm.nvim",
+	-- 	config = function()
+	-- 		require("toggleterm").setup({
+	-- 			size = function(term)
+	-- 				if term.direction == "horizontal" then
+	-- 					return 25
+	-- 				elseif term.direction == "vertical" then
+	-- 					return vim.o.columns * 0.4
+	-- 				end
+	-- 			end,
+	-- 			open_mapping = [[<c-p>]],
+	-- 			start_in_insert = false,
+	-- 		})
+	-- 	end,
+	-- },
 
 	-- Diagnostics
 	{ "folke/trouble.nvim", lazy = false },
@@ -548,6 +548,7 @@ require("lazy").setup({
 			vim.cmd([[silent! GoInstallDeps]])
 		end,
 	},
+
 	-- LSP
 	{
 		"nvim-treesitter/nvim-treesitter",
@@ -705,9 +706,6 @@ require("lazy").setup({
 			{ "saadparwaiz1/cmp_luasnip" }, -- Optional
 			{ "hrsh7th/cmp-nvim-lua" }, -- Optional
 
-			-- Formating
-			{ "https://github.com/jose-elias-alvarez/null-ls.nvim.git" },
-
 			-- Snippets
 			{ "L3MON4D3/LuaSnip" }, -- Required
 			{ "rafamadriz/friendly-snippets" }, -- Optional
@@ -730,9 +728,9 @@ require("lazy").setup({
 			-- (Optional) Configure lua language server for neovim
 			lsp.nvim_workspace()
 
-			require("lspconfig").volar.setup({
-				filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue", "json" },
-			})
+			-- require("lspconfig").volar.setup({
+			-- 	filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue", "json" },
+			-- })
 
 			require("lspconfig").angularls.setup({
 				root_dir = require("lspconfig/util").root_pattern("nx.json", ".git") or vim.loop.os_homedir(),
@@ -745,12 +743,12 @@ require("lazy").setup({
 	{ "joeveiga/ng.nvim" },
 
 	-- External
-	{
-		"iamcco/markdown-preview.nvim",
-		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-		ft = { "markdown" },
-		build = function()
-			vim.fn["mkdp#util#install"]()
-		end,
-	},
+	-- {
+	-- 	"iamcco/markdown-preview.nvim",
+	-- 	cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+	-- 	ft = { "markdown" },
+	-- 	build = function()
+	-- 		vim.fn["mkdp#util#install"]()
+	-- 	end,
+	-- },
 })
