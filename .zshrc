@@ -40,6 +40,8 @@ alias n="nvim"
 alias sz="source ~/.zshrc"
 alias ll="exa --long --header --git --group --icons --all"
 alias lt="exa --tree --long --header --git --group --icons --all"
+alias mb="brightnessctl set 40%"
+alias fb="brightnessctl set 100%"
 
 # Build rust crate for any docker container
 alias rust-musl-builder='docker run --rm -it -v "$(pwd)":/home/rust/src ekidd/rust-musl-builder'
