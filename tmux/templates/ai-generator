@@ -5,6 +5,6 @@ tmux new-session -s 'ai-generator' -c "$HOME/Documents/Projects/ai-generator/" \
     new-window -c "$HOME/Documents/Projects/ai-generator/" \; \
     send-keys "lg" C-m \; \
     new-window -c "$HOME/Documents/Projects/ai-generator/ui" \; \
-    send-keys 'bun dev' C-m \; \
+    send-keys '' C-m \; \
     new-window -c "$HOME/Documents/Projects/ai-generator/" \; \
     select-window -t 1 \;
