@@ -1,10 +1,17 @@
 return {
 	"mhartington/formatter.nvim",
 	config = function()
+		local augroup = vim.api.nvim_create_augroup
+		local autocmd = vim.api.nvim_create_autocmd
+		augroup("__formatter__", { clear = true })
+		autocmd("BufWritePost", {
+			group = "__formatter__",
+			command = ":FormatWrite",
+		})
+
 		require("formatter").setup({
 			logging = true,
 			log_level = vim.log.levels.WARN,
-			-- All formatter configurations are opt-in
 			filetype = {
 				lua = {
 					require("formatter.filetypes.lua").stylua,
@@ -26,8 +33,6 @@ return {
 					require("formatter.filetypes.typescript").prettierd,
 				},
 				["*"] = {
-					-- "formatter.filetypes.any" defines default configurations for any
-					-- filetype
 					require("formatter.filetypes.any").remove_trailing_whitespace,
 				},
 			},

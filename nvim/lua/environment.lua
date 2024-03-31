@@ -59,18 +59,6 @@ vim.g.rustfmt_autosave = 1
 -- Set signcolumn to always be visible
 vim.opt.signcolumn = "yes"
 
--- Eslint auto fix on save
-vim.api.nvim_create_autocmd("BufWritePre", {
-	pattern = { "*.tsx", "*.ts", "*.jsx", "*.js", "*.vue" },
-	command = "silent! EslintFixAll",
-	group = vim.api.nvim_create_augroup("MyAutocmdsJavaScripFormatting", {}),
-})
-
--- Configure neovide settings
-vim.g.neovide_cursor_animation_length = 0.05
-vim.g.neovide_cursor_trail_size = 0.5
-vim.g.neovide_cursor_antialiasing = true
-
 -- Configure undo file (persistent undo)
 vim.opt.undodir = vim.fn.expand("$HOME/.config/nvim/.undodir")
 vim.opt.undofile = true

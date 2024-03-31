@@ -23,6 +23,7 @@ return {
 	{ "nvim-treesitter/playground" },
 	{ "nvim-treesitter/nvim-treesitter-angular" },
 	{ "williamboman/mason-lspconfig.nvim" }, -- Optional
+	{ "j-hui/fidget.nvim" },
 
 	-- Autocompletion
 	{ "hrsh7th/cmp-nvim-lsp" },
