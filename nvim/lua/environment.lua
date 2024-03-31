@@ -74,3 +74,10 @@ vim.g.neovide_cursor_antialiasing = true
 -- Configure undo file (persistent undo)
 vim.opt.undodir = vim.fn.expand("$HOME/.config/nvim/.undodir")
 vim.opt.undofile = true
+
+-- Set the leader key
+vim.g.mapleader = " "
+
+-- Copilot
+vim.g.copilot_no_tab_map = true
+vim.api.nvim_set_keymap("i", "<C-J>", 'copilot#Accept("<CR>")', { silent = true, expr = true })

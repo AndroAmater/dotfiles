@@ -1,6 +1,3 @@
--- Set the leader key
-vim.g.mapleader = " "
-
 -- Set the insert line in normal model remap
 vim.keymap.set("n", "<leader>o", "o<Esc>", { silent = true })
 vim.keymap.set("n", "<leader>O", "O<Esc>", { silent = true })
