@@ -19,9 +19,6 @@ return {
 	-- Git/history
 	{ "https://github.com/rbong/vim-flog.git" },
 
-	-- Diagnostics
-	{ "folke/trouble.nvim", lazy = false },
-
 	-- LSP
 	{ "nvim-treesitter/playground" },
 	{ "nvim-treesitter/nvim-treesitter-angular" },
