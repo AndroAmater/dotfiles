@@ -7,10 +7,6 @@ return {
 		{ "hrsh7th/cmp-path" },
 		{ "saadparwaiz1/cmp_luasnip" },
 		{ "hrsh7th/cmp-nvim-lua" },
-
-		-- Snippets
-		{ "L3MON4D3/LuaSnip" },
-		{ "rafamadriz/friendly-snippets" },
 	},
 	config = function()
 		local cmp = require("cmp")
