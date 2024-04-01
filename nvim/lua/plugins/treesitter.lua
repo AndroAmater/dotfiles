@@ -1,6 +1,10 @@
 return {
 	"nvim-treesitter/nvim-treesitter",
 	lazy = false,
+	dependencies = {
+		"nvim-treesitter/playground",
+		"nvim-treesitter/nvim-treesitter-angular",
+	},
 	config = function()
 		require("nvim-treesitter.configs").setup({
 			-- A list of parser names, or "all" (the four listed parsers should always be installed)

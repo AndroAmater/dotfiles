@@ -6,6 +6,9 @@ return {
 	},
 	dependencies = {
 		"j-hui/fidget.nvim",
+		"joeveiga/ng.nvim",
+		"williamboman/mason-lspconfig.nvim",
+		"rust-lang/rust.vim",
 	},
 	servers = {
 		angularls = {},
