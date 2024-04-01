@@ -4,6 +4,9 @@ return {
 		allow_incremental_sync = false,
 		debounce_text_changes = 100,
 	},
+	dependencies = {
+		"j-hui/fidget.nvim",
+	},
 	servers = {
 		angularls = {},
 	},
@@ -12,6 +15,8 @@ return {
 		local vue_language_server_path = mason_registry.get_package("vue-language-server"):get_install_path()
 		local lspconfig = require("lspconfig")
 		local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+		require("fidget").setup({})
 
 		lspconfig.volar.setup({
 			filetypes = { "typescript", "javascript", "vue", "json" },
