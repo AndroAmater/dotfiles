@@ -5,6 +5,7 @@ return {
 	-- Visual plugins
 	{ "nvim-tree/nvim-web-devicons" },
 	{ "https://github.com/airblade/vim-gitgutter.git" },
+	{ "rcarriga/nvim-notify" },
 
 	-- Navigation
 	{ "christoomey/vim-tmux-navigator" },

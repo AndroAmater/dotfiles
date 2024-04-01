@@ -5,10 +5,11 @@ return {
 		debounce_text_changes = 100,
 	},
 	dependencies = {
+		"williamboman/mason-lspconfig.nvim",
 		"j-hui/fidget.nvim",
 		"joeveiga/ng.nvim",
-		"williamboman/mason-lspconfig.nvim",
 		"rust-lang/rust.vim",
+		"dmmulroy/tsc.nvim",
 	},
 	servers = {
 		angularls = {},
