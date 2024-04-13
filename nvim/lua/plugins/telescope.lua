@@ -44,6 +44,7 @@ return {
 					find_command = {
 						"rg",
 						"--files",
+						"--hidden",
 						"--sort",
 						"path",
 					},
