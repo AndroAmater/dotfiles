@@ -53,7 +53,7 @@ setopt share_history
 function tt() {
     local tmux_template_dir="$HOME/.config/tmux/templates/"
     local tmux_template_name="$1"
-    
+
     if [[ -f "$tmux_template_dir/$tmux_template_name" ]]; then
         bash "$tmux_template_dir/$tmux_template_name"
     else
@@ -100,3 +100,5 @@ elif [ "$(expr substr $(uname -s) 1 5)" = "Linux" ]; then
     source /usr/share/fzf/key-bindings.zsh
 fi
 
+# Set keyboard repeart rate and delay
+xset r rate 200 30
