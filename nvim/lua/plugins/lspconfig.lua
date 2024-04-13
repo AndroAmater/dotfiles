@@ -7,12 +7,8 @@ return {
 	dependencies = {
 		"williamboman/mason-lspconfig.nvim",
 		"j-hui/fidget.nvim",
-		"joeveiga/ng.nvim",
 		"rust-lang/rust.vim",
 		"dmmulroy/tsc.nvim",
-	},
-	servers = {
-		angularls = {},
 	},
 	config = function()
 		local mason_registry = require("mason-registry")
@@ -24,11 +20,6 @@ return {
 
 		lspconfig.volar.setup({
 			filetypes = { "typescript", "javascript", "vue", "json" },
-			capabilities = capabilities,
-		})
-
-		lspconfig.angularls.setup({
-			root_dir = require("lspconfig/util").root_pattern("nx.json", ".git") or vim.loop.os_homedir(),
 			capabilities = capabilities,
 		})
 
@@ -53,6 +44,8 @@ return {
 				},
 			},
 		})
+
+		lspconfig.intelephense.setup({})
 
 		-- Global mappings.
 		-- See `:help vim.diagnostic.*` for documentation on any of the below functions

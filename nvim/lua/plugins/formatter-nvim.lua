@@ -32,6 +32,9 @@ return {
 					require("formatter.filetypes.typescript").eslint_d,
 					require("formatter.filetypes.typescript").prettierd,
 				},
+				php = {
+					require("formatter.filetypes.php").pint,
+				},
 				["*"] = {
 					require("formatter.filetypes.any").remove_trailing_whitespace,
 				},
