@@ -169,7 +169,7 @@ vim.keymap.set("n", "<leader>tm", ':lua require("harpoon.mark").add_file()<CR>',
 vim.keymap.set("n", "<leader>th", ':lua require("harpoon.ui").toggle_quick_menu()<CR>', { silent = true })
 
 -- Surround
-vim.keymap.set("v", "s", "<Plug>VSurround", { silent = true })
+vim.keymap.set("v", "x", "<Plug>VSurround", { silent = true })
 
 -- Go
 vim.keymap.set("n", "<leader>gsj", "<cmd> GoTagAdd json <CR>", { silent = true })
@@ -196,3 +196,7 @@ vim.keymap.set("v", "<leader>sw", '<esc><cmd>lua require("spectre").open_visual(
 vim.keymap.set("n", "<leader>sf", '<cmd>lua require("spectre").open_file_search()<CR>', {
 	desc = "Search on current file",
 })
+
+vim.keymap.set("n", "<leader>A", "ggvG")
+
+vim.keymap.set("n", "<leader><tab>", ":set noexpandtab<CR>")
