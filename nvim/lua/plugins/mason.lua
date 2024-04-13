@@ -39,7 +39,6 @@ return {
 				"typescript-language-server",
 				"vue-language-server",
 				"yaml-language-server",
-				"angular-language-server",
 			},
 		})
 	end,
