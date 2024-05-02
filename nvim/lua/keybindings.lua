@@ -197,6 +197,6 @@ vim.keymap.set("n", "<leader>sf", '<cmd>lua require("spectre").open_file_search(
 	desc = "Search on current file",
 })
 
-vim.keymap.set("n", "<leader>A", "ggvG")
+vim.keymap.set("n", "<leader>A", "gg_vG$")
 
 vim.keymap.set("n", "<leader><tab>", ":set noexpandtab<CR>")
