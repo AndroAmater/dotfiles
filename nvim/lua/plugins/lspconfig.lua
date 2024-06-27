@@ -18,11 +18,6 @@ return {
 
 		require("fidget").setup({})
 
-		lspconfig.volar.setup({
-			filetypes = { "typescript", "javascript", "vue", "json" },
-			capabilities = capabilities,
-		})
-
 		lspconfig.tsserver.setup({
 			capabilities = capabilities,
 			init_options = {

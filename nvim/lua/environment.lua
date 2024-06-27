@@ -39,7 +39,7 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
 -- Set rulers
-vim.opt.colorcolumn = "80,120,160"
+vim.opt.colorcolumn = "80,100,120,160"
 
 -- Set title
 vim.opt.title = true
