@@ -25,6 +25,7 @@ alias go-hl="cd $HOME/Documents/Hudlajf"
 alias go-pr="cd $HOME/Documents/Projects"
 alias core="./core.pex"
 alias dc="docker-compose"
+alias ddd="docker compose down && docker compose up -d && docker compose logs -f"
 alias composer7="php7 /usr/bin/composer install"
 alias sssh='kitty +kitten ssh'
 alias nv="neovide --maximized --multigrid --noidle ."
@@ -42,6 +43,8 @@ alias ll="exa --long --header --git --group --icons --all"
 alias lt="exa --tree --long --header --git --group --icons --all"
 alias mb="brightnessctl set 40%"
 alias fb="brightnessctl set 100%"
+alias kcp="kubectl --context do-fra1-codedjen-production"
+alias kcg="kubectl --context do-fra1-codedjen-customer-apps"
 
 # Build rust crate for any docker container
 alias rust-musl-builder='docker run --rm -it -v "$(pwd)":/home/rust/src ekidd/rust-musl-builder'
