@@ -42,6 +42,7 @@ return {
 
 		lspconfig.intelephense.setup({})
 		lspconfig.phpactor.setup({})
+		lspconfig.eslint.setup({})
 
 		-- Global mappings.
 		-- See `:help vim.diagnostic.*` for documentation on any of the below functions
