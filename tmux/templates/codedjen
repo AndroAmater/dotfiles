@@ -4,10 +4,6 @@ tmux new-session -s 'codedjen2' -c "$HOME/Documents/Projects/codedjen2/" \; \
     send-keys 'n' C-m \; \
     new-window -c "$HOME/Documents/Projects/codedjen2/" \; \
     send-keys "lg" C-m \; \
-    new-window -c "$HOME/Documents/Projects/codedjen2/ui" \; \
-    send-keys 'bun dev' C-m \; \
-    new-window -c "$HOME/Documents/Projects/codedjen2/api" \; \
-    send-keys 'php artisan serve' C-m \; \
-    new-window -c "$HOME/Documents/Projects/codedjen2/api" \; \
-    send-keys 'php artisan queue:work' C-m \; \
+    new-window -c "$HOME/Documents/Projects/codedjen2" \; \
+    send-keys 'ddd' C-m \; \
     select-window -t 1 \;
