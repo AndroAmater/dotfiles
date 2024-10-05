@@ -22,9 +22,14 @@ vim.keymap.set("v", "<leader><C-v>", '"+p', { silent = true })
 
 vim.keymap.set({ "n", "x" }, "p", "<Plug>(YankyPutAfter)")
 vim.keymap.set({ "n", "x" }, "P", "<Plug>(YankyPutBefore)")
-vim.keymap.set({ "n", "x" }, "gp", "<Plug>(YankyGPutAfter)")
-vim.keymap.set({ "n", "x" }, "gP", "<Plug>(YankyGPutBefore)")
 vim.keymap.set({ "n", "x" }, "y", "<Plug>(YankyYank)")
+-- Paste without newlines
+vim.api.nvim_set_keymap(
+	"n",
+	"gp",
+	':let @"=substitute(substitute(getreg("0"), "\\n", "", "g"), "\\t", "", "g")<CR>"0p',
+	{ noremap = true, silent = true }
+)
 
 -- Newline without leaving normal mode
 vim.keymap.set("n", "<leader><enter>", "i<enter><esc>", { silent = true })
