@@ -104,4 +104,4 @@ elif [ "$(expr substr $(uname -s) 1 5)" = "Linux" ]; then
 fi
 
 # Set keyboard repeart rate and delay
-xset r rate 200 30
+xset r rate 175 60
