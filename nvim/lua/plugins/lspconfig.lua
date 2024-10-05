@@ -18,7 +18,7 @@ return {
 
 		require("fidget").setup({})
 
-		lspconfig.tsserver.setup({
+		lspconfig.ts_ls.setup({
 			capabilities = capabilities,
 			init_options = {
 				plugins = {
@@ -43,6 +43,7 @@ return {
 		lspconfig.intelephense.setup({})
 		lspconfig.phpactor.setup({})
 		lspconfig.eslint.setup({})
+		lspconfig.prettier.setup({})
 
 		-- Global mappings.
 		-- See `:help vim.diagnostic.*` for documentation on any of the below functions
