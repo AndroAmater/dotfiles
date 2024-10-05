@@ -9,8 +9,11 @@ return {
 
 		telescope.setup({
 			defaults = {
+				preview = {
+					filesize_limit = 0.1,
+				},
 				path_display = {
-					truncate = true,
+					"truncate",
 				},
 				wrap_results = true,
 				layout_config = {
@@ -54,6 +57,8 @@ return {
 						"!**/.git/*",
 						"!**/node_modules/*",
 						"!**/vendor/*",
+						"!**/dist/*",
+						"!**/generator/generated/*",
 					},
 				},
 			},
