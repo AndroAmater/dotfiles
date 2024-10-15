@@ -43,6 +43,7 @@ alias mb="brightnessctl set 40%"
 alias fb="brightnessctl set 100%"
 alias kcp="kubectl --context do-fra1-codedjen-production"
 alias kcg="kubectl --context do-fra1-codedjen-customer-apps"
+alias gpa="pbpaste | git apply"
 
 alias nb="npx nx serve business-capability-linking"
 alias nbp="npm run start-local-webcomponents -- business-capability-linking"
