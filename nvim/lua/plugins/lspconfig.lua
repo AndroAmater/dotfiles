@@ -40,6 +40,8 @@ return {
 			},
 		})
 
+		lspconfig.angularls.setup({})
+		lspconfig.nxls.setup({})
 		lspconfig.intelephense.setup({})
 		lspconfig.phpactor.setup({})
 		lspconfig.eslint.setup({})
