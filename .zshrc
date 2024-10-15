@@ -28,8 +28,6 @@ alias dc="docker-compose"
 alias ddd="docker compose down && docker compose up -d && docker compose logs -f"
 alias composer7="php7 /usr/bin/composer install"
 alias sssh='kitty +kitten ssh'
-alias nv="neovide --maximized --multigrid --noidle ."
-alias nvs="nvim -S Session.vim ."
 alias cdc="cd ~/.config/"
 alias nodelegacyfix="export NODE_OPTIONS=--openssl-legacy-provider"
 alias runner-start='docker run -itd -v /srv/gitlab-runner/config:/etc/gitlab-runner -v /var/run/docker.sock:/var/run/docker.sock --name="gitlab-runner" gitlab/gitlab-runner run'
@@ -45,6 +43,9 @@ alias mb="brightnessctl set 40%"
 alias fb="brightnessctl set 100%"
 alias kcp="kubectl --context do-fra1-codedjen-production"
 alias kcg="kubectl --context do-fra1-codedjen-customer-apps"
+
+alias nb="npx nx serve business-capability-linking"
+alias nbp="npm run start-local-webcomponents -- business-capability-linking"
 
 # Build rust crate for any docker container
 alias rust-musl-builder='docker run --rm -it -v "$(pwd)":/home/rust/src ekidd/rust-musl-builder'

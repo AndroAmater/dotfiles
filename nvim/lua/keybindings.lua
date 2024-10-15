@@ -84,6 +84,7 @@ vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { silent = true })
 
 -- Better search
 vim.keymap.set("n", "<leader>ss", ":nohl<cr>", { silent = true })
+vim.keymap.set("n", "*", "*N", { silent = true })
 vim.keymap.set("n", "n", "nzzzv", { silent = true })
 vim.keymap.set("n", "N", "Nzzzv", { silent = true })
 vim.keymap.set("n", "<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
