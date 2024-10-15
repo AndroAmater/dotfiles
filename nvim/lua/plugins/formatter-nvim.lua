@@ -38,6 +38,9 @@ return {
 					require("formatter.filetypes.php").phpmd,
 					require("formatter.filetypes.php").phpcs,
 				},
+				html = {
+					require("formatter.filetypes.typescript").prettierd,
+				},
 				["*"] = {
 					require("formatter.filetypes.any").remove_trailing_whitespace,
 				},
