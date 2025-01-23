@@ -17,19 +17,15 @@ return {
 					require("formatter.filetypes.lua").stylua,
 				},
 				javascript = {
-					require("formatter.filetypes.typescript").eslint_d,
 					require("formatter.filetypes.typescript").prettierd,
 				},
 				typescript = {
-					require("formatter.filetypes.typescript").eslint_d,
 					require("formatter.filetypes.typescript").prettierd,
 				},
 				vue = {
-					require("formatter.filetypes.typescript").eslint_d,
 					require("formatter.filetypes.typescript").prettierd,
 				},
 				json = {
-					require("formatter.filetypes.typescript").eslint_d,
 					require("formatter.filetypes.typescript").prettierd,
 				},
 				php = {
