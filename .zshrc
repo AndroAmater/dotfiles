@@ -98,6 +98,8 @@ if [ "$machine" = "Mac" ]; then
 
     ulimit -n 10204
     ulimit -s 10204
+
+	defaults write -g ApplePressAndHoldEnabled -bool false
 elif [ "$(expr substr $(uname -s) 1 5)" = "Linux" ]; then
     # code for GNU/Linux platform
 
