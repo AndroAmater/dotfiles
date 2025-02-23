@@ -57,6 +57,7 @@ return {
 			},
 		})
 		lspconfig.clangd.setup({})
+		lspconfig.pyright.setup({})
 
 		-- Global mappings.
 		-- See `:help vim.diagnostic.*` for documentation on any of the below functions

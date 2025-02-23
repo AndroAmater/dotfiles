@@ -28,6 +28,9 @@ return {
 				json = {
 					require("formatter.filetypes.typescript").prettierd,
 				},
+				md = {
+					require("formatter.filetypes.typescript").prettierd,
+				},
 				php = {
 					require("formatter.filetypes.php").pint,
 					require("formatter.filetypes.php").phpstan,
