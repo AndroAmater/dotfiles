@@ -67,6 +67,8 @@ return {
 						"!.venv",
 						"-g",
 						"!.vitepress",
+						"-g",
+						"!generator/generated",
 					},
 				},
 				live_grep = {
@@ -81,6 +83,7 @@ return {
 						"!**/.venv/*",
 						"!**/.vitepress/*",
 						"!**/laravel.log",
+						"!**/generator/logs/*",
 					},
 				},
 			},

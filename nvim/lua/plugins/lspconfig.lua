@@ -12,11 +12,17 @@ return {
 	},
 	config = function()
 		local mason_registry = require("mason-registry")
-		local vue_language_server_path = mason_registry.get_package("vue-language-server"):get_install_path()
+		local vue_ts_plugin_path = "/usr/lib/node_modules/@vue/typescript-plugin"
 		local lspconfig = require("lspconfig")
 		local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 		require("fidget").setup({})
+
+		print(vue_language_server_path)
+
+		lspconfig.volar.setup({
+			capabilities = capabilities,
+		})
 
 		lspconfig.ts_ls.setup({
 			capabilities = capabilities,
@@ -24,19 +30,15 @@ return {
 				plugins = {
 					{
 						name = "@vue/typescript-plugin",
-						location = vue_language_server_path,
-						languages = { "vue" },
+						location = vue_ts_plugin_path,
+						languages = { "javascript", "typescript", "vue" },
 					},
 				},
 			},
-		})
-
-		lspconfig.volar.setup({
-			capabilities = capabilities,
-			init_options = {
-				vue = {
-					hybridMode = false,
-				},
+			filetypes = {
+				"javascript",
+				"typescript",
+				"vue",
 			},
 		})
 
