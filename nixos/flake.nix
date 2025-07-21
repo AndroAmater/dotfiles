@@ -14,15 +14,20 @@
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, ... }: {
+  inputs.sops-nix.url = "github:Mic92/sops-nix";
+  inputs.sops-nix.inputs.nixpkgs.follows = "nixpkgs";
+
+  outputs = inputs@{ self, nixpkgs, home-manager, sops-nix, ... }: {
     nixosConfigurations = {
       nixos = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = { inherit inputs; };
         modules = [
           home-manager.nixosModules.home-manager
+          sops-nix.nixosModules.sops
           ./configuration.nix
           ./home.nix
+          ./k8s.nix
         ];
       };
     };

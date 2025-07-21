@@ -8,11 +8,21 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      inputs.sops-nix.nixosModules.sops
     ];
+
+  nix.extraOptions = ''
+    experimental-features = nix-command flakes
+    '';
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+
+  boot.kernel.sysctl = {
+    "net.core.rmem_max" = 16000000;
+    "net.core.wmem_max" = 16000000;
+  };
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -86,6 +96,9 @@
     fd
     font-awesome
     unzip
+    htop
+    cloudflared
+    sops
   ];
 
   programs.nix-ld.enable = true;
@@ -113,9 +126,6 @@
   # };
 
   # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
@@ -151,4 +161,47 @@
     user.name = "codecannon-server";
     user.email = "server@codecannon.dev";
   };
+
+  sops.age.keyFile = /root/.config/sops/age/keys.txt;
+
+  sops.secrets.cloudflared-creds = {
+    sopsFile = /secrets/cloudflared-creds.json;
+    format = "json";
+    key = "";
+    owner        = "root";
+    group        = "cloudflared";
+    mode         = "440";
+    restartUnits = [ "cloudflared-tunnel-d30a3a2b-6621-4f9b-9dc2-51e1058dfca4.service" ];
+  };
+
+  users.groups.cloudflared = { };
+
+  services.cloudflared = {
+    enable = true;
+    tunnels = {
+      "d30a3a2b-6621-4f9b-9dc2-51e1058dfca4" = {
+        credentialsFile = config.sops.secrets.cloudflared-creds.path;
+        warp-routing.enabled = false;
+        default = "http_status:404";
+        ingress = {
+          "server.andrejfidel.com" = "ssh://localhost";
+        };
+      };
+    };
+  };
+
+  services.openssh = {
+    enable = true;
+    ports = [ 22 ];
+    settings = {
+      PasswordAuthentication = false;
+      PermitRootLogin = "yes";
+    };
+  };
+
+  networking.firewall.allowedTCPPorts = [ 22 ];
+
+  users.users.codecannon.openssh.authorizedKeys.keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBVeZOkhHSfMO50UPdQrJcDKFVNH15gO6WJal+qQ9GN9 zephyrus-manjaro"
+  ];
 }

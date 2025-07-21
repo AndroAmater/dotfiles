@@ -10,6 +10,7 @@ export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/go/bin:$PATH"
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+export KUBECONFIG=/etc/kubernetes/cluster-admin.kubeconfig
 
 # bun completions
 [ -s "/home/andrejf/.bun/_bun" ] && source "/home/andrejf/.bun/_bun"

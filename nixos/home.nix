@@ -76,9 +76,9 @@
       # This injects dependencies into Neovim's environment.
       # It makes fzflib.so and other tools available to Telescope.
       extraPackages = with pkgs; [
-	fzf      
-	ripgrep  
-	fd      
+	fzf
+	ripgrep
+	fd
 	gcc
 	gnumake
 	cmake
