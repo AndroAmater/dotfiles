@@ -6,6 +6,7 @@ in
 {
   # resolve master hostname
   networking.extraHosts = "${kubeMasterIP} ${config.networking.hostName}";
+  networking.nftables.enable = true;
 
   programs.bash.interactiveShellInit = builtins.readFile "${inputs.dotfiles}/nixos/.bashrc";
 
@@ -29,6 +30,8 @@ in
     k9s
     openiscsi
     nfs-utils
+    nftables
+    iptables
     (wrapHelm kubernetes-helm {
       plugins = with pkgs.kubernetes-helmPlugins; [
         helm-secrets
@@ -65,19 +68,37 @@ in
       clusterCidr = "10.1.0.0/16";
     };
 
-    # easyCerts will now work correctly!
     easyCerts = true;
 
     # use coredns
     addons.dns.enable = true;
 
     # enable hairpin so container can ping itself
-    kubelet.extraOpts = "--hairpin-mode=hairpin-veth";
+    kubelet = {
+      extraConfig = {
+        hairpinMode = "hairpin-veth";
+      };
+      cni.config = [{
+        name = "cbr0";
+        type = "flannel";
+        cniVersion = "0.3.1";
+        delegate = {
+          hairpinMode = true;
+          isDefaultGateway = true;
+          bridge = "mynet";
+        };
+      }];
+    };
     proxy.extraOpts = "--proxy-mode=iptables";
+
+    flannel.enable = true;
+    flannel.openFirewallPorts = true;
   };
 
+  systemd.services.kube-proxy.path = [ pkgs.nftables ];
+
   networking.firewall = {
-    enable = false;
+    enable = true;
     trustedInterfaces = [ "mynet" "cni0" "flannel.1" "docker0" ];
   };
 }
