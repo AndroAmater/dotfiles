@@ -77,7 +77,9 @@ in
     kubelet = {
       extraConfig = {
         hairpinMode = "hairpin-veth";
+        serverTLSBootstrap = true;
       };
+      extraOpts = "--rotate-server-certificates";
       cni.config = [{
         name = "cbr0";
         type = "flannel";
@@ -101,4 +103,7 @@ in
     enable = true;
     trustedInterfaces = [ "mynet" "cni0" "flannel.1" "docker0" ];
   };
+
+  # Add port forwarding for longhorn, grafana, prometheus, alertmanager, mysql
+  networking.firewall.allowedTCPPorts = [ 8000 3000 9090 9093 3306 ];
 }
