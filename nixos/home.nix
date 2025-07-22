@@ -33,7 +33,7 @@
 
     qt = {
       enable = true;
-      platformTheme = "gtk"; # Tells Qt apps to use the GTK theme
+      platformTheme.name = "gtk"; # Tells Qt apps to use the GTK theme
       style = {
 	name = "kvantum"; # Use Kvantum for better Qt theming
 	package = pkgs.catppuccin-kvantum;
@@ -49,7 +49,7 @@
       (pkgs.catppuccin-kvantum.override { variant = "mocha"; }).out
       + "/share/Kvantum/Catppuccin-Mocha/Catppuccin-Mocha.kvconfig";
 
-    xdg.portal = {
+    xdg.portal.config = {
       enable = true;
       extraPortals = with pkgs; [
 	xdg-desktop-portal-gtk
