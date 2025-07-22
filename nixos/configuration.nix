@@ -100,6 +100,7 @@
     cloudflared
     sops
     jq
+    gnumake
   ];
 
   programs.nix-ld.enable = true;
