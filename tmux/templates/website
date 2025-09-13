@@ -1,0 +1,8 @@
+#!/bin/sh
+
+tmux new-session -s 'website' -c "$HOME/Documents/Projects/codedjen-website/" \; \
+    send-keys 'n' C-m \; \
+    new-window -c "$HOME/Documents/Projects/codedjen-website/" \; \
+    send-keys "lg" C-m \; \
+    new-window -c "$HOME/Documents/Projects/codedjen-website/" \; \
+    select-window -t 1 \;

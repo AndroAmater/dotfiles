@@ -1,6 +1,6 @@
 #!/bin/sh
 
-tmux new-session -s 'codedjen2' -c "$HOME/Documents/Projects/codedjen2/" \; \
+tmux new-session -s 'codecannon' -c "$HOME/Documents/Projects/codedjen2/" \; \
     send-keys 'n' C-m \; \
     new-window -c "$HOME/Documents/Projects/codedjen2/" \; \
     send-keys "lg" C-m \; \
