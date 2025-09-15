@@ -10,44 +10,59 @@ return {
 		"rust-lang/rust.vim",
 		"dmmulroy/tsc.nvim",
 	},
+	setup = function() end,
 	config = function()
-		local mason_registry = require("mason-registry")
-		local vue_ts_plugin_path = "/usr/lib/node_modules/@vue/typescript-plugin"
-		local lspconfig = require("lspconfig")
-		local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
 		require("fidget").setup({})
 
-		print(vue_language_server_path)
-
-		lspconfig.volar.setup({
-			capabilities = capabilities,
-		})
-
-		lspconfig.ts_ls.setup({
-			capabilities = capabilities,
-			init_options = {
-				plugins = {
-					{
-						name = "@vue/typescript-plugin",
-						location = vue_ts_plugin_path,
-						languages = { "javascript", "typescript", "vue" },
+		local capabilities = require("cmp_nvim_lsp").default_capabilities()
+		local vue_language_server_path = vim.fn.expand("$MASON/packages")
+			.. "/vue-language-server"
+			.. "/node_modules/@vue/language-server"
+		local tsserver_filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" }
+		local vue_plugin = {
+			name = "@vue/typescript-plugin",
+			location = vue_language_server_path,
+			languages = { "vue" },
+			configNamespace = "typescript",
+		}
+		local vtsls_config = {
+			settings = {
+				vtsls = {
+					tsserver = {
+						globalPlugins = {
+							vue_plugin,
+						},
 					},
 				},
 			},
-			filetypes = {
-				"javascript",
-				"typescript",
-				"vue",
+			filetypes = tsserver_filetypes,
+		}
+
+		vim.lsp.config("vtsls", vtsls_config)
+		vim.lsp.config("vue_ls", {})
+		vim.lsp.config("ts_ls", {
+			capabilities = capabilities,
+			init_options = {
+				plugins = {
+					vue_plugin,
+				},
+				preferences = {
+					includePackageJsonAutoImports = "on",
+					maximumHoverLength = 5000,
+				},
+			},
+			filetypes = tsserver_filetypes,
+		})
+		vim.lsp.enable({ "vtsls", "vue_ls" })
+
+		vim.lsp.enable("intelephense")
+		vim.lsp.enable("phpactor")
+		vim.lsp.enable("eslint", {
+			codeActionOnSave = {
+				enable = true,
 			},
 		})
-
-		lspconfig.angularls.setup({})
-		lspconfig.nxls.setup({})
-		lspconfig.intelephense.setup({})
-		lspconfig.phpactor.setup({})
-		-- lspconfig.eslint.setup({})
-		lspconfig.gopls.setup({
+		vim.lsp.enable("gopls", {
 			settings = {
 				gopls = {
 					analyses = {
@@ -58,8 +73,7 @@ return {
 				},
 			},
 		})
-		lspconfig.clangd.setup({})
-		lspconfig.pyright.setup({})
+		vim.lsp.enable("pyright")
 
 		-- Global mappings.
 		-- See `:help vim.diagnostic.*` for documentation on any of the below functions
