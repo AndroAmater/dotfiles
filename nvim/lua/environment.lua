@@ -45,7 +45,11 @@ vim.opt.title = true
 vim.opt.titlestring = str_split(vim.fn.getcwd(), "/")[#str_split(vim.fn.getcwd(), "/")]
 
 -- Set virtualtext
-vim.diagnostic.config({ virtual_text = true })
+vim.diagnostic.config({
+	virtual_text = true,
+	signs = true,
+	underline = true,
+})
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
 	virtual_text = true,
 	signs = true,
