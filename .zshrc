@@ -24,16 +24,9 @@ eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/config.json)"
 # Aliases
 alias go-hl="cd $HOME/Documents/Hudlajf"
 alias go-pr="cd $HOME/Documents/Projects"
-alias core="./core.pex"
 alias dc="docker-compose"
 alias ddd="docker compose down && docker compose up -d && docker compose logs -f"
-alias composer7="php7 /usr/bin/composer install"
 alias sssh='kitty +kitten ssh'
-alias cdc="cd ~/.config/"
-alias nodelegacyfix="export NODE_OPTIONS=--openssl-legacy-provider"
-alias runner-start='docker run -itd -v /srv/gitlab-runner/config:/etc/gitlab-runner -v /var/run/docker.sock:/var/run/docker.sock --name="gitlab-runner" gitlab/gitlab-runner run'
-alias runner-reset="docker kill gitlab-runner ; docker rm gitlab-runner ; runner-start"
-alias gg="git-graph"
 alias lg="lazygit"
 alias c="clear"
 alias n="nvim"
@@ -46,8 +39,11 @@ alias kcp="kubectl --context do-fra1-codedjen-production"
 alias kcg="kubectl --context do-fra1-codedjen-customer-apps"
 alias gpa="pbpaste | git apply"
 
-alias nb="npx nx serve business-capability-linking"
-alias nbp="npm run start-local-webcomponents -- business-capability-linking"
+# Codecannon aliases
+alias dcg="docker compose exec generator sh"
+alias dca="docker compose exec api sh"
+alias dcs="docker compose exec shepherd sh"
+alias dcu="docker compose exec ui sh"
 
 # Build rust crate for any docker container
 alias rust-musl-builder='docker run --rm -it -v "$(pwd)":/home/rust/src ekidd/rust-musl-builder'
