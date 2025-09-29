@@ -54,14 +54,40 @@ return {
 			filetypes = tsserver_filetypes,
 		})
 		vim.lsp.enable({ "vtsls", "vue_ls" })
-
-		vim.lsp.enable("intelephense")
-		vim.lsp.enable("phpactor")
 		vim.lsp.enable("eslint", {
 			codeActionOnSave = {
 				enable = true,
 			},
 		})
+
+		vim.lsp.config("intelephense", {
+			root_markers = { "composer.json" },
+			init_options = {
+				licenceKey = "002BAVBEE0B7W70",
+			},
+			settings = {
+				intelephense = {
+					files = {
+						maxSize = 1000000000000,
+					},
+				},
+			},
+		})
+		vim.lsp.enable("intelephense")
+
+		vim.lsp.config("phpactor", {
+			root_markers = { "composer.json" },
+			init_options = {
+				["language_server_phpstan.enabled"] = true,
+				["language_server_phpstan.bin"] = "vendor/bin/phpstan",
+				["language_server_phpstan.mem_limit"] = "8G",
+				["language_server.diagnostic_providers"] = { "phpstan" },
+			},
+		})
+		vim.lsp.enable("phpactor")
+
+		-- vim.lsp.enable("laravel_ls")
+
 		vim.lsp.enable("gopls", {
 			settings = {
 				gopls = {
