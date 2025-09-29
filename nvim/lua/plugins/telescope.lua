@@ -75,6 +75,8 @@ return {
 						"!.vitepress",
 						"-g",
 						"!generator/generated",
+						"-g",
+						"!__snapshots__",
 					},
 				},
 				live_grep = {
@@ -90,6 +92,7 @@ return {
 						"!**/.vitepress/*",
 						"!**/laravel.log",
 						"!**/generator/logs/*",
+						"!**/__snapshots__/*",
 					},
 				},
 			},
