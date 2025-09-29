@@ -26,6 +26,7 @@ alias go-hl="cd $HOME/Documents/Hudlajf"
 alias go-pr="cd $HOME/Documents/Projects"
 alias dc="docker-compose"
 alias ddd="docker compose down && docker compose up -d && docker compose logs -f"
+alias ddj="docker compose down && docker compose up -d && make logs-jq"
 alias sssh='kitty +kitten ssh'
 alias lg="lazygit"
 alias c="clear"
