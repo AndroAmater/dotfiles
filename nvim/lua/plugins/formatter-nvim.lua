@@ -33,9 +33,6 @@ return {
 				},
 				php = {
 					require("formatter.filetypes.php").pint,
-					require("formatter.filetypes.php").phpstan,
-					require("formatter.filetypes.php").phpmd,
-					require("formatter.filetypes.php").phpcs,
 				},
 				html = {
 					require("formatter.filetypes.typescript").prettierd,
