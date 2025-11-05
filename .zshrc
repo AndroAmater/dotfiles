@@ -25,8 +25,8 @@ eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/config.json)"
 alias go-hl="cd $HOME/Documents/Hudlajf"
 alias go-pr="cd $HOME/Documents/Projects"
 alias dc="docker-compose"
-alias ddd="docker compose down && docker compose up -d && docker compose logs -f"
-alias ddj="docker compose down && docker compose up -d && make logs-jq"
+alias ddd="docker compose down && docker compose up -d --build && docker compose logs -f"
+alias ddj="docker compose down && docker compose up -d --build && make logs-jq"
 alias sssh='kitty +kitten ssh'
 alias lg="lazygit"
 alias c="clear"
@@ -107,3 +107,36 @@ fi
 
 # Set keyboard repeart rate and delay
 xset r rate 175 60
+
+twitterify () {
+  if [ -z "$1" ]; then
+    echo "Usage: twenc <basename>"
+    echo "Example: twenc 11   # reads 11.mov and writes 11_twitter.mp4"
+    return 1
+  fi
+
+  local base="$1"
+  local in=""
+
+  # Try common video extensions if you don't include one.
+  for ext in mov mp4 m4v mkv; do
+    if [ -f "${base}.${ext}" ]; then
+      in="${base}.${ext}"
+      break
+    fi
+  done
+
+  if [ -z "$in" ]; then
+    echo "Input not found. Looked for: ${base}.mov/.mp4/.m4v/.mkv"
+    return 1
+  fi
+
+  local out="${base}_twitter.mp4"
+
+  ffmpeg -i "$in" \
+    -map 0:v:0 -map 0:a:0 \
+    -c:v libx264 -profile:v high -level 4.2 -pix_fmt yuv420p \
+    -c:a aac -profile:a aac_low -b:a 320k -ar 48000 -ac 2 \
+    -movflags +faststart \
+    "$out"
+}
