@@ -41,10 +41,10 @@ alias kcg="kubectl --context do-fra1-codedjen-customer-apps"
 alias gpa="pbpaste | git apply"
 
 # Codecannon aliases
-alias dcg="docker compose exec generator sh"
-alias dca="docker compose exec api sh"
+alias dcg="docker compose exec -u codecannon generator sh"
+alias dca="docker compose exec -u codecannon api sh"
 alias dcs="docker compose exec shepherd sh"
-alias dcu="docker compose exec ui sh"
+alias dcu="docker compose exec -u node ui sh"
 
 # Build rust crate for any docker container
 alias rust-musl-builder='docker run --rm -it -v "$(pwd)":/home/rust/src ekidd/rust-musl-builder'
