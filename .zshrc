@@ -45,7 +45,7 @@ alias dcg="docker compose exec -u codecannon generator sh"
 alias dca="docker compose exec -u codecannon api sh"
 alias dcsh="docker compose exec shepherd sh"
 alias dcu="docker compose exec -u node ui sh"
-alias dcsc="docker compose exec -u codecannon schemas sh"
+alias dcsc="docker compose exec -u node schemas sh"
 
 # Build rust crate for any docker container
 alias rust-musl-builder='docker run --rm -it -v "$(pwd)":/home/rust/src ekidd/rust-musl-builder'
@@ -141,3 +141,6 @@ twitterify () {
     -movflags +faststart \
     "$out"
 }
+
+# opencode
+export PATH=/home/andrejf/.opencode/bin:$PATH
