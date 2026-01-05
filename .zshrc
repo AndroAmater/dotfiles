@@ -10,7 +10,7 @@ export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/go/bin:$PATH"
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
-export KUBECONFIG=/etc/kubernetes/cluster-admin.kubeconfig
+export KUBECONFIG=~/.kube/config
 
 # bun completions
 [ -s "/home/andrejf/.bun/_bun" ] && source "/home/andrejf/.bun/_bun"
@@ -24,6 +24,7 @@ eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/config.json)"
 # Aliases
 alias go-hl="cd $HOME/Documents/Hudlajf"
 alias go-pr="cd $HOME/Documents/Projects"
+alias go-cc="cd $HOME/Documents/Projects/codedjen2"
 alias dc="docker-compose"
 alias ddd="docker compose down && docker compose up -d --build && docker compose logs -f"
 alias ddj="docker compose down && docker compose up -d --build && make logs-jq"
