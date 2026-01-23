@@ -1,0 +1,17 @@
+plugins:
+  jqlogs:
+    shortCut: Ctrl-J
+    confirm: false
+    description: "Logs (jq)"
+    scopes:
+      - pod
+    command: zsh
+    background: false
+    args:
+      - -c
+      - |
+        nvim -u NORC -n \
+          +':set noswapfile' \
+          +':autocmd TermOpen * setlocal scrollback=100000' \
+          +":terminal kubectl logs -f $NAME -n $NAMESPACE --context $CONTEXT \
+            | stdbuf -oL jq -SR '. as \$line | try (fromjson) catch \$line'"
