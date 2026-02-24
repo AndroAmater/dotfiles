@@ -40,6 +40,7 @@ alias fb="brightnessctl set 100%"
 alias kcp="kubectl --context do-fra1-codedjen-production"
 alias kcg="kubectl --context do-fra1-codedjen-customer-apps"
 alias gpa="pbpaste | git apply"
+alias cc="./cannon"
 
 # Codecannon aliases
 alias dcg="docker compose exec -u codecannon generator sh"
@@ -145,3 +146,14 @@ twitterify () {
 
 # opencode
 export PATH=/home/andrejf/.opencode/bin:$PATH
+
+opc() {
+  (
+    if [[ -f "./.env" ]]; then
+      set -a
+      source "./.env"
+      set +a
+    fi
+    command opencode "$@"
+  )
+}
