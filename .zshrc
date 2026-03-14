@@ -157,3 +157,6 @@ opc() {
     command opencode "$@"
   )
 }
+
+# cannon CLI completions
+[ -f "/home/andrejf/.cannon_completions.zsh" ] && source "/home/andrejf/.cannon_completions.zsh"
