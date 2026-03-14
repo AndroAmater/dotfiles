@@ -1,0 +1,9 @@
+#!/bin/sh
+
+tmux new-session -s 'codecannon-ai-4' -c "$HOME/Documents/Projects/codecannon4/" \; \
+    send-keys 'n' C-m \; \
+    new-window -c "$HOME/Documents/Projects/codecannon4/" \; \
+    send-keys "lg" C-m \; \
+    new-window -c "$HOME/Documents/Projects/codecannon4" \; \
+    send-keys 'opc' C-m \; \
+    select-window -t 1 \;

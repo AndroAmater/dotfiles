@@ -5,5 +5,5 @@ tmux new-session -s 'codecannon' -c "$HOME/Documents/Projects/codedjen2/" \; \
     new-window -c "$HOME/Documents/Projects/codedjen2/" \; \
     send-keys "lg" C-m \; \
     new-window -c "$HOME/Documents/Projects/codedjen2" \; \
-    send-keys 'ddd' C-m \; \
+    send-keys 'opc' C-m \; \
     select-window -t 1 \;

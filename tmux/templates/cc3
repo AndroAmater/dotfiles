@@ -5,5 +5,5 @@ tmux new-session -s 'codecannon-ai-3' -c "$HOME/Documents/Projects/codecannon3/"
     new-window -c "$HOME/Documents/Projects/codecannon3/" \; \
     send-keys "lg" C-m \; \
     new-window -c "$HOME/Documents/Projects/codecannon3" \; \
-    send-keys 'opencode' C-m \; \
+    send-keys 'opc' C-m \; \
     select-window -t 1 \;
