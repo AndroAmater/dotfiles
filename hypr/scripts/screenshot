@@ -1,0 +1,83 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+mode="${1:-}"
+target="${2:-}"
+pictures_dir="${HOME}/Pictures"
+
+usage() {
+    printf 'usage: screenshot <full|window|area> <file|clipboard>\n' >&2
+    exit 1
+}
+
+active_geometry() {
+    hyprctl -j activewindow | jq -r '
+        if (.at | type) == "array" and (.size | type) == "array" then
+            "\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"
+        else
+            empty
+        end
+    '
+}
+
+capture_to_file() {
+    local geometry="${1:-}"
+    local output_file
+
+    mkdir -p "${pictures_dir}"
+    output_file="${pictures_dir}/$(date +%Y-%m-%d_%H-%M-%S).png"
+
+    if [[ -n "${geometry}" ]]; then
+        grim -g "${geometry}" "${output_file}"
+    else
+        grim "${output_file}"
+    fi
+}
+
+capture_to_clipboard() {
+    local geometry="${1:-}"
+
+    if [[ -n "${geometry}" ]]; then
+        grim -g "${geometry}" - | wl-copy --type image/png
+    else
+        grim - | wl-copy --type image/png
+    fi
+}
+
+if [[ -z "${mode}" || -z "${target}" ]]; then
+    usage
+fi
+
+geometry=""
+
+case "${mode}" in
+    full)
+        geometry=""
+        ;;
+    window)
+        geometry="$(active_geometry)"
+        [[ -n "${geometry}" ]] || exit 1
+        ;;
+    area)
+        if ! geometry="$(slurp)"; then
+            exit 0
+        fi
+        [[ -n "${geometry}" ]] || exit 0
+        ;;
+    *)
+        usage
+        ;;
+esac
+
+case "${target}" in
+    file)
+        capture_to_file "${geometry}"
+        ;;
+    clipboard)
+        capture_to_clipboard "${geometry}"
+        ;;
+    *)
+        usage
+        ;;
+esac

@@ -64,6 +64,32 @@
       become_user: andrejf
       ignore_errors: yes
 
+    - name: Remove hypr config
+      file: path=/home/andrejf/.config/hypr state=absent
+      become_user: andrejf
+      ignore_errors: yes
+
+    - name: Install hypr config
+      file:
+        src: "/home/andrejf/.config/dotfiles/hypr/"
+        dest: "/home/andrejf/.config/hypr"
+        state: link
+        force: true
+      become_user: andrejf
+
+    - name: Remove waybar config
+      file: path=/home/andrejf/.config/waybar state=absent
+      become_user: andrejf
+      ignore_errors: yes
+
+    - name: Install waybar config
+      file:
+        src: "/home/andrejf/.config/dotfiles/waybar/"
+        dest: "/home/andrejf/.config/waybar"
+        state: link
+        force: true
+      become_user: andrejf
+
     - name: Install kitty config 
       file:
         src: "/home/andrejf/.config/dotfiles/kitty/"

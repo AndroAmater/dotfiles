@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+window_json="$(hyprctl -j activewindow 2>/dev/null || true)"
+
+if [[ -z "${window_json}" || "${window_json}" == "null" ]]; then
+    exit 0
+fi
+
+address="$(jq -r '.address // empty' <<<"${window_json}")"
+floating="$(jq -r '.floating // false' <<<"${window_json}")"
+pinned="$(jq -r '.pinned // false' <<<"${window_json}")"
+
+if [[ -z "${address}" || "${address}" == "0x0" ]]; then
+    exit 0
+fi
+
+if [[ "${floating}" != "true" ]]; then
+    hyprctl dispatch togglefloating active >/dev/null
+fi
+
+if [[ "${pinned}" != "true" ]]; then
+    hyprctl dispatch pin active >/dev/null
+fi
