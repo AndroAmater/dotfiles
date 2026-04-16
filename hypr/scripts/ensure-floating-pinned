@@ -16,10 +16,16 @@ if [[ -z "${address}" || "${address}" == "0x0" ]]; then
     exit 0
 fi
 
-if [[ "${floating}" != "true" ]]; then
-    hyprctl dispatch togglefloating active >/dev/null
-fi
-
-if [[ "${pinned}" != "true" ]]; then
+if [[ "${floating}" == "true" && "${pinned}" == "true" ]]; then
+    # Already floating and pinned - toggle back to normal
     hyprctl dispatch pin active >/dev/null
+    hyprctl dispatch togglefloating active >/dev/null
+else
+    # Make it floating and pinned
+    if [[ "${floating}" != "true" ]]; then
+        hyprctl dispatch togglefloating active >/dev/null
+    fi
+    if [[ "${pinned}" != "true" ]]; then
+        hyprctl dispatch pin active >/dev/null
+    fi
 fi
