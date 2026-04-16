@@ -1,7 +1,7 @@
 {
   "layer": "top",
   "position": "bottom",
-  "height": 38,
+  "height": 48,
   "spacing": 8,
   "modules-left": ["hyprland/workspaces"],
   "modules-center": ["clock"],
@@ -29,25 +29,25 @@
   "disk": {
     "path": "/",
     "interval": 30,
-    "format": " {percentage_used}%"
+    "format": "<span font_family='Font Awesome 6 Sharp' color='#c792ea'></span> {free}"
   },
 
   "memory": {
     "interval": 10,
-    "format": " {percentage}%"
+    "format": "<span font_family='Font Awesome 6 Sharp' color='#82aaff'></span> {avail:0.1f} GiB"
   },
 
   "cpu": {
     "interval": 2,
-    "format": " {usage}%"
+    "format": "<span font_family='Font Awesome 6 Sharp' color='#ffcb6b'></span> {usage}%"
   },
 
   "network": {
     "interval": 5,
-    "format-wifi": " {essid}",
-    "format-ethernet": "󰈀 {ipaddr}/{cidr}",
-    "format-linked": "󰈀 {ifname}",
-    "format-disconnected": "󰖪 down",
+    "format-wifi": "<span font_family='Font Awesome 6 Sharp' color='#c3e88d'></span> {essid}",
+    "format-ethernet": "<span font_family='Font Awesome 6 Sharp' color='#c3e88d'></span> {ipaddr}/{cidr}",
+    "format-linked": "<span font_family='Font Awesome 6 Sharp' color='#c3e88d'></span> {ifname}",
+    "format-disconnected": "<span font_family='Font Awesome 6 Sharp' color='#f07178'></span> down",
     "tooltip-format": "{ifname} via {gwaddr}"
   },
 
@@ -68,7 +68,7 @@
   },
 
   "clock": {
-    "format": " {:%Y-%m-%d %H:%M}"
+    "format": " {:%Y-%m-%d %H:%M}"
   },
 
   "tray": {
@@ -79,8 +79,8 @@
     "format": "{icon} {volume}%",
     "format-muted": "󰝟 muted",
     "format-icons": {
-      "default": ["", "", ""],
-      "headphone": "",
+      "default": ["", "", ""],
+      "headphone": "",
       "headset": "󰋎"
     },
     "scroll-step": 5,
