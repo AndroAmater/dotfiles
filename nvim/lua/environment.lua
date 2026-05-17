@@ -44,6 +44,9 @@ vim.opt.colorcolumn = "80,100,120,160"
 vim.opt.title = true
 vim.opt.titlestring = str_split(vim.fn.getcwd(), "/")[#str_split(vim.fn.getcwd(), "/")]
 
+-- Use the system clipboard for regular yanks, deletes, and puts.
+vim.opt.clipboard = "unnamedplus"
+
 -- Set virtualtext
 vim.diagnostic.config({
 	virtual_text = true,
