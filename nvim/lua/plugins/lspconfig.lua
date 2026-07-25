@@ -162,5 +162,7 @@ return {
 				vim.lsp.buf.format({ async = false })
 			end,
 		})
+
+		vim.lsp.enable("zls")
 	end,
 }
