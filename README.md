@@ -86,3 +86,8 @@ git config --global user.signingkey ~/.ssh/id_ed25519.pub
 Add sddm-conf-git
 Add feh
 Add nitrogen
+
+## Fix lazigit delta php highlighting
+```bash
+bat cache --build
+```
