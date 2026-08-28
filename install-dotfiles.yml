@@ -90,6 +90,19 @@
         force: true
       become_user: andrejf
 
+    - name: Remove quickshell config
+      file: path=/home/andrejf/.config/quickshell state=absent
+      become_user: andrejf
+      ignore_errors: yes
+
+    - name: Install quickshell config
+      file:
+        src: "/home/andrejf/.config/dotfiles/quickshell/"
+        dest: "/home/andrejf/.config/quickshell"
+        state: link
+        force: true
+      become_user: andrejf
+
     - name: Install kitty config 
       file:
         src: "/home/andrejf/.config/dotfiles/kitty/"
