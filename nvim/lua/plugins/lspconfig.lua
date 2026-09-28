@@ -38,6 +38,8 @@ return {
 			filetypes = tsserver_filetypes,
 		}
 
+		vim.lsp.enable("zls")
+
 		vim.lsp.config("vtsls", vtsls_config)
 		vim.lsp.config("vue_ls", {})
 		vim.lsp.config("ts_ls", {
