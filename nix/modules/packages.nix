@@ -53,8 +53,28 @@
 
     # Containers / k8s
     docker-compose
+    dive
     kubectl
+    kubectx
+    kubernetes-helm
     k9s
+    argocd
+    doctl
+    vault
+
+    # Misc CLI
+    vim
+    tree
+    yq
+    imagemagick
+    gh
+    pnpm
+    uv
+    rust-analyzer
+    bazelisk
+    # The AUR bazelisk-bin also provided `bazel`.
+    (writeShellScriptBin "bazel" ''exec ${bazelisk}/bin/bazelisk "$@"'')
+    playwright-test
 
     opencode
   ];

@@ -54,14 +54,30 @@
     networkmanagerapplet # nm-connection-editor
     btop
     xset
+    bluetui
+    gnome-control-center
     chromium
     firefox
+    google-chrome
     code-cursor
     vscode
+    jetbrains-toolbox
     nautilus
     vlc
+    mpv
+    feh
     obs-studio
+    handbrake
+    inkscape
+    drawio
+    libreoffice
+    kdePackages.okular
+    obsidian
+    discord
+    transmission_4-gtk
   ];
+
+  programs.steam.enable = true;
 
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
@@ -69,5 +85,6 @@
     noto-fonts
     noto-fonts-color-emoji
     font-awesome
+    freefont_ttf
   ];
 }
