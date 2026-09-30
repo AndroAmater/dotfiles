@@ -15,16 +15,35 @@ nix/
   modules/disko-btrfs.nix  ESP + btrfs subvolumes (@ @home @nix @log @snapshots)
   modules/desktop.nix    Hyprland, GDM, pipewire, bluetooth, fonts, GUI apps
   modules/packages.nix   CLI / dev tools used by the dotfiles
+  modules/services.nix   tailscale, cron, mariadb, nginx
   modules/fhs-compat.nix symlinks for Arch paths the dotfiles hardcode
+  modules/dotfiles.nix   provisions the ~/.config/dotfiles checkout
   home/                  home-manager: links dotfiles like link.sh does
   vm-runner.nix          `nix run .#vm`
 ```
 
-Dotfiles are linked with out-of-store symlinks to `~/.config/dotfiles`, so
-the checkout must live there, and edits apply without a rebuild.
+## Working on the config
 
-New files must be `git add`ed before nix can see them (flakes only read
-tracked files).
+On every host, the dotfiles are symlinked from a live git checkout at
+`~/.config/dotfiles` (never copied into the nix store). On first boot, if
+that checkout is missing, it is cloned from GitHub (or, when offline,
+copied from the flake the system was built from).
+
+That checkout is also the flake, so nothing needs committing to test:
+
+- **Dotfiles** (`hypr/`, `nvim/`, `.zshrc`, …): edit, and the change is
+  live. Reload the app as usual (e.g. `hyprctl reload`).
+- **NixOS config** (`flake.nix`, `nix/`): edit, then
+  `sudo nixos-rebuild switch --flake ~/.config/dotfiles`
+  (the hostname picks the config). Uncommitted changes are built; only
+  brand-new files need a `git add` (no commit), since flakes ignore
+  untracked files.
+  - `nixos-rebuild test` activates without adding a boot entry.
+  - A bad generation can be undone with
+    `sudo nixos-rebuild switch --rollback`, or by picking an older entry
+    in the boot menu.
+
+Commit and push once you're happy with a change.
 
 ## Test VM
 
@@ -44,9 +63,14 @@ nix run .#vm -- --no-gl # software rendering, if GL fails on the host
 
 - Login: `andrejf` / `changeme`
 - SSH: `ssh -p 2222 andrejf@localhost`
-- On first boot the flake source is copied to `~/.config/dotfiles` in the VM.
-  To try config changes inside the VM:
+- The host's `~/.config/dotfiles` is shared into the VM at the same path
+  (read-write, override with `NIXOS_VM_DOTFILES`). Edit on the host and the
+  VM sees it immediately; edits in the VM land in your host checkout. To
+  apply NixOS config changes in the VM:
   `sudo nixos-rebuild switch --flake ~/.config/dotfiles#vm`
+- Apps that watch their config (Hyprland, quickshell) don't notice
+  host-side edits through the share; reload them (Super+Shift+C for
+  Hyprland) or make the edit inside the VM.
 - State (disk overlay, EFI vars) is kept in `~/.local/share/nixos-vm`.
   Delete that directory to start over from a freshly built image.
 - `NIXOS_VM_MEMORY` (default `8G`) and `NIXOS_VM_CORES` (default `4`)
@@ -72,6 +96,10 @@ sudo cp -a /boot/EFI/Microsoft ~/efi-microsoft-backup
 # then copy ~/efi-microsoft-backup to a USB stick
 ```
 
+Push the nix config to GitHub first: the installer clones it from there,
+and the new system's `~/.config/dotfiles` is cloned from there on first
+boot.
+
 From the NixOS installer ISO:
 
 ```sh
@@ -94,8 +122,8 @@ After first login (`andrejf` / `changeme`):
 
 ```sh
 passwd
-git clone git@github.com:androamater/dotfiles ~/.config/dotfiles
-sudo nixos-rebuild switch --flake ~/.config/dotfiles#andrej-laptop
+# ~/.config/dotfiles was cloned over https; switch to ssh for pushing
+git -C ~/.config/dotfiles remote set-url origin git@github.com:androamater/dotfiles
 ```
 
 ## Not carried over (yet)
@@ -105,4 +133,4 @@ sudo nixos-rebuild switch --flake ~/.config/dotfiles#andrej-laptop
 - i3, i3status, rofi, waybar: superseded by Hyprland/quickshell.
 - `laptop/ssh` (ansible-vault) and `nixos/secrets`: needs a secrets
   setup (e.g. sops-nix) — to do.
-- Everything else from the pacman package list.
+- `pulseaudio-control` (AUR): not in nixpkgs.

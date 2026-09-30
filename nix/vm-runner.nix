@@ -3,6 +3,8 @@
 #   nix run .#vm -- --no-gl # software rendering fallback
 # State lives in $NIXOS_VM_DIR (default ~/.local/share/nixos-vm); delete
 # it to start over from a freshly built image.
+# The host dotfiles checkout ($NIXOS_VM_DOTFILES, default
+# ~/.config/dotfiles) is shared read-write as the VM's ~/.config/dotfiles.
 {
   writeShellApplication,
   qemu,
@@ -34,6 +36,12 @@ writeShellApplication {
       install -m 644 ${OVMF.variables} "$vars"
     fi
 
+    share=()
+    dotfiles="''${NIXOS_VM_DOTFILES:-$HOME/.config/dotfiles}"
+    if [ -d "$dotfiles" ]; then
+      share=(-virtfs "local,path=$dotfiles,mount_tag=dotfiles,security_model=none,multidevs=remap")
+    fi
+
     display=(-device virtio-vga-gl -display "gtk,gl=on")
     if [ "''${1:-}" = "--no-gl" ]; then
       shift
@@ -56,6 +64,7 @@ writeShellApplication {
       -nic user,model=virtio-net-pci,hostfwd=tcp:127.0.0.1:2222-:22 \
       -device qemu-xhci -device usb-tablet \
       -audiodev pipewire,id=snd0 -device intel-hda -device hda-duplex,audiodev=snd0 \
+      "''${share[@]}" \
       "''${display[@]}" \
       "$@"
   '';

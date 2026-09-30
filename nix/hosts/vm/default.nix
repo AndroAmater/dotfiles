@@ -5,7 +5,6 @@
   lib,
   pkgs,
   modulesPath,
-  self,
   ...
 }:
 
@@ -55,21 +54,18 @@ in
   hardware.graphics.enable = true;
   services.qemuGuest.enable = true;
 
-  # The dotfiles are linked from ~/.config/dotfiles. In the VM, seed that
-  # checkout from this flake's source on first boot (writable copy).
-  systemd.services.seed-dotfiles = {
-    description = "Seed ~/.config/dotfiles from the flake source";
-    wantedBy = [ "multi-user.target" ];
-    before = [ "display-manager.service" ];
-    unitConfig.ConditionPathExists = "!${dotfiles}";
-    serviceConfig.Type = "oneshot";
-    script = ''
-      ${pkgs.coreutils}/bin/install -d -o ${user} -g users /home/${user}/.config
-      ${pkgs.coreutils}/bin/cp -r --no-preserve=mode,ownership ${self} ${dotfiles}
-      ${pkgs.coreutils}/bin/chown -R ${user}:users ${dotfiles}
-      ${pkgs.findutils}/bin/find ${dotfiles} -type f \
-        \( -name '*.sh' -o -path '*/scripts/*' -o -path '*/tmux/templates/*' -o -name set-monitor \) \
-        -exec ${pkgs.coreutils}/bin/chmod +x {} +
-    '';
+  # `nix run .#vm` shares the host's dotfiles checkout here (9p): host
+  # edits show up live, and `nixos-rebuild` in the VM builds the
+  # uncommitted working tree. Without the share (e.g. virt-manager),
+  # modules/dotfiles.nix provisions a checkout instead.
+  fileSystems.${dotfiles} = {
+    device = "dotfiles";
+    fsType = "9p";
+    options = [
+      "trans=virtio"
+      "version=9p2000.L"
+      "msize=1048576"
+      "nofail"
+    ];
   };
 }
