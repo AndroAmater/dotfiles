@@ -39,6 +39,7 @@
             ./nix/modules/packages.nix
             ./nix/modules/services.nix
             ./nix/modules/fhs-compat.nix
+            ./nix/modules/dotfiles.nix
             ./nix/home
             hostModule
           ];
