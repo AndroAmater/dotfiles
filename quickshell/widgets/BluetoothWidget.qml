@@ -7,13 +7,16 @@ import "../theme"
 Item {
     id: root
 
+    property var settingsPanel: null
+    property alias menuVisible: popup.visible
+
     readonly property var adapter: Bluetooth.defaultAdapter
     readonly property var connectedDevices: Bluetooth.devices.values.filter(function(device) {
         return device.connected
     })
 
     visible: adapter !== null
-    implicitWidth: visible ? Theme.barHeight : 0
+    implicitWidth: visible ? button.implicitWidth : 0
     implicitHeight: Theme.barHeight
 
     ModuleButton {
@@ -21,6 +24,7 @@ Item {
         anchors.fill: parent
         icon: "\uf293"
         iconFontFamily: Theme.brandFontFamily
+        iconSize: 26
         iconColor: root.adapter && root.adapter.enabled ? Theme.accent : Theme.inactive
         label: root.connectedDevices.length > 0 ? root.connectedDevices.length.toString() : ""
         tooltipText: !root.adapter ? "No Bluetooth adapter"
@@ -36,7 +40,8 @@ Item {
 
     ControlPopup {
         id: popup
-        anchorItem: root
+        anchorItem: root.settingsPanel || root
+        settingsPanel: root.settingsPanel
         onVisibleChanged: {
             if (root.adapter && root.adapter.enabled) root.adapter.discovering = visible
         }

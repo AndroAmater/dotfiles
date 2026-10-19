@@ -6,7 +6,8 @@ PopupWindow {
     id: root
 
     required property Item anchorItem
-    property int popupHeight: content.implicitHeight + Theme.popupPadding * 2
+    property var settingsPanel: null
+    property int popupHeight: layout.implicitHeight + Theme.popupPadding * 2
     default property alias contentData: content.data
 
     implicitWidth: Theme.popupWidth
@@ -25,10 +26,36 @@ PopupWindow {
         anchors.fill: parent
 
         Column {
-            id: content
+            id: layout
             anchors.fill: parent
             anchors.margins: Theme.popupPadding
             spacing: Theme.popupSpacing
+
+            Item {
+                visible: root.settingsPanel !== null
+                width: parent.width
+                height: 46
+
+                StyledButton {
+                    text: "‹ Settings"
+                    onClicked: {
+                        root.visible = false
+                        root.settingsPanel.open()
+                    }
+                }
+
+                StyledButton {
+                    anchors.right: parent.right
+                    text: "Close"
+                    onClicked: root.visible = false
+                }
+            }
+
+            Column {
+                id: content
+                width: parent.width
+                spacing: Theme.popupSpacing
+            }
         }
     }
 }

@@ -3,6 +3,7 @@ pragma Singleton
 import QtQuick
 import Quickshell
 import Quickshell.Io
+import Quickshell.Networking
 
 Singleton {
     id: root
@@ -15,6 +16,10 @@ Singleton {
     property int cpuUsage: 0
     property real previousCpuTotal: 0
     property real previousCpuIdle: 0
+    property real networkDownloadBytesPerSecond: 0
+    property real networkUploadBytesPerSecond: 0
+    property var previousNetworkCounters: ({})
+    property real previousNetworkTime: 0
 
     function formatBytes(bytes) {
         var units = ["B", "KiB", "MiB", "GiB", "TiB"]
@@ -69,6 +74,49 @@ Singleton {
         root.previousCpuIdle = idle
     }
 
+    function parseNetwork(raw) {
+        var now = Date.now()
+        var elapsed = (now - root.previousNetworkTime) / 1000
+        // Count connected physical links, avoiding loopback and VPN traffic counted twice.
+        var interfaces = Networking.devices.values.filter(function(device) {
+            return device.connected && (device.type === DeviceType.Wifi || device.type === DeviceType.Wired)
+        }).map(function(device) { return device.name })
+        var counters = ({})
+        var received = 0
+        var transmitted = 0
+        String(raw || "").split(/\n/).forEach(function(line) {
+            var separator = line.indexOf(":")
+            if (separator < 0) return
+            var name = line.slice(0, separator).trim()
+            if (interfaces.indexOf(name) < 0) return
+            var fields = line.slice(separator + 1).trim().split(/\s+/)
+            if (fields.length < 16) return
+            var rx = Number(fields[0])
+            var tx = Number(fields[8])
+            if (!isFinite(rx) || !isFinite(tx)) return
+            counters[name] = { rx: rx, tx: tx }
+            var previous = root.previousNetworkCounters[name]
+            if (previous) {
+                received += Math.max(0, rx - previous.rx)
+                transmitted += Math.max(0, tx - previous.tx)
+            }
+        })
+        root.networkDownloadBytesPerSecond = root.previousNetworkTime > 0 && elapsed > 0 ? received / elapsed : 0
+        root.networkUploadBytesPerSecond = root.previousNetworkTime > 0 && elapsed > 0 ? transmitted / elapsed : 0
+        root.previousNetworkCounters = counters
+        root.previousNetworkTime = now
+    }
+
+    Process {
+        id: networkProcess
+        command: ["cat", "/proc/net/dev"]
+        running: true
+        stdout: StdioCollector {
+            waitForEnd: true
+            onStreamFinished: root.parseNetwork(text)
+        }
+    }
+
     Process {
         id: diskProcess
         command: ["df", "-B1", "--output=avail,size", "/"]
@@ -97,6 +145,13 @@ Singleton {
             waitForEnd: true
             onStreamFinished: root.parseCpu(text)
         }
+    }
+
+    Timer {
+        interval: 1000
+        running: true
+        repeat: true
+        onTriggered: if (!networkProcess.running) networkProcess.running = true
     }
 
     Timer {

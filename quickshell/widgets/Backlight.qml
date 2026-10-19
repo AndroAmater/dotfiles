@@ -10,8 +10,6 @@ ModuleButton {
     property bool available: false
 
     visible: available
-    implicitWidth: available ? contentWidth : 0
-    property real contentWidth: icon !== "" ? 94 : 0
     icon: "\uf185"
     label: percent + "%"
     tooltipText: "Backlight: " + percent + "%"

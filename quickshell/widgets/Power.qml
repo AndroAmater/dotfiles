@@ -6,6 +6,9 @@ import "../theme"
 Item {
     id: root
 
+    property var settingsPanel: null
+    property alias menuVisible: popup.visible
+
     implicitWidth: button.implicitWidth
     implicitHeight: Theme.barHeight
 
@@ -26,7 +29,8 @@ Item {
 
     ControlPopup {
         id: popup
-        anchorItem: root
+        anchorItem: root.settingsPanel || root
+        settingsPanel: root.settingsPanel
         grabFocus: true
 
         PopupHeader {

@@ -9,6 +9,9 @@ import "../theme"
 Item {
     id: root
 
+    property var settingsPanel: null
+    property alias menuVisible: popup.visible
+
     readonly property var wifiDevices: Networking.devices.values.filter(function(device) {
         return device.type === DeviceType.Wifi
     })
@@ -88,11 +91,10 @@ Item {
             return root.wifiIcon(root.activeNetwork ? root.activeNetwork.signalStrength : 0)
         }
         iconColor: root.activeDevice ? Theme.network : Theme.urgent
-        label: root.activeDevice && root.activeDevice.type === DeviceType.Wired
-            ? root.ethernetAddress || root.activeDevice.name
-            : root.activeNetwork ? root.activeNetwork.name : "down"
         tooltipText: root.activeDevice
-            ? root.activeDevice.name + (root.gateway ? " via " + root.gateway : "")
+            ? (root.activeNetwork ? root.activeNetwork.name + " · " : "")
+                + root.activeDevice.name + (root.ethernetAddress ? " · " + root.ethernetAddress : "")
+                + (root.gateway ? " via " + root.gateway : "")
             : "Network disconnected"
         hoverFill: true
         onClicked: mouseButton => {
@@ -102,7 +104,8 @@ Item {
 
     ControlPopup {
         id: popup
-        anchorItem: root
+        anchorItem: root.settingsPanel || root
+        settingsPanel: root.settingsPanel
         onVisibleChanged: {
             if (root.wifiDevice) root.wifiDevice.scannerEnabled = visible
             if (!visible) root.passwordNetwork = null

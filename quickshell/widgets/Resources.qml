@@ -22,6 +22,7 @@ Item {
         Disk {}
         Memory {}
         Cpu {}
+        NetworkUsage {}
     }
 
     MouseArea {

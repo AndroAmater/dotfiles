@@ -6,12 +6,7 @@ Row {
     spacing: Theme.moduleSpacing
 
     Resources {}
-    Network {}
-    Audio {}
-    BluetoothWidget {}
     Backlight {}
     Battery {}
-    Displays {}
-    Tray {}
-    Power {}
+    Settings {}
 }

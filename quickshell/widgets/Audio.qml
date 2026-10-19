@@ -7,6 +7,9 @@ import "../theme"
 Item {
     id: root
 
+    property var settingsPanel: null
+    property alias menuVisible: popup.visible
+
     readonly property var sink: Pipewire.defaultAudioSink
     readonly property var source: Pipewire.defaultAudioSource
     readonly property int volumePercent: sink && sink.audio ? Math.round(sink.audio.volume * 100) : 0
@@ -29,9 +32,9 @@ Item {
         icon: !root.sink || !root.sink.audio || root.sink.audio.muted ? "\uf6a9"
             : root.volumePercent >= 50 ? "\uf028"
             : root.volumePercent > 0 ? "\uf027" : "\uf026"
-        label: root.sink && root.sink.audio && root.sink.audio.muted
-            ? "muted" : root.volumePercent + "%"
-        tooltipText: root.sink ? root.sink.description : "No audio output"
+        tooltipText: root.sink ? root.sink.description
+            + (root.sink.audio && root.sink.audio.muted ? " · muted" : " · " + root.volumePercent + "%")
+            : "No audio output"
         hoverFill: true
         onClicked: mouseButton => {
             if (mouseButton === Qt.LeftButton) popup.visible = !popup.visible
@@ -44,7 +47,8 @@ Item {
 
     ControlPopup {
         id: popup
-        anchorItem: root
+        anchorItem: root.settingsPanel || root
+        settingsPanel: root.settingsPanel
         PopupHeader {
             title: "Audio"
             subtitle: root.sink ? root.sink.description : "No output device"

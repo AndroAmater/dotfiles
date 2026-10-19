@@ -10,7 +10,8 @@ Item {
     property color iconColor: Theme.foreground
     property color labelColor: Theme.foreground
     property string iconFontFamily: Theme.iconFontFamily
-    property int horizontalPadding: Theme.modulePadding
+    property int iconSize: Theme.fontSize
+    property int horizontalPadding: label === "" ? 5 : Theme.modulePadding
     property string tooltipText: ""
     property bool hoverFill: false
     property bool tooltipVisible: false
@@ -39,7 +40,7 @@ Item {
             text: root.icon
             color: root.iconColor
             font.family: root.iconFontFamily
-            font.pixelSize: Theme.fontSize
+            font.pixelSize: root.iconSize
             verticalAlignment: Text.AlignVCenter
         }
 

@@ -12,7 +12,6 @@ ModuleButton {
     readonly property bool full: battery.ready && capacity >= 99 && !UPower.onBattery
 
     visible: battery.ready && battery.isLaptopBattery && battery.isPresent
-    implicitWidth: visible ? 112 : 0
     icon: charging ? "\uf0e7"
         : capacity <= 10 ? "\uf244"
         : capacity <= 35 ? "\uf243"

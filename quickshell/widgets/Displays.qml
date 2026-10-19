@@ -7,13 +7,16 @@ import "../theme"
 Item {
     id: root
 
+    property var settingsPanel: null
+    property alias menuVisible: popup.visible
+
     property var monitors: []
     property var selectedMonitor: monitors.length > 0 ? monitors[0] : null
     property bool ddcAvailable: false
     property int brightness: 0
     property int brightnessMax: 100
 
-    implicitWidth: Theme.barHeight
+    implicitWidth: button.implicitWidth
     implicitHeight: Theme.barHeight
 
     function apply(scale, transform) {
@@ -73,17 +76,19 @@ Item {
         tooltipText: root.monitors.length + (root.monitors.length === 1 ? " display" : " displays")
         hoverFill: true
         onClicked: mouseButton => {
-            if (mouseButton === Qt.LeftButton) {
-                monitorProcess.running = true
-                if (root.monitors.length === 1) brightnessProcess.running = true
-                popup.visible = !popup.visible
-            }
+            if (mouseButton === Qt.LeftButton) popup.visible = !popup.visible
         }
     }
 
     ControlPopup {
         id: popup
-        anchorItem: root
+        anchorItem: root.settingsPanel || root
+        settingsPanel: root.settingsPanel
+        onVisibleChanged: {
+            if (!visible) return
+            if (!monitorProcess.running) monitorProcess.running = true
+            if (root.monitors.length === 1 && !brightnessProcess.running) brightnessProcess.running = true
+        }
         PopupHeader {
             title: "Displays"
             subtitle: root.selectedMonitor ? root.selectedMonitor.description : "No active display"
