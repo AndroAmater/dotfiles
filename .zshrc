@@ -41,6 +41,7 @@ alias kcp="kubectl --context do-fra1-codedjen-production"
 alias kcg="kubectl --context do-fra1-codedjen-customer-apps"
 alias gpa="pbpaste | git apply"
 alias cc="./cannon"
+alias ccc="claude --dangerously-skip-permissions"
 
 # Codecannon aliases
 alias dcg="docker compose exec -u codecannon generator bash"
