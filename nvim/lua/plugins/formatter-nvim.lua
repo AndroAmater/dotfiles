@@ -106,6 +106,52 @@
 return {
 	"mhartington/formatter.nvim",
 	config = function()
+		local util = require("formatter.util")
+
+		local function find_project_file(names)
+			return vim.fs.find(names, {
+				path = util.get_current_buffer_file_dir(),
+				upward = true,
+			})[1]
+		end
+
+		local function project_executable(root, name)
+			local executable = root .. "/vendor/bin/" .. name
+			return vim.fn.executable(executable) == 1 and util.escape_path(executable) or name
+		end
+
+		local function php_cs_fixer()
+			local config = find_project_file({ ".php-cs-fixer.php", ".php-cs-fixer.dist.php" })
+			if not config then
+				return
+			end
+
+			local root = vim.fs.dirname(config)
+			return {
+				exe = project_executable(root, "php-cs-fixer"),
+				args = {
+					"fix",
+					"--config=" .. util.escape_path(config),
+					"--path-mode=override",
+					"--using-cache=no",
+					"--sequential",
+				},
+				stdin = false,
+				cwd = root,
+			}
+		end
+
+		local function pint()
+			local composer = find_project_file("composer.json")
+			local root = composer and vim.fs.dirname(composer) or util.get_current_buffer_file_dir()
+			return {
+				exe = project_executable(root, "pint"),
+				stdin = false,
+				cwd = root,
+				ignore_exitcode = true,
+			}
+		end
+
 		local augroup = vim.api.nvim_create_augroup
 		local autocmd = vim.api.nvim_create_autocmd
 		augroup("__formatter__", { clear = true })
@@ -137,7 +183,8 @@ return {
 					require("formatter.filetypes.typescript").prettierd,
 				},
 				php = {
-					require("formatter.filetypes.php").pint,
+					php_cs_fixer,
+					pint,
 				},
 				html = {
 					require("formatter.filetypes.typescript").prettierd,
