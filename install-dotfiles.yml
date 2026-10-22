@@ -103,6 +103,19 @@
         force: true
       become_user: andrejf
 
+    - name: Remove opencode config
+      file: path=/home/andrejf/.config/opencode state=absent
+      become_user: andrejf
+      ignore_errors: yes
+
+    - name: Install opencode config
+      file:
+        src: "/home/andrejf/.config/dotfiles/opencode/"
+        dest: "/home/andrejf/.config/opencode"
+        state: link
+        force: true
+      become_user: andrejf
+
     - name: Install kitty config 
       file:
         src: "/home/andrejf/.config/dotfiles/kitty/"

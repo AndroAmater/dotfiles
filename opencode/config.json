@@ -1,0 +1,21 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "plugin": [
+    "@mohak34/opencode-notifier@latest",
+    "/home/andrejf/Documents/Projects/tmux-agents/integrations/opencode/tmux-agents.ts"
+  ],
+  "mcp": {},
+  "permission": {
+    "bash": {
+      "kubectl *": "ask",
+      "kubectl get": "allow",
+      "helm *": "ask",
+      "helm lint": "allow",
+      "helm show": "allow",
+      "helm template": "allow",
+      "helm version": "allow",
+      "argocd *": "ask",
+      "vault *": "ask"
+    }
+  }
+}

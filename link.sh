@@ -8,3 +8,4 @@ ln -fs "$(pwd)/tmux" ~/.config/
 ln -fs "$(pwd)/hypr" ~/.config/
 ln -fs "$(pwd)/waybar" ~/.config/
 ln -fs "$(pwd)/quickshell" ~/.config/
+ln -fs "$(pwd)/opencode" ~/.config/
