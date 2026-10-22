@@ -48,6 +48,7 @@
     {
       nixosConfigurations = {
         andrej-laptop = mkHost ./nix/hosts/andrej-laptop;
+        andrej-external = mkHost ./nix/hosts/andrej-external;
         vm = mkHost ./nix/hosts/vm;
       };
 

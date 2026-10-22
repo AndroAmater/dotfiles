@@ -10,6 +10,7 @@ used here.
 flake.nix
 nix/
   hosts/andrej-laptop/   ASUS laptop (AMD iGPU + NVIDIA PRIME offload)
+  hosts/andrej-external/ the laptop config on the external USB SSD
   hosts/vm/              QEMU test VM (same modules, no laptop hardware)
   modules/common.nix     boot, nix, locale, user, docker, nix-ld
   modules/disko-btrfs.nix  ESP + btrfs subvolumes (@ @home @nix @log @snapshots)
@@ -81,6 +82,45 @@ Build only the image (`result/main.qcow2`, usable in virt-manager with UEFI):
 ```sh
 nix build .#vm-image
 ```
+
+## Installing on the external SSD
+
+`andrej-external` is the laptop config on the external USB SSD (Samsung
+980 PRO in the Ugreen enclosure). It leaves the internal disks and the
+firmware boot entries alone. `disko` wipes the external SSD.
+
+Push the branch first; the installer clones it. From the NixOS installer
+ISO (booted in UEFI mode, Secure Boot off, external SSD plugged in):
+
+```sh
+sudo -i
+nmcli device wifi connect <ssid> password <pw>   # if not on ethernet
+export NIX_CONFIG='experimental-features = nix-command flakes'
+git clone --branch nix https://github.com/androamater/dotfiles /tmp/dotfiles
+cd /tmp/dotfiles
+
+# Must be the 931.5G USB Samsung SSD
+lsblk -o NAME,SIZE,MODEL,TRAN,FSTYPE,LABEL,MOUNTPOINTS \
+  /dev/disk/by-id/usb-Samsung_SSD_980_PRO_1TB_01326800019B-0:0
+
+# Partition + format + mount at /mnt (DESTRUCTIVE)
+nix run --inputs-from . disko -- \
+  --mode destroy,format,mount --flake .#andrej-external
+
+nixos-install --flake .#andrej-external
+
+# First boot would clone the default branch; use this checkout instead
+mkdir -p /mnt/home/andrejf/.config
+cp -a /tmp/dotfiles /mnt/home/andrejf/.config/dotfiles
+chown -R 1000:100 /mnt/home/andrejf/.config
+
+umount -R /mnt
+reboot
+```
+
+Pick the USB SSD from the firmware's one-time boot menu. Unplug it (or
+pick the internal disk) to get back to Arch. Rebuild with
+`sudo nixos-rebuild switch --flake ~/.config/dotfiles#andrej-external`.
 
 ## Installing on the laptop
 
