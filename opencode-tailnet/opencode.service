@@ -1,0 +1,15 @@
+[Unit]
+Description=OpenCode shared API and web server
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+WorkingDirectory=%h
+Environment=PATH=%h/.opencode/bin:%h/.local/bin:%h/.bun/bin:%h/.cargo/bin:%h/go/bin:/usr/local/bin:/usr/bin:/bin
+ExecStart=%h/.opencode/bin/opencode serve --service --hostname 127.0.0.1 --port 49374
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=30
+
+[Install]
+WantedBy=default.target

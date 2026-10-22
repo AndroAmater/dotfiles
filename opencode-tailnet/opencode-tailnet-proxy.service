@@ -1,0 +1,17 @@
+[Unit]
+Description=Tailnet-only HTTPS proxy for OpenCode
+After=opencode.service
+StartLimitIntervalSec=0
+ConditionPathExists=%h/.local/share/opencode-tailnet/tls/current/tls.crt
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/docker run --rm --name opencode-tailnet-proxy --network host --cap-drop ALL --cap-add NET_BIND_SERVICE --cap-add DAC_READ_SEARCH --security-opt no-new-privileges --read-only --tmpfs /data --tmpfs /config --tmpfs /run/caddy --mount type=bind,src=%h/.config/dotfiles/opencode-tailnet/Caddyfile,dst=/etc/caddy/Caddyfile,readonly --mount type=bind,src=%h/.local/share/opencode-tailnet/tls,dst=/certificates,readonly caddy:2.11.2-alpine caddy run --config /etc/caddy/Caddyfile --adapter caddyfile
+ExecReload=/usr/bin/docker exec opencode-tailnet-proxy caddy reload --config /etc/caddy/Caddyfile --adapter caddyfile --address unix//run/caddy/admin.sock
+ExecStop=-/usr/bin/docker stop -t 10 opencode-tailnet-proxy
+Restart=always
+RestartSec=10
+TimeoutStopSec=30
+
+[Install]
+WantedBy=default.target

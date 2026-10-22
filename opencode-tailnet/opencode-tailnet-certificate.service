@@ -1,0 +1,9 @@
+[Unit]
+Description=Fetch the renewed OpenCode TLS certificate from Kubernetes
+ConditionPathExists=%h/.config/opencode-tailnet/kubeconfig
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python3 %h/.config/dotfiles/opencode-tailnet/sync-certificate.py
+UMask=0077
+TimeoutStartSec=120

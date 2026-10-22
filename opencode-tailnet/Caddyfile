@@ -1,0 +1,13 @@
+{
+	admin unix//run/caddy/admin.sock
+	auto_https off
+	servers {
+		protocols h1 h2
+	}
+}
+
+https://opencode.andrej.ts.codecannon.dev {
+	bind 100.64.0.3
+	tls /certificates/current/tls.crt /certificates/current/tls.key
+	reverse_proxy 127.0.0.1:49374
+}
