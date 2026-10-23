@@ -108,11 +108,22 @@ export default Plugin.define({
       const results = await Promise.all(
         sources.map(async (source): Promise<Account | undefined> => {
           // Keep showing the last known windows rather than blanking the sidebar.
-          const stale = (error: string): Account => {
+          // A rate limit only delays fresh data, so the sidebar shows the data's
+          // age instead of an error unless there is nothing to show.
+          const stale = (error?: string): Account => {
             const last = previous?.snapshot.accounts.find((account) => account.id === source.id)
-            return { fetchedAt: Date.now(), ...last, id: source.id, name: source.name, windows: last?.windows ?? [], error }
+            if (last && !error) return { ...last, error: undefined, rateLimited: true }
+            return {
+              fetchedAt: Date.now(),
+              ...last,
+              id: source.id,
+              name: source.name,
+              windows: last?.windows ?? [],
+              error: error ?? "rate limited",
+              rateLimited: undefined,
+            }
           }
-          if ((retryAt[source.id] ?? 0) > Date.now()) return stale("rate limited")
+          if ((retryAt[source.id] ?? 0) > Date.now()) return stale()
           try {
             const account = await source.fetch(signal)
             delete retryAt[source.id]
@@ -120,6 +131,7 @@ export default Plugin.define({
           } catch (error) {
             if (error instanceof HttpError && error.status === 429) {
               retryAt[source.id] = Date.now() + Math.max(TTL, error.retryAfter ?? RATE_LIMITED)
+              return stale()
             }
             return stale(error instanceof Error ? error.message : String(error))
           }

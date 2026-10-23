@@ -72,13 +72,18 @@ function AccountUsage(props: { account: Account; width: number; now: number }) {
   const { theme } = usePlugin()
   return (
     <box flexDirection="column" width="100%">
-      <box flexDirection="row" gap={1}>
-        <text fg={theme.text.muted}>{props.account.name}</text>
-        <Show when={props.account.plan}>
-          <text fg={theme.text.faint}>{props.account.plan}</text>
-        </Show>
-        <Show when={props.account.error}>
-          <text fg={theme.text.feedback.error.base}>{props.account.error}</text>
+      <box flexDirection="row" width="100%" justifyContent="space-between" gap={1}>
+        <box flexDirection="row" gap={1}>
+          <text fg={theme.text.muted}>{props.account.name}</text>
+          <Show when={props.account.plan}>
+            <text fg={theme.text.faint}>{props.account.plan}</text>
+          </Show>
+          <Show when={props.account.error}>
+            <text fg={theme.text.feedback.error.base}>{props.account.error}</text>
+          </Show>
+        </box>
+        <Show when={props.account.rateLimited}>
+          <text fg={theme.text.faint}>{age(props.now - props.account.fetchedAt)}</text>
         </Show>
       </box>
       <For each={props.account.windows}>
@@ -133,6 +138,13 @@ function WindowUsage(props: { window: Window; width: number; now: number }) {
       </box>
     </box>
   )
+}
+
+/** How long ago a rate-limited account's numbers were fetched. */
+function age(milliseconds: number) {
+  const minutes = Math.max(0, Math.floor(milliseconds / 60_000))
+  if (minutes < 60) return `${minutes}m`
+  return `${Math.floor(minutes / 60)}h${String(minutes % 60).padStart(2, "0")}m`
 }
 
 function countdown(milliseconds: number) {

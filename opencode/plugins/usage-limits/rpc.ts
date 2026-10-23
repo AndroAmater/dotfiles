@@ -15,6 +15,8 @@ export interface Account {
   readonly plan?: string
   readonly windows: readonly Window[]
   readonly error?: string
+  /** The windows are from fetchedAt because the endpoint is rate limited. */
+  readonly rateLimited?: boolean
   readonly fetchedAt: number
 }
 
