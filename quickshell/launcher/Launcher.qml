@@ -125,12 +125,39 @@ Scope {
                 results.positionViewAtIndex(selectedIndex, ListView.Contain)
             }
 
-            function launchSelected(): void {
+            function launchSelected(elevated): void {
                 if (selectedIndex < 0 || selectedIndex >= applications.length) return
                 var entry = applications[selectedIndex]
                 controller.recordLaunch(entry)
                 controller.close()
-                entry.execute()
+                if (elevated) launchElevated(entry)
+                else entry.execute()
+            }
+
+            function launchElevated(entry): void {
+                var command
+                if (entry.runInTerminal) {
+                    // Terminal apps get the sudo prompt inside the terminal itself
+                    command = ["kitty", "-e", "sudo", "--"].concat(entry.command)
+                } else {
+                    // pkexec scrubs the environment, so pass through what GUI apps need
+                    // to reach the session; the polkit agent handles the password prompt
+                    var environment = []
+                    var names = ["WAYLAND_DISPLAY", "XDG_RUNTIME_DIR", "DISPLAY", "XAUTHORITY"]
+                    names.forEach(function(name) {
+                        var value = Quickshell.env(name)
+                        if (value) environment.push(name + "=" + value)
+                    })
+                    // execDetached orphans the child and pkexec refuses to run without a
+                    // live parent, so keep a shell around until it exits
+                    command = ["sh", "-c", "pkexec env \"$@\"; exit $?", "sh"]
+                        .concat(environment, entry.command)
+                }
+
+                Quickshell.execDetached({
+                    command: command,
+                    workingDirectory: entry.workingDirectory || Quickshell.env("HOME")
+                })
             }
 
             screen: modelData
@@ -228,7 +255,7 @@ Scope {
                                     window.moveSelection(-1)
                                     event.accepted = true
                                 } else if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
-                                    window.launchSelected()
+                                    window.launchSelected(event.modifiers & Qt.ShiftModifier)
                                     event.accepted = true
                                 } else if (event.key === Qt.Key_Escape) {
                                     controller.close()
@@ -344,9 +371,9 @@ Scope {
                                 anchors.fill: parent
                                 hoverEnabled: true
                                 cursorShape: Qt.PointingHandCursor
-                                onClicked: {
+                                onClicked: mouse => {
                                     window.selectedIndex = applicationRow.index
-                                    window.launchSelected()
+                                    window.launchSelected(mouse.modifiers & Qt.ShiftModifier)
                                 }
                             }
                         }
@@ -385,7 +412,7 @@ Scope {
                             anchors.right: parent.right
                             anchors.rightMargin: 24
                             anchors.verticalCenter: parent.verticalCenter
-                            text: "up/down navigate   enter launch   esc close"
+                            text: "up/down navigate   enter launch   shift+enter sudo   esc close"
                             color: Theme.inactive
                             font.family: Theme.fontFamily
                             font.pixelSize: Theme.popupSmallFontSize
