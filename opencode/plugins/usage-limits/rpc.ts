@@ -26,11 +26,7 @@ export const UsageLimits = Rpc.define({
   id: "usage-limits",
   methods: {
     get: {
-      input: {
-        type: "object",
-        properties: { force: { type: "boolean" } },
-        additionalProperties: false,
-      },
+      input: { type: "object", additionalProperties: false },
       output: {
         type: "object",
         properties: { accounts: { type: "array" } },

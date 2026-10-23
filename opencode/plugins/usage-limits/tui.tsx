@@ -3,8 +3,8 @@ import { Plugin, usePlugin } from "@opencode/plugin/tui"
 import { createSignal, For, Show } from "solid-js"
 import { UsageLimits, type Account, type Snapshot, type Window } from "./rpc"
 
-const POLL = 5 * 60_000
-const THROTTLE = 30_000
+/** Matches the server's cache TTL; polling faster would only return the cached snapshot. */
+const POLL = 60_000
 const BAR = 10
 /** Widest countdown, e.g. "23h59m". */
 const RESET = 6
@@ -16,13 +16,10 @@ export default Plugin.define({
     const [error, setError] = createSignal<string>()
     const [now, setNow] = createSignal(Date.now())
     const rpc = context.client.rpc(UsageLimits)
-    let requested = 0
 
-    async function refresh(force = false) {
-      if (!force && Date.now() - requested < THROTTLE) return
-      requested = Date.now()
+    async function refresh() {
       try {
-        setSnapshot((await rpc.get({ force })) as Snapshot)
+        setSnapshot((await rpc.get({})) as Snapshot)
         setError(undefined)
       } catch (cause) {
         setError(cause instanceof Error ? cause.message : String(cause))
@@ -32,21 +29,6 @@ export default Plugin.define({
     void refresh()
     const poll = setInterval(() => void refresh(), POLL)
     const tick = setInterval(() => setNow(Date.now()), 30_000)
-    const stop = context.data.on("session.step.ended", () => void refresh())
-
-    context.keymap.layer(() => ({
-      mode: "global",
-      commands: [
-        {
-          id: "usage-limits.refresh",
-          title: "Refresh usage limits",
-          group: "Usage",
-          palette: true,
-          slash: { name: "usage" },
-          run: () => refresh(true),
-        },
-      ],
-    }))
 
     const unslot = context.ui.slot({
       append: "sidebar.content",
@@ -56,7 +38,6 @@ export default Plugin.define({
     return () => {
       clearInterval(poll)
       clearInterval(tick)
-      stop()
       unslot()
     }
   },
