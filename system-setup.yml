@@ -173,6 +173,17 @@
       shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S docker
       become_user: andrejf
 
+    - name: Create docker config directory
+      file:
+        path: /etc/docker
+        state: directory
+
+    - name: Install docker daemon config
+      copy:
+        src: "/home/andrejf/.config/dotfiles/docker/daemon.json"
+        dest: "/etc/docker/daemon.json"
+        mode: "0644"
+
     - name: Install nodejs
       shell: yes | yay --noprovides --answerclean None --mflags "--noconfirm" --answerdiff=None -S nodejs
       become_user: andrejf
