@@ -10,7 +10,24 @@
   services.displayManager.gdm.enable = true;
   services.displayManager.defaultSession = "hyprland";
 
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+  environment.sessionVariables = {
+    NIXOS_OZONE_WL = "1";
+    # Without a cursor theme Hyprland falls back to its built-in cursor.
+    XCURSOR_THEME = "Adwaita";
+    XCURSOR_SIZE = "24";
+  };
+
+  # Caps Lock and Right Alt act as Super, on every keyboard.
+  services.keyd = {
+    enable = true;
+    keyboards.default = {
+      ids = [ "*" ];
+      settings.main = {
+        capslock = "leftmeta";
+        rightalt = "leftmeta";
+      };
+    };
+  };
 
   # Audio: quickshell's Pipewire service, pactl volume binds.
   security.rtkit.enable = true;
@@ -54,6 +71,7 @@
     networkmanagerapplet # nm-connection-editor
     btop
     xset
+    adwaita-icon-theme # XCURSOR_THEME
     bluetui
     gnome-control-center
     chromium
@@ -84,7 +102,10 @@
     jetbrains-mono
     noto-fonts
     noto-fonts-color-emoji
-    font-awesome
+    # quickshell's Theme.qml wants "Font Awesome 6 Brands" (v7 renamed
+    # it). Its "Font Awesome 6 Sharp" is Pro-only: copy it into
+    # ~/.local/share/fonts by hand.
+    font-awesome_6
     freefont_ttf
   ];
 }
