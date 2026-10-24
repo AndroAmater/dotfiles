@@ -6,5 +6,8 @@ node_modules
 plugins/*/package-lock.json
 
 # Secrets / runtime state
+.env
+secrets/
+backups/
 service.json
 opencode-notifier-state.json
