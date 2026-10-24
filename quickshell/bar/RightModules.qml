@@ -6,7 +6,6 @@ Row {
     spacing: Theme.moduleSpacing
 
     Resources {}
-    Backlight {}
     Battery {}
     Settings {}
 }
