@@ -90,6 +90,13 @@ Item {
 
             SettingsTile {
                 width: tiles.tileWidth
+                icon: "\uf863"
+                title: "ASUS"
+                onClicked: root.openMenu(asus)
+            }
+
+            SettingsTile {
+                width: tiles.tileWidth
                 icon: "\uf011"
                 title: "Power"
                 onClicked: root.openMenu(power)
@@ -105,5 +112,6 @@ Item {
         BluetoothWidget { id: bluetooth; settingsPanel: root }
         Displays { id: displays; settingsPanel: root }
         Power { id: power; settingsPanel: root }
+        Asus { id: asus; settingsPanel: root }
     }
 }
