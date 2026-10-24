@@ -174,3 +174,6 @@ git -C ~/.config/dotfiles remote set-url origin git@github.com:androamater/dotfi
 - `laptop/ssh` (ansible-vault) and `nixos/secrets`: needs a secrets
   setup (e.g. sops-nix) — to do.
 - `pulseaudio-control` (AUR): not in nixpkgs.
+- Font Awesome 6 Pro (quickshell's "Font Awesome 6 Sharp"): licensed, so
+  not in the repo. Copy `~/.local/share/fonts/fontawesome-pro-6.5.2-desktop`
+  over by hand.
