@@ -10,4 +10,3 @@ plugins/*/package-lock.json
 secrets/
 backups/
 service.json
-opencode-notifier-state.json

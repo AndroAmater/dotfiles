@@ -9,7 +9,7 @@ ModuleButton {
     icon: "\uf2db"
     iconFontFamily: Theme.awesomeFontFamily
     iconColor: Theme.cpu
-    label: SystemStats.cpuUsage + "%"
+    label: String(SystemStats.cpuUsage).padStart(2) + "%"
     tooltipText: ""
 
 }

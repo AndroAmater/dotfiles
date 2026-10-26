@@ -11,6 +11,7 @@ Item {
     property color labelColor: Theme.foreground
     property string iconFontFamily: Theme.iconFontFamily
     property int iconSize: Theme.fontSize
+    property bool iconSpinning: false
     property int horizontalPadding: label === "" ? 5 : Theme.modulePadding
     property string tooltipText: ""
     property bool hoverFill: false
@@ -42,6 +43,15 @@ Item {
             font.family: root.iconFontFamily
             font.pixelSize: root.iconSize
             verticalAlignment: Text.AlignVCenter
+
+            RotationAnimation on rotation {
+                running: root.iconSpinning && root.visible
+                from: 0
+                to: 360
+                duration: 1200
+                loops: Animation.Infinite
+                onStopped: parent.rotation = 0
+            }
         }
 
         Text {

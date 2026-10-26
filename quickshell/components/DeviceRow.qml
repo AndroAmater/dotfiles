@@ -6,6 +6,7 @@ Rectangle {
 
     property string icon: ""
     property string iconFontFamily: Theme.iconFontFamily
+    property color iconColor: active ? Theme.accent : Theme.foreground
     property string title: ""
     property string detail: ""
     property string actionText: ""
@@ -25,7 +26,7 @@ Rectangle {
         anchors.leftMargin: 8
         anchors.verticalCenter: parent.verticalCenter
         text: root.icon
-        color: root.active ? Theme.accent : Theme.foreground
+        color: root.iconColor
         font.family: root.iconFontFamily
         font.pixelSize: Theme.fontSize
     }

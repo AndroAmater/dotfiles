@@ -9,3 +9,6 @@ ln -fs "$(pwd)/hypr" ~/.config/
 ln -fs "$(pwd)/waybar" ~/.config/
 ln -fs "$(pwd)/quickshell" ~/.config/
 ln -fs "$(pwd)/opencode" ~/.config/
+ln -fs "$(pwd)/hyprwhspr" ~/.config/
+mkdir -p ~/.claude
+ln -fs "$(pwd)/claude/settings.json" ~/.claude/

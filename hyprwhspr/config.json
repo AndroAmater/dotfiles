@@ -1,0 +1,13 @@
+{
+  "$schema": "https://raw.githubusercontent.com/goodroot/hyprwhspr/main/share/config.schema.json",
+  "external_bindings": true,
+  "keyboard_device_names": [
+    "PiKVM Composite KVM Device",
+    "ZSA Technology Labs Moonlander Mark I",
+    "ZSA Technology Labs Moonlander Mark I Keyboard"
+  ],
+  "transcription_backend": "onnx-asr",
+  "onnx_asr_model": "orukeet",
+  "audio_ducking": true,
+  "use_hypr_bindings": true
+}

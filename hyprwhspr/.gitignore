@@ -1,0 +1,4 @@
+# Runtime compat symlinks and temp files created by hyprwhspr
+/*
+!/.gitignore
+!/config.json

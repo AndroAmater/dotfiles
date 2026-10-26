@@ -103,6 +103,19 @@
         force: true
       become_user: andrejf
 
+    - name: Remove hyprwhspr config
+      file: path=/home/andrejf/.config/hyprwhspr state=absent
+      become_user: andrejf
+      ignore_errors: yes
+
+    - name: Install hyprwhspr config
+      file:
+        src: "/home/andrejf/.config/dotfiles/hyprwhspr/"
+        dest: "/home/andrejf/.config/hyprwhspr"
+        state: link
+        force: true
+      become_user: andrejf
+
     - name: Remove opencode config
       file: path=/home/andrejf/.config/opencode state=absent
       become_user: andrejf
@@ -112,6 +125,20 @@
       file:
         src: "/home/andrejf/.config/dotfiles/opencode/"
         dest: "/home/andrejf/.config/opencode"
+        state: link
+        force: true
+      become_user: andrejf
+
+    - name: Create claude config directory
+      file:
+        path: /home/andrejf/.claude
+        state: directory
+      become_user: andrejf
+
+    - name: Install claude settings
+      file:
+        src: "/home/andrejf/.config/dotfiles/claude/settings.json"
+        dest: "/home/andrejf/.claude/settings.json"
         state: link
         force: true
       become_user: andrejf

@@ -25,7 +25,8 @@ Singleton {
         var units = ["B", "KiB", "MiB", "GiB", "TiB"]
         var value = Number(bytes)
         var index = 0
-        while (value >= 1024 && index < units.length - 1) {
+        // Step up a unit before 1000 so values never need more than three integer digits
+        while (value >= 999.95 && index < units.length - 1) {
             value /= 1024
             index++
         }

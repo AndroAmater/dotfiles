@@ -9,7 +9,7 @@ ModuleButton {
     icon: "\uf538"
     iconFontFamily: Theme.awesomeFontFamily
     iconColor: Theme.memory
-    label: SystemStats.memoryUsedGiB.toFixed(1) + " GiB"
+    label: SystemStats.memoryUsedGiB.toFixed(1).padStart(4) + " GiB"
     tooltipText: ""
 
 }

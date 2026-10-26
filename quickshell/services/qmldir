@@ -1,3 +1,4 @@
 module Dotfiles.Services
 singleton SystemStats 1.0 SystemStats.qml
 singleton BtopSession 1.0 BtopSession.qml
+singleton AgentStatus 1.0 AgentStatus.qml
