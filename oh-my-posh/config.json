@@ -24,7 +24,7 @@
           },
           "leading_diamond": "<transparent,background>\ue0b0",
           "trailing_diamond": "\ue0b0",
-          "template": "{{ if .SSHSession }} \uf817 \ue0b1{{ end }} \uf007 {{ .UserName }} ",
+          "template": "{{ if .SSHSession }} \uf120 \ue0b1{{ end }} \uf007 {{ .UserName }} ",
           "foreground": "#212121",
           "background": "#5FAAE8",
           "type": "session",
@@ -54,7 +54,7 @@
             "fetch_status": true,
             "fetch_upstream_icon": true
           },
-          "template": "{{ .HEAD }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if gt .StashCount 0 }} \uf692 {{ .StashCount }}{{ end }} ",
+          "template": "{{ .HEAD }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if gt .StashCount 0 }} \uf187 {{ .StashCount }}{{ end }} ",
           "foreground": "#EEFFFF",
           "powerline_symbol": "\ue0b0",
           "background": "#1A1A1A",

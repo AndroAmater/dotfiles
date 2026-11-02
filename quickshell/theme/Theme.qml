@@ -16,8 +16,10 @@ Singleton {
     readonly property color network: "#c3e88d"
 
     readonly property string fontFamily: "JetBrainsMono Nerd Font"
-    readonly property string awesomeFontFamily: "Font Awesome 6 Sharp"
-    readonly property string brandFontFamily: "Font Awesome 6 Brands"
+    // Desktop OTFs installed in ~/.local/share/fonts; select Solid explicitly
+    // so Qt does not choose the Light or Thin face of the same family.
+    readonly property string awesomeFontFamily: "Font Awesome 7 Sharp Solid"
+    readonly property string brandFontFamily: "Font Awesome 7 Brands"
     readonly property string iconFontFamily: awesomeFontFamily
     readonly property int fontSize: 22
     readonly property int popupFontSize: fontSize

@@ -98,13 +98,18 @@
 
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
+    nerd-fonts.symbols-only
     jetbrains-mono
     noto-fonts
     noto-fonts-color-emoji
-    # quickshell's Theme.qml wants "Font Awesome 6 Brands" (v7 renamed
-    # it). Its "Font Awesome 6 Sharp" is Pro-only: copy it into
-    # ~/.local/share/fonts by hand.
+    # Free icon fonts. The configured v7 Pro/Sharp desktop OTFs are
+    # installed separately in ~/.local/share/fonts (see nix/README.md).
     font-awesome_6
     freefont_ttf
+  ];
+
+  fonts.fontconfig.defaultFonts.monospace = [
+    "JetBrainsMono Nerd Font"
+    "Symbols Nerd Font Mono"
   ];
 }
