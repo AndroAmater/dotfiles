@@ -1,0 +1,16 @@
+{
+  "name": "opencode-tab-requests",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./tui": "./tui.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@opencode/plugin": "2.1.4",
+    "@types/node": "^22.0.0",
+    "typescript": "^6.0.0"
+  }
+}

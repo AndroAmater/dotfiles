@@ -22,7 +22,7 @@ export default Plugin.define({
         setSnapshot((await rpc.get({})) as Snapshot)
         setError(undefined)
       } catch (cause) {
-        setError(cause instanceof Error ? cause.message : String(cause))
+        setError(message(cause))
       }
     }
 
@@ -138,6 +138,15 @@ function WindowUsage(props: { window: Window; width: number; now: number }) {
       </box>
     </box>
   )
+}
+
+/** RPC calls reject with a plain `{ type, message }` object rather than an Error. */
+function message(cause: unknown) {
+  if (cause instanceof Error) return cause.message
+  if (typeof cause === "object" && cause !== null && "message" in cause && typeof cause.message === "string") {
+    return cause.message
+  }
+  return String(cause)
 }
 
 /** How long ago a rate-limited account's numbers were fetched. */

@@ -7,6 +7,7 @@ Rectangle {
     property string icon: ""
     property string iconFontFamily: Theme.iconFontFamily
     property color iconColor: active ? Theme.accent : Theme.foreground
+    property bool iconSpinning: false
     property string title: ""
     property string detail: ""
     property string actionText: ""
@@ -29,6 +30,15 @@ Rectangle {
         color: root.iconColor
         font.family: root.iconFontFamily
         font.pixelSize: Theme.fontSize
+
+        RotationAnimation on rotation {
+            running: root.iconSpinning && root.visible
+            from: 0
+            to: 360
+            duration: 1200
+            loops: Animation.Infinite
+            onStopped: iconText.rotation = 0
+        }
     }
 
     Column {

@@ -37,13 +37,13 @@ Item {
         }
 
         ModuleButton {
+            visible: AgentStatus.working.length > 0
             horizontalPadding: 6
             icon: AgentStatus.icon("working")
             iconColor: AgentStatus.color("working")
-            iconSpinning: AgentStatus.working.length > 0
+            iconSpinning: true
             label: String(AgentStatus.working.length)
-            tooltipText: AgentStatus.working.length > 0
-                ? "Working: " + AgentStatus.sessionNames(AgentStatus.working) : "No agents working"
+            tooltipText: "Working: " + AgentStatus.sessionNames(AgentStatus.working)
             onClicked: popup.visible = !popup.visible
         }
 
@@ -87,6 +87,7 @@ Item {
                 width: agentList.width
                 icon: AgentStatus.icon(modelData.status)
                 iconColor: AgentStatus.color(modelData.status)
+                iconSpinning: modelData.status === "working"
                 title: modelData.sessionName
                 detail: modelData.title !== "" ? modelData.title : AgentStatus.providerName(modelData.provider)
                 actionText: AgentStatus.label(modelData.status)
