@@ -15,6 +15,20 @@ Item {
         return device.connected
     })
 
+    // Unnamed devices (mostly BLE beacons with rotating random addresses) constantly
+    // appear/disappear and make rows jump under the cursor, so only show named or known ones.
+    // Order: connected, then paired, then by name.
+    readonly property var visibleDevices: {
+        if (!adapter) return []
+        return adapter.devices.values.filter(function(device) {
+            return device.connected || device.paired || device.deviceName !== ""
+        }).sort(function(a, b) {
+            if (a.connected !== b.connected) return a.connected ? -1 : 1
+            if (a.paired !== b.paired) return a.paired ? -1 : 1
+            return a.name.localeCompare(b.name)
+        })
+    }
+
     visible: adapter !== null
     implicitWidth: visible ? button.implicitWidth : 0
     implicitHeight: Theme.barHeight
@@ -76,7 +90,9 @@ Item {
             clip: true
             spacing: 2
 
-            model: root.adapter ? root.adapter.devices : null
+            model: ScriptModel {
+                values: root.visibleDevices
+            }
 
             delegate: Item {
                 id: deviceDelegate
@@ -127,6 +143,15 @@ Item {
                 font.pixelSize: Theme.popupFontSize
             }
         }
+    }
+
+    // Starting discovery can fail (e.g. "Resource Not Ready" while the adapter is still
+    // powering on); keep retrying while the popup is open instead of giving up.
+    Timer {
+        interval: 3000
+        repeat: true
+        running: popup.visible && root.adapter !== null && root.adapter.enabled && !root.adapter.discovering
+        onTriggered: root.adapter.discovering = true
     }
 
     Connections {
