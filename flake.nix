@@ -47,6 +47,7 @@
             ./nix/modules/fhs-compat.nix
             ./nix/modules/dotfiles.nix
             ./nix/modules/hyprwhspr.nix
+            ./nix/modules/jetbrains-toolbox.nix
             ./nix/home
             hostModule
           ];
