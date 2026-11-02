@@ -1,0 +1,182 @@
+# Arch packages → NixOS
+
+Packages explicitly installed on the Arch laptop (`pacman -Qqe`, repo + AUR;
+dependencies excluded). Generated 2026-09-30.
+
+Tick `[x]` the ones you want in the NixOS config, then tell Claude.
+
+- `AUR` = installed from the AUR via yay
+- `service` = on NixOS this is a module/service toggle (e.g.
+  `services.tailscale.enable`), not just a package
+
+## To choose
+- [ ] **alacritty** — A cross-platform, GPU-accelerated terminal emulator
+- [ ] **ansible** — Official assortment of Ansible collections
+- [ ] **arandr** — Provide a simple visual front end for XRandR 1.2.
+- [X] **argocd** — Declarative continuous deployment for Kubernetes
+- [X] **asusctl** `service` — An utility for Linux to control many aspects of various ASUS laptops
+- [X] **bazelisk-bin** `AUR` — A user-friendly launcher for Bazel
+- [ ] **blender** — A fully integrated 3D graphics creation suite
+- [X] **bluetui** — TUI for managing bluetooth devices
+- [ ] **clipboard-sync** `AUR` — Synchronizes the clipboard across multiple X11 and wayland instances running on the same machine.
+- [ ] **clipster** `AUR` — Python clipboard manager
+- [ ] **cloudflared** `service` — Command-line client for Cloudflare Tunnel
+- [ ] **code-minimap** `AUR` — High performance code minimap render
+- [X] **cronie** `service` — Daemon that runs specified programs at scheduled times and related tools
+- [X] **discord** — All-in-one voice and text chat for gamers
+- [X] **dive** — A tool for exploring layers in a docker image
+- [ ] **dmenu** — Generic menu for X
+- [X] **docker-buildx** `service` — Docker CLI plugin for extended build capabilities with BuildKit
+- [X] **doctl** — The official command line interface for the DigitalOcean API
+- [X] **drawio-desktop** — Official Electron build of draw.io
+- [X] **feh** — Fast and light imlib2-based image viewer
+- [ ] **file-roller** — Create and modify archives
+- [ ] **flamegraph** `AUR` — Flame Graphs visualize profiled code
+- [ ] **flatpak** `service` — Linux application sandboxing and distribution framework (formerly xdg-app)
+- [ ] **flatpak-builder** — Tool to build flatpaks from source
+- [X] **github-cli** — The GitHub CLI
+- [X] **gnome-control-center** — GNOME's main interface to configure various aspects of the desktop
+- [X] **gnu-free-fonts** — A free family of scalable outline fonts
+- [X] **google-chrome** `AUR` — The popular web browser by Google (Stable Channel)
+- [ ] **gource** — software version control visualization
+- [X] **handbrake** — Multithreaded video transcoder
+- [X] **handbrake-cli** — Multithreaded video transcoder (CLI)
+- [ ] **helix** — A post-modern modal text editor
+- [X] **helm** — The Kubernetes Package Manager
+- [ ] **hyprlock** — hyprland’s GPU-accelerated screen locking utility
+- [ ] **i3-wm** — Improved dynamic tiling window manager
+- [ ] **i3lock** — Improved screenlocker based upon XCB and PAM
+- [ ] **i3status** — Generates status bar to use with i3bar, dzen2 or xmobar
+- [X] **imagemagick** — An image viewing/manipulation program
+- [ ] **impala** — TUI for managing wifi
+- [X] **inkscape** — Professional vector graphics editor
+- [X] **jetbrains-toolbox** `AUR` — Manage all your JetBrains Projects and Tools
+- [ ] **keyd** `service` — A key remapping daemon for linux
+- [X] **kubectx** — Utility to manage and switch between kubectl contexts and Kubernetes namespaces
+- [X] **libreoffice-still** — LibreOffice maintenance branch
+- [ ] **lnav** — A curses-based tool for viewing and analyzing log files
+- [ ] **maim** — Utility to take a screenshot using imlib2
+- [X] **mariadb** `service` — Fast SQL database server, derived from MySQL
+- [ ] **monolith** — CLI to save web pages as single HTML files
+- [X] **mpv** — a free, open source, and cross-platform media player
+- [X] **nginx** `service` — Lightweight HTTP server and IMAP/POP3 proxy server
+- [ ] **nitrogen** `AUR` — Background browser and setter for X windows
+- [ ] **nnn** — The fastest terminal file manager ever written.
+- [ ] **nwg-displays** — Output management utility for sway and Hyprland Wayland compositors
+- [X] **obsidian** — A powerful knowledge base that works on top of a local folder of plain text Markdown files
+- [X] **okular** — Document Viewer
+- [ ] **pamixer** — Pulseaudio command-line mixer like amixer
+- [ ] **pandoc-cli** — Conversion between documentation formats
+- [X] **php-sqlite** — sqlite module for PHP
+- [ ] **picom** — Lightweight compositor for X11
+- [X] **playwright** `AUR` — Node.js library to automate Chromium, Firefox and WebKit with a single API
+- [X] **pnpm** — Fast, disk space efficient package manager
+- [X] **pulseaudio-control** `AUR` — Easily control PulseAudio from any status bar
+- [ ] **python-poetry** — Python dependency management and packaging made easy
+- [ ] **python-pydantic** — Data parsing and validation using Python type hints
+- [ ] **python-pytest-playwright** — Pytest plugin to write end-to-end browser tests with Playwright
+- [ ] **rgrep** `AUR` — Recursive grep
+- [ ] **rofi** — A window switcher, application launcher and dmenu replacement
+- [X] **rust-analyzer** — Rust compiler front-end for IDEs
+- [ ] **sad** — Space Age seD
+- [ ] **solaar** `service` — Linux device manager for a wide range of Logitech devices
+- [X] **steam** `service` — Valve's digital software delivery system
+- [X] **tailscale** `service` — A mesh VPN that makes it easy to connect your devices, wherever they are.
+- [X] **transmission-gtk** — Fast, easy, and free BitTorrent client (GTK+ GUI)
+- [X] **tree** — A directory listing program displaying a depth indented list of files
+- [X] **uv** — An extremely fast Python package installer and resolver written in Rust
+- [X] **vault** — A tool for managing secrets
+- [X] **vim** — Vi Improved, a highly configurable, improved version of the vi text editor
+- [ ] **waybar** — Highly customizable Wayland bar for Sway and Wlroots based compositors
+- [ ] **wl-clip-persist** — Keep Wayland clipboard even after programs close
+- [ ] **wofi** — launcher for wlroots-based wayland compositors
+- [ ] **xfce4-settings** — Xfce's Configuration System
+- [ ] **xflux** `AUR` — (f.lux for X) Changes monitor color temperature adaptively to ease eye strain (command-line version)
+- [X] **yq** — Command-line YAML, XML, TOML processor - jq wrapper for YAML/XML/TOML documents
+
+## Already in the Nix config
+
+- bat — Cat clone with syntax highlighting and git integration
+- bottom — A graphical process/system monitor
+- brightnessctl — Lightweight brightness control tool
+- btop — A monitor of system resources, bpytop ported to C++
+- bun-bin — All-in-one JavaScript runtime built for speed, with bundler, transpiler, test runner, and package manager. Includes bunx, shell completions and support for baseline CPUs
+- chromium — A web browser built for speed, simplicity, and security
+- clipnotify — Polling-free clipboard notifier
+- composer — Dependency Manager for PHP
+- cursor-bin — AI-first coding environment
+- ddcutil — Query and change Linux monitor settings using DDC/CI and USB.
+- docker — Pack, ship and run any application as a lightweight container
+- docker-compose — Fast, isolated development environments using Docker
+- eza — A modern replacement for ls (community fork of exa)
+- fd — Simple, fast and user-friendly alternative to find
+- ffmpeg — Complete solution to record, convert and stream audio and video
+- firefox — Fast, Private & Safe Web Browser
+- fzf — Command-line fuzzy finder
+- gdm — Display manager and login screen
+- git — the fast distributed version control system
+- git-delta — Syntax-highlighting pager for git and diff output
+- gitui — Blazing fast terminal-ui for git written in Rust
+- hyprland — a highly customizable dynamic tiling Wayland compositor
+- jq — Command-line JSON processor
+- k9s — TUI for managing Kubernetes clusters and pods
+- kitty — A modern, hackable, featureful, OpenGL-based terminal emulator
+- kubectl — A command line tool for communicating with a Kubernetes API server
+- lazygit — Simple terminal UI for git commands
+- nautilus — Default file manager for GNOME
+- neovim — Fork of Vim aiming to improve user experience, plugins, and GUIs
+- network-manager-applet — Applet for managing network connections
+- networkmanager — Network connection manager and user applications
+- nmap — Utility for network discovery and security auditing
+- nodejs — Evented I/O for V8 javascript ("Current" release)
+- noto-fonts-emoji — Google Noto Color Emoji font
+- npm — JavaScript package manager
+- obs-studio — Free, open source software for live streaming and recording
+- oh-my-posh — A prompt theme engine for any shell.
+- openssh — SSH protocol implementation for remote login, command execution and file transfer
+- pavucontrol — PulseAudio Volume Control
+- php — A general-purpose scripting language that is especially suited to web development
+- pipewire-jack — Low-latency audio/video router and processor - JACK replacement
+- pulseaudio — A featureful, general-purpose sound server
+- quickshell — Flexible toolkit for making desktop shells with QtQuick
+- ripgrep — A search tool that combines the usability of ag with the raw speed of grep
+- rsync — A fast and versatile file copying tool for remote and local files
+- rustup — The Rust toolchain installer
+- swaylock — Screen locker for Wayland
+- tmux — Terminal multiplexer
+- ttf-jetbrains-mono — Typeface for developers, by JetBrains
+- ttf-jetbrains-mono-nerd — Patched font JetBrains Mono from nerd fonts library
+- unzip — For extracting and viewing files in .zip archives
+- vlc — Free and open source cross-platform multimedia player and framework
+- wget — Network utility to retrieve files from the web
+- wireplumber — Session / policy manager implementation for PipeWire
+- wl-clipboard — Command-line copy/paste utilities for Wayland
+- woff2-font-awesome — Iconic font designed for Bootstrap - woff2 format
+- xclip — Command line interface to the X11 clipboard
+- yarn — Fast, reliable, and secure dependency management
+- zig-dev-bin — A general-purpose programming language and toolchain for maintaining robust, optimal, and reusable software
+- zip — Compressor/archiver for creating and modifying zipfiles
+- zsh — A very advanced and programmable command interpreter (shell) for UNIX
+
+## Handled by NixOS itself (not needed)
+
+Bootloader, kernel, firmware, NVIDIA driver, bluetooth stack, AUR helper, mirror tools.
+
+- base — Minimal package set to define a basic Arch Linux installation
+- base-devel — Basic tools to build Arch Linux packages
+- bluez — Daemons for the bluetooth protocol stack
+- bluez-utils — Development and debugging utilities for the bluetooth protocol stack
+- efibootmgr — Linux user-space application to modify the EFI Boot Manager
+- grub — GNU GRand Unified Bootloader (2)
+- libxml2 — XML C parser and toolkit
+- linux — The Linux kernel and modules
+- linux-firmware — Firmware files for Linux - Default set
+- linux-headers — Headers and scripts for building modules for the Linux kernel
+- mandoc — A suite of tools compiling mdoc from the OpenBSD project
+- nano — Pico editor clone with enhancements
+- nvidia-open-dkms — NVIDIA open kernel modules - module sources
+- nvidia-settings — Tool for configuring the NVIDIA graphics driver
+- os-prober — Utility to detect other OSes on a set of drives
+- reflector — A Python 3 module and script to retrieve and filter the latest Pacman mirror list.
+- xorg-server — Xorg X server
+- yay — Yet another yogurt. Pacman wrapper and AUR helper written in go.
