@@ -9,5 +9,6 @@
     }
   },
   "tui": "fullscreen",
-  "skipDangerousModePermissionPrompt": true
+  "skipDangerousModePermissionPrompt": true,
+  "fastMode": true
 }
