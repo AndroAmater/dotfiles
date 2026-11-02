@@ -112,48 +112,66 @@ pick the internal disk) to get back to Arch. Rebuild with
 
 ## Installing on the laptop
 
-`disko` wipes `nvme1n1` (Samsung 980 PRO, the Arch disk).
+`disko` wipes `nvme1n1` (Samsung 980 PRO, the Arch disk). Commit and push
+first: the installer clones the repo from GitHub.
 
-**Windows' bootloader is on that disk's ESP** (`/boot/EFI/Microsoft`),
-even though Windows itself is on `nvme0n1`. Back it up first or Windows
-will not boot:
+### Backup drive
+
+`nix/install.sh` reads the backup USB drive (NTFS, UUID `F09CB8959CB857B4`;
+override with `BACKUP_UUID=...`). Prepare it on Arch, before anything else:
+
+- **`efi-microsoft-backup/`**: Windows' bootloader. It lives on the Arch
+  disk's ESP even though Windows is on `nvme0n1`; without it Windows won't
+  boot. Required; the script stops before wiping if it's missing.
+- **`secrets-*.tar.gz.gpg`**: an encrypted archive of everything to restore
+  into `~` (ssh keys, logins, Wi-Fi profiles…). Optional.
 
 ```sh
-# on Arch, before anything else
-sudo cp -a /boot/EFI/Microsoft ~/efi-microsoft-backup
-# then copy ~/efi-microsoft-backup to a USB stick
+D=/run/media/andrejf/F09CB8959CB857B4
+sudo cp -r /boot/EFI/Microsoft "$D/efi-microsoft-backup"
+
+cd ~
+sudo tar czf /tmp/nm-connections.tgz -C / etc/NetworkManager/system-connections
+sudo chown andrejf /tmp/nm-connections.tgz
+tar czf - \
+  .ssh .kube/config .docker/config.json .cloudflared .vault-token \
+  .config/gh/hosts.yml .config/doctl .config/argocd .config/turso \
+  .config/dotfiles/opencode/.env .config/dotfiles/opencode/secrets .config/dotfiles/opencode/service.json \
+  .config/JetBrains .local/share/fonts/fontawesome-pro-6.5.2-desktop \
+  -C /tmp nm-connections.tgz \
+  | gpg --symmetric --cipher-algo AES256 -o "$D/secrets-$(date +%F).tar.gz.gpg"
 ```
 
-Push the nix config to GitHub first: the installer clones it from there,
-and the new system's `~/.config/dotfiles` is cloned from there on first
-boot.
+### Install
 
-From the NixOS installer ISO:
+Boot the NixOS installer ISO (UEFI mode, Secure Boot off), plug in the
+backup drive, then:
 
 ```sh
 sudo -i
 nmcli device wifi connect <ssid> password <pw>   # if not on ethernet
 git clone https://github.com/androamater/dotfiles /tmp/dotfiles
-
-# Partition + encrypt + format + mount at /mnt (DESTRUCTIVE).
-# Prompts for the new LUKS passphrase.
-nix --experimental-features 'nix-command flakes' run github:nix-community/disko/latest -- \
-  --mode destroy,format,mount --flake /tmp/dotfiles#andrej-laptop
-
-# Restore the Windows bootloader onto the new ESP
-cp -a /path/to/usb/efi-microsoft-backup /mnt/boot/EFI/Microsoft
-
-nixos-install --flake /tmp/dotfiles#andrej-laptop
+/tmp/dotfiles/nix/install.sh
 reboot
 ```
 
-After first login (`andrejf` / `changeme`):
+`install.sh` checks the backup drive, shows the target disk and asks you to
+type the host name, then: partitions, encrypts (asks for the new LUKS
+passphrase), formats, restores the Windows bootloader, runs `nixos-install`
+(asks for a root password), and copies the checkout and the secrets archive
+into `/home/andrejf`.
+
+### First boot
+
+Unlock the disk, log in as `andrejf` / `changeme`, then:
 
 ```sh
-passwd
-# ~/.config/dotfiles was cloned over https; switch to ssh for pushing
-git -C ~/.config/dotfiles remote set-url origin git@github.com:androamater/dotfiles
+~/.config/dotfiles/nix/first-boot.sh
 ```
+
+It changes the password, restores the secrets archive (and the Wi-Fi
+profiles, with sudo), asks for the ElevenLabs API key for hyprwhspr, and
+switches the dotfiles remote to ssh. Windows shows up in the boot menu.
 
 ## Not carried over (yet)
 

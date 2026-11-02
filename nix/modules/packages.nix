@@ -61,6 +61,8 @@
     argocd
     doctl
     vault
+    # nix/first-boot.sh decrypts the secrets archive
+    gnupg
 
     # Misc CLI
     vim
