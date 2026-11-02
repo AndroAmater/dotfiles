@@ -10,5 +10,6 @@
   },
   "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
-  "fastMode": true
+  "fastMode": true,
+  "autoMemoryEnabled": false
 }

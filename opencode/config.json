@@ -5,6 +5,9 @@
   ],
   "mcp": {},
   "permission": {
+    "external_directory": {
+      "~/Documents/AI Memory/**": "allow"
+    },
     "bash": {
       "kubectl *": "ask",
       "kubectl get": "allow",
