@@ -75,7 +75,10 @@
 
   services.openssh.enable = true;
 
-  virtualisation.docker.enable = true;
+  virtualisation.docker = {
+    enable = true;
+    daemon.settings = builtins.fromJSON (builtins.readFile ../../docker/daemon.json);
+  };
 
   # Mason downloads prebuilt, dynamically linked LSPs/formatters.
   programs.nix-ld.enable = true;

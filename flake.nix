@@ -14,6 +14,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Pinned to a release: nix/modules/hyprwhspr.nix patches its source.
+    hyprwhspr = {
+      url = "github:goodroot/hyprwhspr/v1.51.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # tmux.conf expects TPM at ~/.tmux/plugins/tpm
     tpm = {
       url = "github:tmux-plugins/tpm";
@@ -40,6 +46,7 @@
             ./nix/modules/services.nix
             ./nix/modules/fhs-compat.nix
             ./nix/modules/dotfiles.nix
+            ./nix/modules/hyprwhspr.nix
             ./nix/home
             hostModule
           ];

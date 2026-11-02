@@ -19,6 +19,7 @@ nix/
   modules/services.nix   tailscale, cron, mariadb, nginx
   modules/fhs-compat.nix symlinks for Arch paths the dotfiles hardcode
   modules/dotfiles.nix   provisions the ~/.config/dotfiles checkout
+  modules/hyprwhspr.nix  speech-to-text (upstream flake + ElevenLabs backend)
   home/                  home-manager: links dotfiles like link.sh does
   vm-runner.nix          `nix run .#vm`
 ```

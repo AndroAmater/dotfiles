@@ -13,7 +13,7 @@ in
   home-manager.useUserPackages = true;
 
   home-manager.users.${user} =
-    { config, ... }:
+    { config, lib, ... }:
     let
       link = path: config.lib.file.mkOutOfStoreSymlink "${dotfiles}/${path}";
     in
@@ -23,6 +23,7 @@ in
       home.stateVersion = "26.05";
 
       home.file.".zshrc".source = link ".zshrc";
+      home.file.".claude/settings.json".source = link "claude/settings.json";
       home.file.".tmux/plugins/tpm".source = inputs.tpm;
 
       # nixpkgs' docker has no bundled CLI plugins; `docker compose` and
@@ -43,7 +44,24 @@ in
         "k9s".source = link "k9s";
         "jfind".source = link "jfind";
         "bat".source = link "bat";
+        "opencode".source = link "opencode";
+        "hyprwhspr".source = link "hyprwhspr";
+        "git".source = link "git";
+        "btop".source = link "btop";
+        "nwg-displays".source = link "nwg-displays";
+        "fontconfig/conf.d/75-emoji.conf".source = link "fontconfig/75-emoji.conf";
       };
+
+      xdg.userDirs = {
+        enable = true;
+        createDirectories = true;
+        projects = "${home}/Projects";
+      };
+
+      # bat/syntaxes (PHP highlighting in lazygit's delta) needs a cache rebuild.
+      home.activation.batCache = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
+        run ${pkgs.bat}/bin/bat cache --build >/dev/null
+      '';
 
       dconf.settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
     };

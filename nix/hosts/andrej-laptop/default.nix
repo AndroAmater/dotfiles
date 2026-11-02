@@ -42,5 +42,27 @@
   };
 
   services.power-profiles-daemon.enable = true;
-  services.asusd.enable = true;
+
+  # Same asusd config as the Arch install: Quiet on battery, Performance
+  # on AC, keyboard backlight.
+  services.asusd = {
+    enable = true;
+    asusdConfig.source = ./asusd/asusd.ron;
+    fanCurvesConfig.source = ./asusd/fan_curves.ron;
+    auraConfigs."19b6".source = ./asusd/aura_19b6.ron;
+  };
+
+  home-manager.users.andrejf =
+    { config, ... }:
+    {
+      xdg.configFile."rog".source =
+        config.lib.file.mkOutOfStoreSymlink "/home/andrejf/.config/dotfiles/rog";
+    };
+
+  # Time to pick Windows in the boot menu (Arch had GRUB_TIMEOUT=30).
+  boot.loader.timeout = 30;
+
+  # Local dev hostnames from the Arch /etc/hosts.
+  networking.hosts."127.0.0.1" = [
+  ];
 }

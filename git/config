@@ -1,0 +1,14 @@
+[user]
+	email = 3171036+AndroAmater@users.noreply.github.com
+	name = AndroAmater
+	signingkey = /home/andrejf/.ssh/id_ed25519
+[push]
+	autoSetupRemote = 1
+[pull]
+	ff = only
+[commit]
+	gpgsign = true
+[gpg]
+	format = ssh
+[protocol "file"]
+	allow = always
