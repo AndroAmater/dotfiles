@@ -79,7 +79,6 @@
     google-chrome
     code-cursor
     vscode
-    jetbrains-toolbox
     nautilus
     vlc
     mpv

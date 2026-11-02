@@ -34,16 +34,6 @@ if [ -n "$archive" ]; then
     find "$HOME/.ssh" -type f ! -name '*.pub' -exec chmod 600 {} +
   fi
 
-  if [ -f "$HOME/nm-connections.tgz" ]; then
-    echo "==> Restoring Wi-Fi/VPN profiles (sudo)"
-    sudo tar xzf "$HOME/nm-connections.tgz" -C / --no-same-owner
-    sudo chown -R root:root /etc/NetworkManager/system-connections
-    sudo chmod 600 /etc/NetworkManager/system-connections/*
-    sudo nmcli connection reload
-    # Plaintext Wi-Fi passwords; the encrypted archive still has them.
-    rm "$HOME/nm-connections.tgz"
-  fi
-
   fc-cache -f >/dev/null
 else
   echo "warning: no ~/secrets-*.tar.gz.gpg found; skipping the secrets restore"
