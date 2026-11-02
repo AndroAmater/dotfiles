@@ -10,6 +10,5 @@
   "websocket_provider": "elevenlabs",
   "websocket_model": "scribe_v2_realtime",
   "onnx_asr_model": "orukeet",
-  "audio_ducking": true,
-  "use_hypr_bindings": true
+  "audio_ducking": true
 }
