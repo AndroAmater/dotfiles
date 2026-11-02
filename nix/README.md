@@ -46,6 +46,36 @@ That checkout is also the flake, so nothing needs committing to test:
 
 Commit and push once you're happy with a change.
 
+### AI coding agents and icon fonts
+
+`nix/modules/packages.nix` installs Claude Code (`claude`) and pins the
+official OpenCode v2 binary (`opencode`, currently 2.2.5). Both are managed
+by Nix; update them through this config rather than their self-updaters.
+For an OpenCode update, check
+<https://opencode.ai/update/api/latest/cli/npm>, update `opencodeV2.version`,
+and obtain the matching archive hash with:
+
+```sh
+nix store prefetch-file --json \
+  https://registry.npmjs.org/@opencode/cli-linux-x64/-/cli-linux-x64-<version>.tgz
+```
+
+Kitty uses Font Awesome 7 Pro Solid; quickshell uses Font Awesome 7 Sharp
+Solid. Both use Font Awesome 7 Brands for brand icons. Install the licensed
+Desktop OTFs locally (currently Font Awesome Pro 7.3.1):
+
+```sh
+mkdir -p ~/.local/share/fonts
+unzip -n ~/Downloads/fontawesome-pro-7.3.1-desktop.zip \
+  'fontawesome-pro-7.3.1-desktop/otfs/*.otf' -d ~/.local/share/fonts
+fc-cache -f ~/.local/share/fonts
+```
+
+Kitty also uses JetBrainsMono Nerd Font and Symbols Nerd Font Mono for
+text, Powerline, devicons and Material Design symbols, installed by
+`nix/modules/desktop.nix`. After installing fonts, reload Kitty's config
+and restart quickshell (or log out and back in).
+
 ## Disk encryption
 
 Everything except the ESP (`/boot`: kernel, initrd, systemd-boot) is on a
@@ -137,7 +167,7 @@ tar czf - \
   .ssh .kube/config .docker/config.json .cloudflared .vault-token \
   .config/gh/hosts.yml .config/doctl .config/argocd .config/turso \
   .config/dotfiles/opencode/.env .config/dotfiles/opencode/secrets .config/dotfiles/opencode/service.json \
-  .config/JetBrains .local/share/fonts/fontawesome-pro-6.5.2-desktop \
+  .config/JetBrains .local/share/fonts \
   -C /tmp nm-connections.tgz \
   | gpg --symmetric --cipher-algo AES256 -o "$D/secrets-$(date +%F).tar.gz.gpg"
 ```
@@ -181,6 +211,3 @@ switches the dotfiles remote to ssh. Windows shows up in the boot menu.
 - `laptop/ssh` (ansible-vault) and `nixos/secrets`: needs a secrets
   setup (e.g. sops-nix) — to do.
 - `pulseaudio-control` (AUR): not in nixpkgs.
-- Font Awesome 6 Pro (quickshell's "Font Awesome 6 Sharp"): licensed, so
-  not in the repo. Copy `~/.local/share/fonts/fontawesome-pro-6.5.2-desktop`
-  over by hand.
