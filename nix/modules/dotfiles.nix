@@ -22,7 +22,7 @@ in
     wants = [ "network-online.target" ];
     after = [
       "network-online.target"
-      # A host may mount the checkout here instead (see hosts/vm).
+      # A host may mount the checkout here instead.
       "${utils.escapeSystemdPath dotfiles}.mount"
     ];
     before = [ "display-manager.service" ];

@@ -56,20 +56,6 @@
       nixosConfigurations = {
         andrej-laptop = mkHost ./nix/hosts/andrej-laptop;
         andrej-external = mkHost ./nix/hosts/andrej-external;
-        vm = mkHost ./nix/hosts/vm;
-      };
-
-      packages.${system} = {
-        # Full install of the `vm` host on a btrfs qcow2, built by disko.
-        vm-image = self.nixosConfigurations.vm.config.system.build.diskoImages;
-        vm = nixpkgs.legacyPackages.${system}.callPackage ./nix/vm-runner.nix {
-          image = self.packages.${system}.vm-image;
-        };
-      };
-
-      apps.${system}.vm = {
-        type = "app";
-        program = "${self.packages.${system}.vm}/bin/run-nixos-vm";
       };
     };
 }

@@ -1,7 +1,7 @@
 # NixOS
 
 Flake at the repo root (`flake.nix`), NixOS unstable, Hyprland + quickshell,
-btrfs via [disko](https://github.com/nix-community/disko).
+LUKS2-encrypted btrfs via [disko](https://github.com/nix-community/disko).
 
 The old `nixos/` directory is the separate k8s server config and is not
 used here.
@@ -11,9 +11,9 @@ flake.nix
 nix/
   hosts/andrej-laptop/   ASUS laptop (AMD iGPU + NVIDIA PRIME offload)
   hosts/andrej-external/ the laptop config on the external USB SSD
-  hosts/vm/              QEMU test VM (same modules, no laptop hardware)
   modules/common.nix     boot, nix, locale, user, docker, nix-ld
-  modules/disko-btrfs.nix  ESP + btrfs subvolumes (@ @home @nix @log @snapshots)
+  modules/disko-btrfs.nix  ESP + LUKS2 + btrfs (@ @home @nix @log @home-snapshots),
+                         snapper for /home, monthly scrub
   modules/desktop.nix    Hyprland, GDM, pipewire, bluetooth, fonts, GUI apps
   modules/packages.nix   CLI / dev tools used by the dotfiles
   modules/services.nix   tailscale, cron, mariadb, nginx
@@ -21,7 +21,6 @@ nix/
   modules/dotfiles.nix   provisions the ~/.config/dotfiles checkout
   modules/hyprwhspr.nix  speech-to-text (upstream flake + ElevenLabs backend)
   home/                  home-manager: links dotfiles like link.sh does
-  vm-runner.nix          `nix run .#vm`
 ```
 
 ## Working on the config
@@ -47,41 +46,28 @@ That checkout is also the flake, so nothing needs committing to test:
 
 Commit and push once you're happy with a change.
 
-## Test VM
+## Disk encryption
 
-On any machine with Nix and KVM. Flakes must be enabled once:
+Everything except the ESP (`/boot`: kernel, initrd, systemd-boot) is on a
+LUKS2 volume (`cryptroot`). disko asks for the passphrase while formatting,
+and the initrd asks for it on every boot. It is not stored anywhere, so
+don't lose it: there is no recovery key. To add a second passphrase later:
 
 ```sh
-mkdir -p ~/.config/nix
-echo 'experimental-features = nix-command flakes' >> ~/.config/nix/nix.conf
+sudo cryptsetup luksAddKey /dev/disk/by-partlabel/disk-main-root
 ```
 
-Then:
+## Snapshots of /home
+
+snapper snapshots `/home` every hour and keeps 24 hourly, 7 daily and 4
+weekly snapshots. They are on the same disk, so they are not a backup.
+`~/.cache` is a separate subvolume and is left out.
 
 ```sh
-nix run .#vm            # GTK window, virgl 3D acceleration
-nix run .#vm -- --no-gl # software rendering, if GL fails on the host
-```
-
-- Login: `andrejf` / `changeme`
-- SSH: `ssh -p 2222 andrejf@localhost`
-- The host's `~/.config/dotfiles` is shared into the VM at the same path
-  (read-write, override with `NIXOS_VM_DOTFILES`). Edit on the host and the
-  VM sees it immediately; edits in the VM land in your host checkout. To
-  apply NixOS config changes in the VM:
-  `sudo nixos-rebuild switch --flake ~/.config/dotfiles#vm`
-- Apps that watch their config (Hyprland, quickshell) don't notice
-  host-side edits through the share; reload them (Super+Shift+C for
-  Hyprland) or make the edit inside the VM.
-- State (disk overlay, EFI vars) is kept in `~/.local/share/nixos-vm`.
-  Delete that directory to start over from a freshly built image.
-- `NIXOS_VM_MEMORY` (default `8G`) and `NIXOS_VM_CORES` (default `4`)
-  resize the VM. Extra arguments are passed to QEMU.
-
-Build only the image (`result/main.qcow2`, usable in virt-manager with UEFI):
-
-```sh
-nix build .#vm-image
+snapper -c home list                       # what's there
+ls /home/.snapshots/<n>/snapshot/andrejf   # browse one, copy files back
+snapper -c home status <n>..0              # what changed since snapshot <n>
+snapper -c home undochange <n>..0 <file>   # restore a file in place
 ```
 
 ## Installing on the external SSD
@@ -104,7 +90,8 @@ cd /tmp/dotfiles
 lsblk -o NAME,SIZE,MODEL,TRAN,FSTYPE,LABEL,MOUNTPOINTS \
   /dev/disk/by-id/usb-Samsung_SSD_980_PRO_1TB_01326800019B-0:0
 
-# Partition + format + mount at /mnt (DESTRUCTIVE)
+# Partition + encrypt + format + mount at /mnt (DESTRUCTIVE).
+# Prompts for the new LUKS passphrase.
 nix run --inputs-from . disko -- \
   --mode destroy,format,mount --flake .#andrej-external
 
@@ -148,7 +135,8 @@ sudo -i
 nmcli device wifi connect <ssid> password <pw>   # if not on ethernet
 git clone https://github.com/androamater/dotfiles /tmp/dotfiles
 
-# Partition + format + mount at /mnt (DESTRUCTIVE)
+# Partition + encrypt + format + mount at /mnt (DESTRUCTIVE).
+# Prompts for the new LUKS passphrase.
 nix --experimental-features 'nix-command flakes' run github:nix-community/disko/latest -- \
   --mode destroy,format,mount --flake /tmp/dotfiles#andrej-laptop
 
