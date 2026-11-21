@@ -63,6 +63,10 @@ in
         run ${pkgs.bat}/bin/bat cache --build >/dev/null
       '';
 
-      dconf.settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
+      dconf.settings."org/gnome/desktop/interface" = {
+        color-scheme = "prefer-dark";
+        # GTK3 apps (and Chromium's GTK UI) ignore color-scheme.
+        gtk-theme = "Adwaita-dark";
+      };
     };
 }

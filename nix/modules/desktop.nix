@@ -10,6 +10,16 @@
   services.displayManager.gdm.enable = true;
   services.displayManager.defaultSession = "hyprland";
 
+  # Started from hyprland.conf. Brings up graphical-session.target, which
+  # xdg-desktop-portal requires; without the portal, Chromium can't see the
+  # dark color-scheme.
+  systemd.user.targets.hyprland-session = {
+    description = "Hyprland compositor session";
+    bindsTo = [ "graphical-session.target" ];
+    wants = [ "graphical-session-pre.target" ];
+    after = [ "graphical-session-pre.target" ];
+  };
+
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
     # Without a cursor theme Hyprland falls back to its built-in cursor.
