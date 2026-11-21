@@ -11,5 +11,7 @@
     "L+ /usr/share/fzf/key-bindings.zsh - - - - ${pkgs.fzf}/share/fzf/key-bindings.zsh"
     # tmux/tmux.conf: default-shell /bin/zsh
     "L+ /bin/zsh - - - - ${pkgs.zsh}/bin/zsh"
+    # Bazel runs genrules with /bin/bash (codecannon's pre-push `bazelisk test //...`)
+    "L+ /bin/bash - - - - ${pkgs.bash}/bin/bash"
   ];
 }

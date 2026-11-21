@@ -117,6 +117,8 @@ in
     argocd
     doctl
     vault
+    # ~/.ssh/config proxies *.andrejfidel.com through `cloudflared access ssh`
+    cloudflared
     # nix/first-boot.sh decrypts the secrets archive
     gnupg
 
@@ -129,7 +131,9 @@ in
     pnpm
     uv
     rust-analyzer
-    bazelisk
+    # Only the launchers: the bazelisk package also ships a `sha256sum` that
+    # shadows coreutils' and can't read stdin.
+    (writeShellScriptBin "bazelisk" ''exec ${bazelisk}/bin/bazelisk "$@"'')
     # The AUR bazelisk-bin also provided `bazel`.
     (writeShellScriptBin "bazel" ''exec ${bazelisk}/bin/bazelisk "$@"'')
     playwright-test
@@ -138,4 +142,10 @@ in
     opencodeV2
     claude-code
   ];
+
+  # --incompatible_strict_action_env limits Bazel actions to /bin:/usr/bin,
+  # which are nearly empty on NixOS. Use the caller's PATH instead.
+  environment.etc."bazel.bazelrc".text = ''
+    build --action_env=PATH
+  '';
 }
